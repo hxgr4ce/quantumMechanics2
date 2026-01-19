@@ -1,0 +1,75 @@
+:root 
+{
+    /* reusable values */
+    --mainFontSize: 18px;
+    --headerColor: #722f37;
+}
+
+body {
+    background-color: #f4c2c2;
+}
+
+h1 
+{
+    color: var(--headerColor);
+    text-align: center;
+}
+h1::after 
+{ 
+    /* add bar after h1 titles */
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--headerColor);
+    margin-top: 0.5em; /* space between h1 and bar */
+}
+
+h2 
+{
+    color: var(--headerColor);
+    font-size: calc(var(--mainFontSize) + 5px);
+    text-decoration: underline;
+}
+
+p 
+{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: var(--mainFontSize);
+}
+
+a:link 
+{ 
+    color: rgb(219, 150, 1); 
+    font-style: italic; 
+    text-decoration:none; 
+    font-weight:bold; 
+}
+a:visited { color: rgb(128, 58, 0); }
+a:hover { color: red; text-decoration: underline; }
+a:active { color: darkred; }
+
+.mainContent
+{
+    font-size: var(--mainFontSize);
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid var(--headerColor);
+}
+
+.scrollBox {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 5%;
+  text-align: center;
+  padding: 10px;
+  z-index: 1000;
+}

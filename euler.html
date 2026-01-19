@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Euler Rotations</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Euler Rotations</h1>
+            In the <a href="amt.html">recapitulation of angular momentum theory</a>, we see that the axis of rotation \(\hat n\) can be described by two parameters, \(\theta \in [0, \pi]\) and \(\varphi \in [0, 2\pi)\), where \(\hat n = \sin\theta(\hat x\cos\varphi  + \hat y\sin\varphi) + \hat z\cos\theta\).
+            The rotation around \(\hat n\) is \(\hat R_{\hat n}(\phi) = e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar}\).
+            This is all well and good, but it's inconvenient to have three parameters associated with a single operator, so we turn to Euler rotations (also called Euler angles).
+            <h2>Euler Rotations</h2>
+            Given angles \(\alpha, \beta, \gamma\), Euler rotation \(R(\alpha, \beta, \gamma)\) are performed as follows:
+            <ol>
+                <li>
+                    Rotate about the \(\hat z\)-axis by \(\alpha\): \(\hat R_{\hat z}(\alpha)\)
+                    <ul>
+                        <li>\(\hat x \to \hat x' = \hat R_{\hat z}(\alpha)\hat x = \hat x\cos\alpha + \hat y\sin\alpha\)</li>
+                        <li>\(\hat y \to \hat y' = \hat R_{\hat z}(\alpha)\hat y = \hat y\cos\alpha - \hat x\sin\alpha\)</li>
+                        <li>\(\hat z \to \hat z' = \hat z\)</li>
+                    </ul>
+                </li>
+                <li>
+                    Rotate about the \(\hat y'\)-axis by \(\beta\): \(\hat R_{\hat y'}(\beta)\)
+                    <ul>
+                        <li>\(\hat x_i^" = \hat R_{\hat y'}(\beta)\hat x_i'\)</li>
+                    </ul>
+                </li>
+                <li>
+                    Rotate about the \(\hat z^"\)-axis by \(\gamma\): \(\hat R_{\hat z^"}(\gamma)\)
+                    <ul>
+                        <li>\(\hat x_i^{'''} = \hat R_{\hat z^"}(\gamma)\hat x_i^"\)</li>
+                    </ul>
+                </li>
+            </ol>
+            Thus, \(\hat R(\alpha, \beta, \gamma) = \hat R_{\hat z^"}(\gamma)\hat R_{\hat y'}(\beta)\hat R_{\hat z}(\alpha)\).
+            We have what we want, one parameter per operator.
+            However, each axis of rotation depends on the previous rotations, which is still pretty inconvenient.
+            We can separate them even more by taking advantage of the fact that \(\hat R_{\hat n}(\phi) = \hat R\hat R_{\hat z}(\phi)\hat R^{-1}\), where \(\hat R\hat z = \hat n\).
+            Essentially, any rotation about an axis \(\hat n\) can be performed by first rotating the entire system so that \(\hat n\) is aligned with the \(\hat z\)-axis, performing the rotation about the \(\hat z\)-axis, and then rotation the system again so that \(\hat n\) is oriented how it was originally.
+            <br><br>
+            First we expand the rotation \(\hat R_{\hat z^"}(\gamma)\): 
+            \[\begin{align}
+                \hat z^" &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat z \\
+                \hat R_{\hat z^"}(\gamma) &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \hat R_{\hat z}^{-1}(\alpha) \hat R_{\hat y'}^{-1}(\beta) 
+            \end{align}\]
+            and then substitute it into \(\hat R(\alpha, \beta, \gamma) = \hat R_{\hat z^"}(\gamma)\hat R_{\hat y'}(\beta)\hat R_{\hat z}(\alpha)\):
+            \[\begin{align}
+                \hat R(\alpha, \beta, \gamma) &= \hat R_{\hat z^"}(\gamma)\hat R_{\hat y'}(\beta)\hat R_{\hat z}(\alpha) \\
+                &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \hat R_{\hat z}^{-1}(\alpha) \hat R_{\hat y'}^{-1}(\beta) \hat R_{\hat y'}(\beta)\hat R_{\hat z}(\alpha) \\
+                &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \hat R_{\hat z}^{-1}(\alpha) \hat R_{\hat z}(\alpha) \\
+                &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \\
+            \end{align}\]
+            and now we expand the rotation \(\hat R_{\hat y'}(\beta)\):
+            \[\begin{align}
+                \hat y' &= \hat R_{\hat z}(\alpha) \\
+                \hat R_{\hat y'}(\beta) &= \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}^{-1}(\alpha)
+            \end{align}\]
+            and then plug it in:
+            \[\begin{align}
+                \hat R(\alpha, \beta, \gamma) &= \hat R_{\hat y'}(\beta) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \\
+                &= \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}^{-1}(\alpha) \hat R_{\hat z}(\alpha) \hat R_{\hat z}(\gamma) \\
+                &= \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}(\gamma) \\
+            \end{align}\]
+            Perfect; \(\hat R(\alpha, \beta, \gamma) = \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}(\gamma)\) is now three single-parameter rotations whose axes are not dependent on \(\alpha, \beta, \gamma\).
+        </div>
+    </body>
+</html> 

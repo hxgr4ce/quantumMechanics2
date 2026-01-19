@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Tensor Products</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Tensor Products</h1>
+            <h2>Equivalence Classes</h2>
+            Given a set \(S = \{a, b, c\}\), the Cartesian product \(S\times S = \{aa, ab, ac, bb, \cdots\}\) is the set of all ordered pairs of elements in \(S\).
+            <br><br>
+            A <i>relation</i> \(R\) is a subset of \(S\times S\) so that if \((a,b)\in R\), \(a\) is related to \(b\).
+            Note that order matters here; relationships depend on order, e.g. if the relationship is "is the wife of", "Grace" could be the wife of "Martin" but "Martin" might not be the wife of "Grace".
+            A more specific type of relation is an <i>equivalence relation</i>. 
+            Equivalence relation \(R\) with equality operator \(\sim\) has the following properties:
+            <ul>
+                <li>Reflexive: \(\forall a\in S, (a, a) \in R\), so \(a \sim a\)</li>
+                <li>Symmetric: \(\forall a, b | a \sim b \implies b \sim a\)</li>
+                <li>Transitive: \(a \sim b, b\sim c \implies a \sim c\) </li>
+            </ul>
+            Some examples of equivalence relations include the mathematical \(=\), shape congruence, mass equality (induced by Newton's third law), temperature equality (induced by thermal equilibrium), etc. 
+            You can even consider use operator spectrum as a criteria for equivalence, which would equate any \(\hat A = \hat A^\dagger\) to \(\hat B = \hat U^{-1}\hat A\hat U\), e.g. \(\hat J_x, \hat J_y\), and \(\hat J_z\).
+            <br><br>
+            An equivalence class \(\mathcal C_a = [a]\) of set \(S\) is the set of all elements in \(S\), including \(a\), that are equivalent to \(a\) according to \(\sim\).
+            In other words, \(\mathcal C_a = \{b \in S | b \sim a\}\).
+            It follows that if \(\mathcal C_a\) and \(\mathcal C_b\) have even one element in common, they coincide.
+            Either \(\mathcal C_a \cap \mathcal C_b = \varnothing\), or \(\mathcal C_a = \mathcal C_b\).
+            Every single element in \(S\) has a class, so \(S = \mathcal C_a \cup \mathcal C_b \cup \mathcal C_c \).
+            Further more, you can create a class of the equivalence classes themselves, called the quotient of \(S\) with respect to \(\sim\).
+            This is written as \(S/\sim = \{\mathcal C_a, \mathcal C_b, \mathcal C_c\}\).
+            <h2>The need for Tensor Products</h2>
+            Say that system \(S\) is partitioned into subsystems \(S_I\) and \(S_{II}\) according to some equivalence relation, e.g. state, intrinsic spin, position, etc.
+            If subsystem \(S_I\) has Hilbert space \(H_I\) and subsystem \(S_{II}\) has Hilbert space \(H_{II}\), what is the total Hilbert space \(H\) for the entire system \(S\)?
+            <br><br>
+            If we prepare \(S_I\) in state \(\psi\) and \(S_{II}\) in state \(\phi\), the total state is some \(\Psi(\phi, \psi)\).
+            Furthermore, if \(\psi = \psi_1 a_1 + \psi_2 a_2\), we want to be able to also separate the state of the entire system like:
+            \[\Psi(\psi_1 a_1 + \psi_2 a_2, \phi) = a_1\Psi(\psi_1, \phi) + a_2 \Psi(\psi_2, \phi)\]
+            and if \(\phi = \phi_1 b_1 + \phi_2 b_2\), we want to be able to separate the state of the entire system like:
+            \[\Psi(\psi, \phi_1 b_1 + \phi_2 b_2) = b_1\Psi(\psi, \phi_1) + b_2 \Psi(\psi, \phi_2)\]
+            This allows us to operate on one subsystem while keeping the other constant.
+            Essentially this means that \(\Psi\) has to be bilinear.
+            This constraint of bilinearity means (apparently) that there is only one solution: \(H = H_1 \otimes H_{II}\), or that the total Hilbert space is the tensor product between \(H_1\) and \(H_{II}\).
+            <br><br>
+            Say that we have two vector spaces (tensor products are for all vector spaces, not just Hilbert spaces) \(V_I = \text{span}\{1, x, x^2\}\) and \(V_{II} = \text{span}\{1, y\}\), where an element \(f(x) \in V_I = a_0 + a_1 x + a_2 x^2\) and an element \(g(y) \in V_{II} = b_0 + b_1 y\).
+            One may be tempted to say that the subset \(M = \{f(x)g(y) | f \in V_I, g \in V_{II}\}\) is a good attempt at combining the two vector spaces, since it yields a \(3 \times 2\)-dimensional vector space.
+            However, the diadic product \(f(x)g(y)\):
+            \[f(x)g(y) = a_0b_0 + a_0 b_1 y + a_1 b_0 x + a_1 b_1 xy + a_2 b_0 x^2 + a_2 b_1 x^2 y\]
+            can never yield the result \(x\cdot 1 + 1 \cdot y\), even though \(x\) is a perfectly valid vector in \(V_I\) and \(y\) is a perfectly valid vector in \(V_{II}\).
+            This means that \(M\) isn't even closed under addition and is not a vector space, nor is it bilinear.
+            <br><br>
+            If we instead tale all linear combinations of these diadic products: \(V = \{\sum_{i=0}^2\sum_{j=0}^1 x^i Y_j c_{ij}\}\), we can indeed get the result  \(x\cdot 1 + 1 \cdot y\).
+            This is a 6-dimensional vector space and is the result of the tensor product between vector spaces \(V_I\) and \(V_{II}\).
+            <br><br>
+            Note that a state \(x\cdot 1 + 1 \cdot y\) indicates that the overall state is a combination of <i>two possible states</i>: 1) that \(f(x) = x\) <i>and</i> \(g(y) = 1\) <b>OR</b> 2) that \(f(x) = 1\) <i>and</i> \(g(y) = y\).
+            It is impossible to represent this particular total state as just a single possible state for each subsystem, it can only be described as a <i>linear combination</i> of possible total states.
+            Hence tensor products naturally induce the concept of entanglement.
+        </div>
+    </body>
+</html> 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Wigner D-Matrices</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Wigner D-Matrices</h1>
+            Wigner D-Matrices were introduced <a href="amt.html#rot">here</a>.
+            We have \((2j+1)\)-dimensional vector space \(V_{kj} = \text{span}\{|kjm\rangle, m = -j, -j+1,\cdots, j-1, j\}\) which is invariant under rotations.
+            An arbitrary vector in this space, \(|\psi\rangle\) is rotated like so:
+            \[\begin{align}
+                |\psi\rangle &= \sum_{m = -j}^j|kjm\rangle a_m \\
+                \hat R_{\hat n}(\phi)|\psi\rangle &= \hat R_{\hat n}(\phi)\sum_{m = -j}^j|kjm\rangle a_m \\
+                &= \sum_{m = -j}^j\hat R_{\hat n}(\phi)|kjm\rangle a_m \\
+                &= \sum_{m,m' = -j}^j |kjm'\rangle\langle kjm'| \hat R_{\hat n}(\phi)|kjm\rangle a_m \\
+                &= \sum_{m, m' = -j}^j |kjm'\rangle D^j_{m'm}(\hat R) a_m
+            \end{align}\]
+            The expression for \( D^j_{m'm}(\hat R) = \langle kjm'| \hat R_{\hat n}(\phi)|kjm\rangle\) can be reduced slightly by representing \(\hat R_{\hat n}(\phi)\) as an <a href="euler.html">Euler rotation</a> instead.
+            \[\begin{align}
+                D^j_{m'm}(\hat R) &= \langle kjm'| \hat R_{\hat n}(\phi)|kjm\rangle \\
+                &= \langle kjm'| \hat R(\alpha, \beta, \gamma)|kjm\rangle \\
+                &= \langle kjm'| \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}(\gamma)|kjm\rangle \\
+                &= e^{-i(\alpha m'+\beta m)} \langle kjm'| \hat R_{\hat y}(\beta) |kjm\rangle \\
+                &= e^{-i(\alpha m'+\beta m)} \langle kjm'| e^{-i\beta\hat J_y/\hbar} |kjm\rangle \\
+                &= e^{-i(\alpha m'+\beta m)} d^j_{m'm}(\beta) \\
+            \end{align}\]
+            This \(D^j_{m'm}(\alpha, \beta,\gamma)\) is the Wigner d-matrix and \(d^j_{m'm}(\beta)\) is the <i>reduced</i> Wigner d-matrix (note that you can also say \(D^j_{m'm}(\alpha, \beta,\gamma)\) instead of \(D^j_{m'm}(\hat R)\) ).
+            Typically, you use pre-tabulated results when working with both, as they are very complicated to computer, especially for the higher dimensional matrices.
+        </div>
+    </body>
+</html> 

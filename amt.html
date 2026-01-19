@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Angular Momentum Theory</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Angular Momentum Theory</h1>
+            This section begins with a recap of <a href="https://github.com/hxgr4ce/quantumMechanics1">last semester</a>'s final unit on angular momentum, then discusses rotations in a bit more depth.
+            <h2>Angular Momentum</h2>
+            In classical mechanics, rotations are canonical transformations; in quantum mechanics, rotations are unitary transformations.
+            A rotation is described as \(\hat R_{\hat n}(\phi)\), where \(\hat n\) is the axis around which the rotation occurs, and \(\phi\) is the angle of rotation.
+            <br><br>
+            Rotations have the following properties:
+            <ul>
+                <li>Rotations can be combined: \(\hat R_{\hat n}(\phi_1) + \hat R_{\hat n}(\phi_2) = \hat R_{\hat n}(\phi_1 + \phi_2)\)</li>
+                <li>Rotations are unitary: \(\hat R_{\hat n}^\dagger(\phi) = \hat R_{\hat n}^{-1}(\phi)\)</li>
+                <li>Each rotation has an opposite: \(\hat R_{\hat n}(\phi) \hat R_{\hat n}(-\phi) = \hat R_{\hat n}(-\phi) \hat R_{\hat n}(\phi) = \hat 1\)</li>
+                <ul>
+                    <li>Also, \(\hat R_{\hat n}(-\phi) = \hat R_{\hat n}^{-1}(\phi) = \hat R_{\hat n}^\dagger(\phi)\)</li>
+                </ul>
+                <li>A rotation of \(\phi=0\) is the identity: \(\hat R_{\hat n}(0) = \hat 1\)</li>
+            </ul>
+            thus rotations are strongly-continuous one-parameter abelian groups of unitary transformations.
+            We can then apply Stone's Theorem to represent rotations as such:
+            \[
+                \hat R_{\hat n}(\phi) = e^{-i\phi\hat A}, \hat A^\dagger = \hat A
+            \]
+            In this case, \(\hat A = \hat n\cdot\hat{\vec J}/\hbar\), so altogether,
+            \[
+                \hat R_{\hat n}(\phi) = e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar}
+            \]
+            We saw \(\hat{\vec J}\) last semester; for a spinless particle, \(\hat{\vec J} = \hat{\vec L} = \hat{\vec r} \times \hat{\vec p}\), and for a particle with spin, \(\hat{\vec J} = \hat{\vec L} + \hat{\vec S}\), where \(\hat{\vec L}\) is the intrinsic spin.
+            <br><br>
+            \(\hat {\vec J}\) has the following algebraic properties:
+            <ul>
+                <li>
+                    For a vector operator \(\hat{\vec A} = \sum_i \hat x_i \hat A_i\) (where \(\hat x_i\) is a unit vector, not an operator!), \([\hat J_i, \hat A_j] = \epsilon_{ijk}i\hbar \hat A_k\).
+                    So, \([\hat J_i, \hat J_j] = \epsilon_{ijk}i\hbar \hat J_k\).
+                </li>
+                <li>
+                    For a scalar operator \(\hat O\) (an operator that is invariant under rotation), \([\hat J_i, \hat O] = 0\).
+                    The scalar pdocut between two vector operators is a scalar, so \(\hat J^2 = \hat{\vec J} \cdot \hat{\vec J}\) is a scalar, and \(\forall i, [\hat J_i, \hat J^2] = 0\).
+                </li>
+            </ul>
+            There are also the following spectral properties, given eigenvectors \(|kjm\rangle\):
+            <ul>
+                <li>
+                    \(\hat J^2|kjm\rangle = \hbar^2 j|kjm\rangle\) and \(\hat J_z|kjm\rangle = \hbar m|kjm\rangle\)
+                </li>
+                <li>
+                    For ladder operators \(\hat J_\pm = \hat J_x \pm \hat J_y\), \( \hat J_\pm \propto |kjm\pm1\rangle \).
+                    <br>
+                    More specifically. if the eigenvetors are normalized so that \(\langle kjm|k'j'm'\rangle = \delta_{kk'}\delta_{jj'}\delta_{mm'}\), then:
+                    \[\hat J_\pm = \hbar\sqrt{j(j+1) - m(m\pm 1)}|kjm\pm 1\rangle\]
+                </li>
+                <li>
+                    The value of \(j\) is limited to integers or half-integers, and \(m = -j, -j+1, \cdots , j-1, j\).
+                    <br>
+                    So, \(\hat J_+|kjj\rangle = \hat J_-|kj-j\rangle = 0\).
+                </li>
+                <li>(There are other proerties, e.g. \([\hat J_z, \hat J_\pm] = \pm\hbar\hat J_\pm]\), see last semester.)</li>
+            </ul>
+            <h2 id="rot">Rotations</h2>
+            Operators \(\hat J_z\) and \(\hat J_\pm\) leave the values of \(k\) and \(j\) unaltered (recall \(k\) is an index that resolves any degeneracy).
+            Say then that we have a \((2j+1)\)-dimensional vector space \(V_{kj} = \text{span}\{|kjm\rangle, m = -j, -j+1,\cdots, j-1, j\}\).
+            Because \(k\) and \(j\) are fixed arguments, the space \(V_{kj}\) is fixed under the action of \(\hat J_i\) (and so by extension, \(\hat J_\pm\)...).
+            In other words, \(\hat J_i V_{kj} = V_{kj}\).
+            <br><br>
+            As a result, this space is also invariant under rotation!
+            \[\forall |\psi\rangle \in V_{kj}, \hat R_{\hat n}(\phi)|\psi\rangle = e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar}|\psi\rangle \in V_{kj}\]
+            Since \(V_{kj}\) is a vector space with basis \(|kjm\rangle\), the arbitrary state \(|\psi\rangle \in V_{kj}\) can be written as a linear combination:
+            \[
+                |\psi\rangle = \sum_{m = -j}^j|kjm\rangle a_m
+            \]
+            Which means we can break down a rotation like so:
+            \[\begin{align}
+                \hat R_{\hat n}(\phi)|\psi\rangle &= \hat R_{\hat n}(\phi)\sum_{m = -j}^j|kjm\rangle a_m \\
+                &= \sum_{m = -j}^j\hat R_{\hat n}(\phi)|kjm\rangle a_m \\
+            \end{align}\]
+            Rotating one of the basis vectors results in the following, if we use the resolution of identity:
+            \[\begin{align}
+                \hat R_{\hat n}(\phi)|kjm\rangle &= \sum_{m' = -j}^j |kjm'\rangle\langle kjm'| \hat R_{\hat n}(\phi)|kjm\rangle \\
+                &= \sum_{m = -j}^j |kjm'\rangle D^j_{m'm}(\hat R)
+            \end{align}\]
+            This \((2j+1)\times(2j+1)\) matrix, \(D^j_{m'm}(\hat R)\), contains coefficients that describe the linear combination needed to represent a basis vector <i>after</i> rotation (in terms of the basis vectors... of course).
+            We talk more about this later, see <a href="wigner.html">Wigner D-matrices</a>.
+            <hr>
+            Say that we have two rotations, \(\hat R_1\) and \(\hat R_2\), and that a third rotation, \(\hat R_3\) is the same as applying \(\hat R_1\), then \(\hat R_2\); \(\hat R_3 = \hat R_2\hat R_1\).
+            In terms of rotation matrices \(D\), \(D (\hat R_2 \cdot \hat R_1) = D(\hat R_2) D(\hat R_1)\).
+            
+            \[\begin{align}
+                \hat R_2\hat R_1|jm\rangle &= \hat R_2 \big ( \sum^j_{m'=-j}|jm'\rangle D^j_{m'm}(\hat R_1) \big) \\
+                &= \sum^j_{m^"=-j} |jm^"\rangle \sum^j_{m'=-j} D^j_{m^"m'}(\hat R_2) D^j_{m'm}(\hat R_1) \\
+                \hat R_3|jm\rangle &= \sum^j_{m^"=-j} |jm^"\rangle D^j_{m^"m}(\hat R_3)
+            \end{align}\]
+
+            It seems that the action of \(\hat R_3\) and the action of sequentially applying \(\hat R_1\) then \(\hat R_2\) should be physically indistinguishable, and should yield the exact same final state.
+            The matrix corresponding to the sequential rotations and the matrix corrsponding to the single rotation \(\hat R_3\) should be exactly equal;
+            each element \(D^j_{m^"m}(\hat R_3) = [\mathbb D^j(\hat R_3)]_{m^"m}\) should look the same as the element resulting from the matrix product \(\sum^j_{m'=-j} D^j_{m^"m'}(\hat R_2) D^j_{m'm}(\hat R_1) = [\mathbb D^j(\hat R_2)\mathbb D ^j(\hat R_1)]_{m^"m}\).
+            <br><br>
+            If this is true, then the matrix representation \(\mathbb D^j\) of these rotations is called a <b><i>True Representation</i></b>.
+            <br><br>
+            It may appear very unlikely or impossible that this would ever be false.
+            However, recall that in quantum mechanics, a state is a <i>ray</i>, and not a <i>vector</i>.
+            Two identical states can be represented by very different vectors with different phase factors which still correspond to the same ray.
+            Indeed, it may turn out that:
+            \[
+                \mathbb D^j(\hat R_3) = \mathbb D(\hat R_2)\mathbb D(\hat R_1)e^{i\omega(\hat R_2\hat R_1)}
+            \]
+            If this is true, then the matrix representation \(\mathbb D^j\) of these rotations is called a <b><i>Projective Representation</i></b>.
+            <br><br>
+            A simple, numerical demonstration os this is as follows:
+            A rotation of \(\phi\) around axis \(\hat z\) of \(|jm\rangle\) is described as \(e^{-i\phi\hat J_z/\hbar}|jm\rangle = e^{-im\phi}|jm\rangle\), because \(|jm\rangle\) is an eigenvector of \(\hat J_z\).
+            A rotation of \(\phi =0\) will evidently return \(e^0|jm\rangle = |jm\rangle\).
+            A rotation of \(\phi = 2\pi\) must result in a final state that is the same as the initial state, but \(e^{-i(2\pi)m}|jm\rangle\). If \(m\) is an integer, this yields \(|jm\rangle\), but if \(m\) is a half integer, then the result is instead \(-|jm\rangle\).
+            <br><br>
+            This is simply a feature of the group of all 3D rotations, that we call SO(3), which we will explore a little more right now.
+
+            <h2>SO(3) (and SU(2))</h2>
+            As mentioned earlier, a rotation is described by the orientation of the rotation, \(\hat n\), and the magnitude of the rotation, \(\phi\).
+            We can thus represent a rotation as a vector, and represent SO(3) as the space of all possible vectors.
+            A rotation of \(\phi\) around axis \(\hat n\) is represented by a vector of length \(\phi\) in direction \(\hat n\), which we can write as \(\hat n \cdot \phi\).
+            <br><br>
+            What does this vector space for SO(3) look like?
+            <br><br>
+            If \(\phi\in[0, \phi]\), 
+            a rotation around axis \(\hat n\) by \(\phi\) is the same as a rotation of \(2\pi - \phi\) around the axis \(-\hat n\): 
+            \(\hat R_{\hat n}(\phi) = \hat R_{-\hat n}(2\pi - \phi)\).
+            <br><br>
+            For example, rotation \(\hat R_{\hat x}(\pi/4)\) is a counterclockwise rotation of \(\pi/4\) when looking down the \(\hat x\)-axis.
+            A rotation of \(\hat R_{-\hat x}(2\pi - \pi/4) = \hat R_{-\hat x}(7\pi/4)\) goes counterclockwise when looking down the \(-\hat x\)-axis, and so is equivalent to a rotation of \(7\pi/4\) clockwise when looking down the \(\hat x\)-axis.
+            This is equivalent to a rotation of \(\hat R_{\hat n}(-7\pi/4) = \hat R_{\hat x}(\pi/4)\).
+            <br><br>
+            We can thus restrict the length of our rotation vectors, \(\hat n \cdot \phi\) to be within interval \([0, \phi]\), provided that we allow \(\hat n\) to point in any direction (as opposed to allowing \(\phi\) to get as large as \(2\pi\), and only allowing \(\hat n\) to point along only half of all possible directions).
+            <br><br>
+            More specifically, if \(\hat n\) is parameterized by \(\theta \in [0, \pi]\) and \(\varphi \in [0, 2\pi)\), then \(\hat n = \sin\theta(\hat x\cos\varphi  + \hat y\sin\varphi) + \hat z\cos\theta\) can point in any direction.
+            This means that our vector space, or space of all possible rotations, looks like a solid sphere of radius \(\pi\).
+            There is another quirk: because \(\hat R_{\hat n}(\pi)\) is the same rotation as \(\hat R_{-\hat n}(\pi)\), antipodal points on the surface of the sphere <i>are the same point</i>.
+            <br><br>
+            Say now that we have a continuous sequence of rotations, instead of just a single rotation.
+            This continuous sequence of rotations is represented by a sequence of vectors in this space, and the endpoints of these vectors trace out a path within the vector space.
+            <br><br>
+            In our case, say that the sequence starts and ends at the origin, so the rotated object starts and ends at its original orientation, and the path traced out by the sequence is a loop that passes through the origin of the vector space.
+            <br><br>
+            I don't feel like creating an image with SVG right now so here's all you get:
+            <div style="text-align: center;">
+                <p><img src="images/so3.png" style="width: 40%;"></p>
+            </div>
+            There are two types of these loops: a simple loop that stays within the boundaries of the solid sphere, and one type that reaches the border and appears at the antipodal point on the other side, sort of like Pac-Man running of the right edge of the screen and reappearing on the left.
+            After reappearing at the antipodal point, the loop ends at the origin again.
+            The simple loop can be deformed and contracted into any number of equivalent loops that still start and end at the origin.
+            Eventually, it can be made smaller and smaller until the loop is just a single point (the origin!).
+            All of these equivalent loops form an equivalence class.
+            <br><br>
+            The complex loop, however, cannot be continuous transformed into a point in the same way: if it stays connected and passing through the origin, you must always have two antipodal points on the loop, hence the loop never contracts past a certain stage.
+            This complex loop is manifestly equivalent to a rotation of \(2\pi\): the most reduced path is a straight path straight from the origin to one point on the border which appears at the antipodal point and then returns to the origin again in a straight line.
+            <br>
+            Essentially, SO(3) is not simply connected: not all of the loops through it can be reduced to a single point.
+            <br><br>
+            It is, however, <i>doubly connected</i>, meaning that two non-contractible loops can be composed together to yield a contractible loop!
+            A rotation of \(4\pi\), however, <i>can</i> be reduced.
+            Here is a very rough description of this process...
+            <div style="text-align: center;">
+                <p><img src="images/so32.png" style="width: 60%;"></p>
+            </div>
+            So, SO(3) contains some non-simply connected loops, where it is impossible to contract the loop to a single representative rotation, and this gives rise to <i>projective</i> representations.
+            It does contains some simply connected loops, where you can produce compositions of rotations that yield an exactly equivalent final state by coniuously deforming the loop.
+            These representations are <i>true</i> representations of rotations.
+            In fact, SO(3)'s true representations correspond to integer values of \(j\), and its projective representations corrspond to half-integer values of \(j\).
+            <br><br>
+            All non-simply connected groups have a locally identical group (identical near the origin) called a <i>universal covering group</i> that <i>is</i> simply connected.
+            For SO(3), the universal covering group is SU(2).
+            Because SU(2) is simply connected, all of its representations are true representations, and they each correspond directly with each of SO(3)'s (projective) representations.
+        </div>
+    </body>
+</html> 
