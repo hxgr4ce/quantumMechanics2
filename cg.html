@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Clebsch-Gordan Coefficients</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Clebsch-Gordan Coefficients</h1>
+            <iframe src="images/TableClebschGordanCoefficients.pdf", width="100%" height="1000"></iframe>
+            <p>
+                A state \(|j_1, j_2; J, M\rangle\) of a system with two subsystems can be written as a linear combination of states where \(\sigma_1\) and \(\sigma_2\) are specified.
+                More specifically:
+            </p>
+            \[\begin{align}
+                |j_1, j_2; J, M\rangle &= \sum_{m_1, m_2}|j_1, m_2\rangle \otimes |j_2, m_2\rangle C^{JM}_{j_1, m_1, j_2, m_2} \\
+                &= \sum_{m_1, m_2}|j_1, j_2; m_1, m_2\rangle C^{JM}_{j_1, m_1, j_2, m_2}
+            \end{align}\]
+            (Where the tensor product \(|j_1, m_2\rangle \otimes |j_2, m_2\rangle\) is sometimes written as \(|j_1, j_2; m_1, m_2\rangle\). This is quite confusing, so I try not to use this notation if I can.)
+            <br><br>
+            For example, in the <a href="addition.html#simple">simple example of the addition of angular momenta</a>, we found the following eigenstates of \(\hat J^2\) for \(J=0, 1\):
+            \[\begin{align}
+                &|\frac{1}{2}, \frac{1}{2}; 1,  1\rangle = |++\rangle \\
+                &|\frac{1}{2}, \frac{1}{2}; 1,  0\rangle = \frac{|+-\rangle + |-+\rangle}{\sqrt 2} \\
+                &|\frac{1}{2}, \frac{1}{2}; 1, -1\rangle = |--\rangle \\
+                &|\frac{1}{2}, \frac{1}{2}; 0,  0\rangle = \frac{|+-\rangle - |-+\rangle}{\sqrt 2}
+            \end{align}\]
+            by doing an awful lot of algebra.
+            We can find the same eigenstates by using the pre-tabulated Clebsch-Gordan coefficients, shown at the top of the page.
+            A key is provided at the top right-hand corner:
+            <div style="text-align: center;">
+                <img src="images/key.PNG">
+            </div>
+            In this example, we are looking at two spin-\(\frac{1}{2}\) particles, so we look under the \(\frac{1}{2}\times\frac{1}{2}\) table:
+            <div style="text-align: center;">
+                <img src="images/halfhalf.PNG">
+            </div>
+            which in this particular case shows three nested tables which follow the key above.
+            <br><br>
+            You look at these tables with a given \(J\) and \(M\) in mind.
+            First, let's say we want to determine what the \(|\frac{1}{2}, \frac{1}{2}; 1,  1\rangle\) state is.
+            For this state, \(J=1\) and \(M=1\).
+            Notice that only one column out of all three of the tables is labeled for \(J=1, M=1\).
+            This is also the only column in the leftmost of the three tables.
+            There is also only one row in this column, labelled \(+\frac{1}{2}, +\frac{1}{2}\).
+            <p>Consulting the key, we know that these row labels indicate values of \(m_1\) and \(m_2\).</p>
+            <div class="mainContent">
+                I have been using \(\sigma_1, \sigma_2\) in the simple example.
+                <b>It seems to me that these are interchangable with \(m_1, m_2\) in our simple example only</b>.
+                I assume this is because we only care about intrinsic degrees of freedom in our simplest case.
+                Later, when we talk about the generalized case, we always use \(m\) instead.
+                <br><br>
+                I do not know very much about quantum numbers, and this was never explained in class, so it will remain a mystery...
+            </div>
+            <p>This means that the only state that contributes to \(|\frac{1}{2}, \frac{1}{2}; 1,  1\rangle\) is the state where \(m_1\) (or \(\sigma_1\)) is \(\frac{1}{2}\) and \(m_2\) (or \(\sigma_2\)) is also \(\frac{1}{2}\).</p>
+            In other words,
+            \[\begin{align}
+                |\frac{1}{2}, \frac{1}{2}; 1,  1\rangle &= \sum_{\sigma_1, \sigma_2}|\frac{1}{2}, \sigma_2\rangle \otimes |\frac{1}{2}, \sigma_2\rangle C^{11}_{\frac{1}{2},\sigma_1, \frac{1}{2}, \sigma_2} \\
+                &= |\frac{1}{2}, \frac{1}{2}\rangle\otimes|\frac{1}{2}, \frac{1}{2}\rangle (1) \\
+                &= |+\rangle \otimes |+\rangle = |++\rangle
+            \end{align}\]
+            which is exactly what we found.
+            Let's also do this with the \(|\frac{1}{2}, \frac{1}{2}; 1,  0\rangle\) state.
+            We look to the \(\frac{1}{2}\times\frac{1}{2}\) table for the column where \(J=1, M=0\).
+            <p>This time, there are two rows, one for the state where \(m_1=\frac{1}{2}, m_2=-\frac{1}{2}\), which has coefficient \(\sqrt{\frac{1}{2}}\) and another for the state where \(m_1 = -\frac{1}{2}, m_2=\frac{1}{2}\), which has coefficient \(\sqrt{\frac{1}{2}}\).</p>
+            <div class="mainContent">
+                <b>ALL coefficients in the above Clebsch-Gordan coefficient table have the square root omitted for space efficiency.</b> 
+                For example, all \(\frac{1}{2}\)'s should really be read as \(\sqrt{\frac{1}{2}}\).
+            </div>
+            <p>So:</p>
+            \[\begin{align}
+                |\frac{1}{2}, \frac{1}{2}; 1,  0\rangle &= \sum_{\sigma_1, \sigma_2}|\frac{1}{2}, \sigma_2\rangle \otimes |\frac{1}{2}, \sigma_2\rangle C^{10}_{\frac{1}{2},\sigma_1, \frac{1}{2}, \sigma_2} \\
+                &= |\frac{1}{2}, \frac{1}{2}\rangle\otimes|\frac{1}{2}, -\frac{1}{2}\rangle (\sqrt{\frac{1}{2}}) + |\frac{1}{2}, -\frac{1}{2}\rangle\otimes|\frac{1}{2}, \frac{1}{2}\rangle (\sqrt{\frac{1}{2}}) \\
+                &= \sqrt{\frac{1}{2}}(|+-\rangle + |-+\rangle)
+            \end{align}\]
+            which is also exactly what we found.
+            <h2>The Recurrence Relation for the Clebsch-Gordan Coefficients</h2>
+            The Clebsch-Gordan coefficients can be recursively defined like so:
+            \[
+                C^{J M \pm 1}_{j_1, m_1, j_2, m_2} = \sqrt{\frac{j_1(j_1+1) - m_1(m_1\mp 1)}{J(J+1) - M(M\pm 1)}} C^{JM}_{j_1, m_1\mp 1 j_2, m_2} + \sqrt{\frac{j_2(j_2+1) - m_2(m_2\mp 1)}{J(J+1) - M(M\pm 1)}} C^{JM}_{j_1, m_1 j_2, m_2\mp 1}
+            \]
+            <h2>Properties of the Clebsch-Gordan Coefficients</h2>
+            <ul>
+                <li>Orthonormality:
+                    \[\langle JM|J'M'\rangle = \delta_{JJ'} \delta_{MM'} = \sum_{m_1, m_2}C^{JM}_{j_1, m_1, j_2, m_2}C^{J'M'}_{j_1, m_1, j_2, m_2}\]
+                </li>
+                <li>Identity:
+                    \[\sum_{J=|j_1-j_2|}^{j_1+j_2} \sum_{M=-J}^J |JM \rangle\langle JM| = \hat 1\]
+                </li>
+                <li>More orthonormality:
+                    \[\begin{align}
+                        \langle m_1 m_2|m_1'm_2'\rangle &= \delta_{m_1 m_1'} \delta_{m_2, m_2'} = \sum_{JM}\langle m_1 m_2|JM \rangle\langle JM|m_1'm_2'\rangle \\
+                        &= \sum_{JM} C^{JM}_{j_1, m_1, j_2, m_2} C^{JM}_{j_1, m_1', j_2, m_2'}
+                    \end{align}\]
+                </li>
+                <li>Not everything needs a title okay:
+                    \[|m_1 m_2\rangle = \sum_{JM}|JM\rangle\langle JM|m_1 m_2\rangle = \sum_{JM}|JM\rangle C^{JM}_{j_1, m_1, j_2, m_2}\]
+                </li>
+                <li>\(C^{c\gamma}_{a\alpha b\beta} = 0\) when \(\gamma=\alpha + \beta\)</li>
+                <li>3-j Coefficients:
+                    \[C^{c\gamma}_{a\alpha b\beta} = (-1)^{a - b + \gamma}\sqrt{2c + 1}\pmatrix{a & b & c \\ \alpha & \beta & -\gamma}\]
+                    where \((-1)^{a - b + \gamma}\) is a phase factor, \(\sqrt{2c + 1}\) is a normalization factor, and \(\pmatrix{a & b & c \\ \alpha & \beta & \gamma}\) is called a 3-j coefficient, as is incariant under cyclic permutations of its columns.
+                </li>
+                <li>More about 3-j coefficients
+                    \(\pmatrix{a & b & c \\ \alpha & \beta & \gamma} = 0\) if \(\gamma = \alpha + \beta\), and
+                    \[
+                        \pmatrix{a & b & c \\ \alpha & \beta & \gamma} = \pmatrix{b&c&a \\ \beta & \gamma & \alpha} = \pmatrix{c&a&b \\ \gamma & \alpha & \beta} = (-1)^{a + b + c} \pmatrix{a&c&b \\ \alpha & \gamma & \beta} = \pmatrix{a & b & c \\ -\alpha & -\beta & -\gamma}
+                    \]
+                </li>
+            </ul>
+        </div>
+    </body>
+</html> 

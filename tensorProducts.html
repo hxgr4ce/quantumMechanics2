@@ -59,6 +59,136 @@
             Note that a state \(x\cdot 1 + 1 \cdot y\) indicates that the overall state is a combination of <i>two possible states</i>: 1) that \(f(x) = x\) <i>and</i> \(g(y) = 1\) <b>OR</b> 2) that \(f(x) = 1\) <i>and</i> \(g(y) = y\).
             It is impossible to represent this particular total state as just a single possible state for each subsystem, it can only be described as a <i>linear combination</i> of possible total states.
             Hence tensor products naturally induce the concept of entanglement.
+
+
+            <h2 id="formal">A more formal definition of the Tensor Product</h2>
+            <b><i>The freely generated vector space.</i></b>
+            As mentioned before, vector spaces \(V\) and \(W\) have Cartesian product \(V \times W = \{(v, w), v \in V, w \in W\}\).
+            From this define the <i>freely generated</i> vector space \(E_{V\times w}\):
+            \[E_{V\times W} = \{\sum_{(v, w)\in S} (v, w)c_{v,w} \vert S \subset V \times W, S \text{ is finite}, c_{v,w} \in \mathbb C\}\]
+            To enforce bilinearity, we also introduce the following equivalence relationto \(E_{V\times W}\):
+            \[
+                \begin{cases}
+                    \forall \alpha, \beta  \in \mathbb C, w\in W, v_1, v_2 \in V: (\alpha v_1 + \beta v_2, w) \sim \alpha(v_1, w) + \beta(v_2, w) \\
+                    \forall \alpha, \beta \in \mathbb C, v \in V, w_1, w_2 \in W: (v, \alpha w_1 + \beta w_2) \sim \alpha(v, w_1) + \beta (v, w_2)
+                \end{cases}
+            \]
+            Now given basis \(\{v_i\}_{i=1,\cdots, N}\) for \(V\) and basis \(\{w_j\}_{j=1,\cdots,M}\) for \(W\), arbitrary vectors \(v\) and \(w\) are written as:
+            \[v = \sum_i v_i a_i\]
+            \[w = \sum_j w_j b_j\]
+            which means that we describe an ordered pair as:
+            \[(v, w) = (\sum_i v_i a_i, \sum_j w_j b_j) = \sum_{ij}(v_i, w_j) a_i b_j\]
+            So, any ordered pair can be written as a linear combination of pairs of basis vectors. 
+            This means that we can write an element in \(E_{v\times W}\) as:
+            \[\begin{align}
+                \sum_{(v, w)\in S}(v, w) c_{v, w} &= \sum_{(v, w)\in S} (\sum_{i=1}^N v_i a_i(v), \sum_{j=1}^M w_j b_j(w))c_{v,w} \\
+                &\sim \sum_{(v,w)\in S} \sum_{ij} (v_i, w_j) a_i(v)b_j(w) c_{v,w} \\
+                &\sim \sum_{ij} (v_i, w_j) \sum_{(v,w)\in S} a_i(v)b_j(w) c_{v,w} \\
+                &\sim \sum_{ij} (v_i, w_j) c_{ij}
+            \end{align}\]
+            which is also a linear combination of pairs of basis vectors.
+            <br><br>
+            This is significant because this proves that \(E_{V\times W}\) is a vector space (even though \(S\) is a finite subset!).
+            It is essentially the same as saying that \(E_{V\times W} = \text{span}(B)\), where \(B = \{(v_i, w_j)\}\).
+            This means that the space is closed under addition of vectors and under multiplication by scalars (and that there are the identity elements and additive inverses) which is the requirement to be a vector space.
+            <br><br>
+            <b><i>What does this have to do with the tensor product?</i></b>
+            <br>
+            The tensor product of two <i>vector spaces</i> is the vector space spanned by the tensor products between all pairs of their basis vectors: \(V \otimes W = \text{span}\{v_i\otimes w_j\}\).
+            <br>
+            The tensor product of two <i>vectors</i> is defined as the equivalence class \(v\otimes w = [(v,w)]\) with respect to the equivalence relation defined above.
+            Take this very simple example:
+            <br><br>
+            Say that \(V\) and \(W\) are just two-dimensional, and that vector \(v = (1,2) = 1\cdot v_1 + 2\cdot v_2\) and vector \(w = (3,4) = 3\cdot w_1 + 4\cdot w_2\).
+            <br>
+            Using our equivalence relation:
+            \[\begin{align}
+                (v,w) &= (v_1 + 2v_2, 3w_1 + 4w_2) \\
+                &\sim (v_1, 3w_1 + 4w_2) + (2v_2, 3w_1 + 4w_2) \\
+                &\sim (v_1, 3w_1) + (v_1, 4w_2) + (2v_2, 3w_1) + (2v_2, 4w_2) \\
+                &\sim 3(v_1, w_1) + 4(v_1, w_2) + 6(v_2, w_1) + 8(v_2, w_2) \tag{1}\\
+            \end{align}\]
+            all of these are in the equivalence class \([(v, w)]\).
+            Not only that, but all equivalent representations of \((2v, \frac{1}{2}w)\) are also part of the equivalence class, since \((2v, \frac{1}{2}w) \sim (v, w)\).
+            There are evidently an infinite amount of equivalent representations, and so an infinite amount of elements in the equivalence class.
+            <br><br>
+            Typically, though, we represent the tensor product \(v\otimes w\) as a single vector with dimension \(N \times M\) (recall that \(v\) is \(N\)-dimensional and \(W\) is \(M\)-dimensional), in our case this is a 4-dimensional vector.
+            <br><br>
+            In class we don't talk about the linear algebra-esque implementation of the tensor product exactly, we just work abstractly with it, but the tensor product in our example would be found something like:
+            \[\begin{align}
+                V \times W &= \text{span}\{ v_1 \otimes w_1, v_2 \otimes w_1, v_1 \otimes w_2, v_2 \otimes w_2\} \\
+                v \otimes w &= (v_1 + 2v_2)\otimes(3w_1 + 4w_2) \\
+                &= 3(v_1\otimes w_1) + 4(v_1\otimes w_2) + 6(v_2\otimes w_1) + 8(v_2\otimes w_2) \\
+                &= \pmatrix{3 \\ 4 \\ 6 \\ 8}
+            \end{align}\]
+            or in maybe more familiar notation:
+            \[\begin{align}
+                \pmatrix{1 \\ 2}
+                \otimes
+                \pmatrix{3 \\ 4} =
+                \pmatrix{1 & \pmatrix{3 \\ 4} \\ 2 & \pmatrix{3 \\ 4}} =
+                \pmatrix{3 \\ 4 \\ 6 \\ 8}
+            \end{align}\]
+            which, you might notice, is exactly the element of the equivalence relation described in (1).
+            <br><br>
+            Anyway, returning to our equivalence class representation of the tensor product: The set of equivalence classes, or the quotient \(E_{V\times W} / \sim\) is also a vector space.
+            In fact, it <b>is</b> the \(N\times M\)-dimensional vector space \(V \otimes W\).
+            \[E_{V\times W}/\sim = V \otimes W = \text{span}\{v_i\otimes w_j\} = \{\sum_{ij}v_i\otimes w_j a_{ij} \vert a_{ij} \in \mathbb C\}\]
+            We demonstrate this the same way that we demonstrated that \(E_{V\times W}\) was a vector space, by showing that its elements can be written as a linear combination of some set of basis vectors:
+            \[\begin{align}
+                v \otimes w &= \sum_I v_i a_i \otimes \sum_j w_j b_j \\
+                &= \sum_i a_i(v_i \otimes \sum_j w_j b_j) \\
+                &= \sum_i a_i \sum_j b_j (v_i\otimes w_j) \\
+                &= \sum_{ij} a_i b_j (v_i\otimes w_j)
+            \end{align}\]
+            <h2>Some Properties and Implications of the Tensor Product</h2>
+            Some features:
+            <ul>
+                <li>As mentioned earlier, \(\text{dim}(V\otimes w) = \text{dim}(V)\text{dim}(W)\)</li>
+                <li>The tensor product between two scalars is the same as just multiplying them</li>
+                <li>For both vectors and vector spaces,
+                    \(
+                        V_1 \otimes(V_2\otimes V_3) = (V_1\otimes V_2) \otimes V_3 = V_1 \otimes V_2 \otimes V_3
+                    \)
+                </li>
+                <li>Do the tensor product before addition and other operations, e.g. \(|a\rangle\otimes|b\rangle + |c\rangle\otimes|b\rangle = (|a\rangle\otimes|b\rangle) + (|c\rangle\otimes|b\rangle)\) </li>
+            </ul>
+            Implications/Applications:
+            <ul>
+                <li>
+                    We know that for a particle in one dimension, the Hilbert space is \(L^2(\mathbb R)\).
+                    Hence for a particle in three dimensions, \(H = L^2(\mathbb R) \otimes L^2(\mathbb R) \otimes L^2(\mathbb R) = L^2(\mathbb R^3)\)
+                </li>
+                <li>The generalized \(|\vec r\rangle \equiv |x\rangle \otimes |y\rangle \otimes |x\rangle\)</li>
+                <li>\(|\vec r, \sigma\rangle = |\vec r\rangle \otimes |\sigma\rangle\)</li>
+                <li>
+                    \(H_{I+II} = H_I \otimes H_{II}\), and if both Hilbert spaces \(H_I\) and \(H_{II}\) have more than one dimension, then it is possible to have state:
+                    \[|\Psi\rangle = |\psi_1\rangle \otimes |\phi_2\rangle + |\psi_2\rangle \otimes |\phi_2\rangle\tag{2}\]
+                    (where \(|\psi_i\rangle \in H_I\) and \(|\phi_j\rangle \in H_{II}\))
+                    in which it is impossible to write the total state as just one unique state for each system, \(|\Psi\rangle = |\psi\rangle \otimes |\phi\rangle\).
+                    In cases like (2), \(H_I\) and \(H_{II}\) are entangled, and measuring one subsystem affects latter measurements of the other subsystem.
+                </li>
+                <li>
+                    For every \(H = H_! \otimes H_{II}\), there is a dual space (which is a space of linear functionals, see first semester material) \(H^* = H_I^*\otimes H^*_{II}\).
+                    <br><br>
+                    for \(|\chi\rangle\otimes|\theta\rangle \in H\) and \(\langle\psi|\otimes\langle\phi| \in H^*\), 
+                    \[(\langle\psi|\otimes\langle\phi|)(|\chi\rangle\otimes|\theta\rangle) = \langle\psi|\chi\rangle\langle\phi|\theta\rangle\]
+                </li>
+                <li>
+                    If we have state \(|\psi\rangle \in L^2(\mathbb R^3) = |\varphi_x\rangle \otimes|\varphi_y\rangle\otimes|\varphi_z\rangle\), then the wave function is 
+                    \[\langle\vec r |\psi\rangle = (\langle x|\otimes\langle y|\otimes\langle z|)(|\varphi_x\rangle \otimes|\varphi_y\rangle\otimes|\varphi_z\rangle) = \varphi_x(x)\varphi_(y)\varphi_z(z)\]
+                </li>
+                <li>
+                    If an operator \(\hat A: H_I\to H_I\) acts on subsystem 1 only, then \(\hat A \otimes \hat 1: H \to H\) maps the total system \(\sum_{ij}|\varphi_i\rangle\otimes|\psi_j\rangle c_{ij}\mapsto \sum_{ij}(\hat A|\varphi_i\rangle)\otimes(\hat 1|\psi_j\rangle)c_{ij}\) (where \(|\varphi_i\rangle \in H_I\) and \(|\psi_j\rangle \in H_{II}\)),
+                    and similar for \(\hat B: H_{II}\to H_{II}\).
+                </li>
+                <li>
+                    If \(\hat A\otimes\hat B: H\to H\), then \(\sum_{ij}|\varphi_i\rangle\otimes|\psi_i\rangle c_{ij} \mapsto \sum_{ij}(\hat A|\varphi_i\rangle\otimes\hat B|\psi_j\rangle) c_{ij}\)
+                </li>
+                <li>
+                    \(\hat{\vec L}\cdot\hat{\vec S} = \sum^3_{i=1}\hat L_i\otimes\hat S_i\)
+                </li>
+            </ul>
         </div>
     </body>
 </html> 
