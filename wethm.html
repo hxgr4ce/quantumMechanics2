@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Wigner-Eckhart Theorem</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>The Wigner-Eckhart Theorem</h1>
+            The Wigner-Eckhart Theorem is as follows:
+            \[
+                \langle \alpha, JM|\hat T^{(k)}_\mu|\alpha', J'M'\rangle = C^{JM}_{J'M'k\mu}\frac{\langle \alpha J || \hat T^{(k)} || \alpha'J'\rangle}{\sqrt{2J + 1}}
+            \]
+            Note that on the left hand side of the equation, we have three magnetic quantum numbers, \(M, \mu, M'\) which define how each component is oriented in space.
+            The left hand side of the equation places all of the dependence on magnetic numbers on the Clebsch-Gordan coefficient, and the reduced-matrix element \(\langle \alpha J || \hat T^{(k)} || \alpha'J'\rangle\) is totally independent of magnetic numbers.
+            Also note that on its own, \(\hat T^{(k)}_\mu|\alpha', J'M'\rangle\) is not well defined. It is projected onto a <i>specific</i> value with \(\langle \alpha, JM|\).
+            <br><br>
+            We can demonstrate the Wigner-Eckhart theorem by showing that \(\langle \alpha, JM|\hat T^{(k)}_\mu|\alpha', J'M'\rangle\) follows the same recurrence relations as the Clebsch-Gordan coefficients.
+            To do this, we use the commutation relations that we found <a href="sphericalTensors.html">here</a>.
+            <br><br>
+            Say that we have a state \(\langle \alpha, jm|\hat T^{(k)}_k|\alpha', j'j'\rangle\).
+            Here, the magnetic numbers \(M, \mu, M'\) are all as large as possible, given that a magnetic number \(m = -j,\cdots,j\).
+        </div>
+    </body>
+</html> 

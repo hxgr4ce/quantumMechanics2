@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Spherical Tensors</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Spherical Tensors</h1>
+            <h2>What are Tensors?</h2>
+            A tensor is simply a description of the relationships between "algebraic objects" in a vector space.
+            The simplest examples of tensors are vectors and scalars, but maps between vector spaces and operations like the dot product are also tensors.
+            <br><br>
+            From a computer science background, I prefer to think about tensors as arrays, where the rank is related to the dimension, or the number of indices needed to locate a single element in the tensor:
+            <br>
+            A tensor of rank 0 is a scalar, which makes sense, because a scalar is a single value; you don't need any index to locate an element within a scalar "object".
+            <br>
+            A tensor of rank 1 is a vector, which also makes sense because a vector can be though of as a 1D array, and you need a single index to locate an element in a vector.
+            <br>
+            A tensor of rank 2 is matrix; you can think of a matrix as a 2D array, where you need to specify two indices, the row and column, to locate a specific element.
+            <br>
+            I'm not sure if higher order tensors have names... but you get the idea.
+            <br><br>
+            We typically write \(T_{ijk\cdots}\) to describe a tensor, where the number of indices is the <b><i>rank</i></b> of the tensor, a.k.a. the number of indices needed to locate an element in the tensor.
+            E.g. \(T_i\) is a vector, \(T_{ij}\) is a matrix, and so on.
+            <br><br>
+            You can also think of tensors as elements in the vector space created by the <a href="tensorProducts.html">tensor products</a> between other vector spaces.
+            This definition is related to the definition of tensors as maps between vector spaces; all bilinear maps \(T: V\times V \to \mathbb R, T \in V^* \otimes V^*\) are tensors, including the dot product.
+            But that's all I know about that.
+            <br><br>
+            The elements of a tensor follow very specific transformation rules under rotation, which we will see later.
+            You can define a tensor using these transformation laws, which we will discuss later on this page.
+
+            <h2>Cartesian Tensors</h2>
+            Tensors are not tied to any basis, but we can use orthonormal bases in Euclidean/Cartesian space to represent a tensor.
+            A tensor can be broken down into components along these bases.
+            <br><br>
+            A rotation \(R(\alpha, \beta, \gamma)\) (see <a href="euler.html">Euler rotations</a>) can be separated into three rotations: \(R_z(\alpha)R_y(\beta)R_z(\gamma)\).
+            <br><br>
+            Each of these three rotations can be represented as matrix, for example, a rotation about the \(\hat z\)-axis by an angle \(\alpha\) is:
+            \[
+                \pmatrix{
+                    \cos\alpha & -\sin\alpha & 0 \\
+                    \sin\alpha & \cos\alpha & 0 \\
+                    0 & 0 & 1
+                }
+            \]
+            since this type of rotation takes the \(\hat x\)-axis to \(\hat x' = \hat x\cos\alpha - y\sin\alpha\) and the \(\hat y\)-axis to \(\hat y' = \hat x\sin\alpha + \hat y\cos\alpha\).
+            Simple matrix multiplication between the rotation matrices for \(R_z(\alpha)\), \(R_y(\beta)\), and \(R_z(\gamma)\) yields the rotation matrix for the total rotation, with elements \(R_{ij}\).
+            <br><br>
+            Say that we have a vector \(\vec V\) that has elements \(V_i\).
+            Under rotation \(R(\alpha, \beta, \gamma)\), elements of \(\vec V\) transform as \(V_i \to \sum_j R_{ij}V_j\) (similar to <a href="wigner.html">Wigner D-Matrices</a>?).
+            <br><br>
+            We can generalize this transformation under rotation to obtain the definition of a tensor \(T_{ijk\cdots}\):
+            \[T_{ijk\cdots} \to \sum_{i'}\sum_{j'}\sum_{k'}\cdots R_{ii'}R_{jj'}R_{kk'}\cdots T_{i'j'k'\cdots}\]
+            A tensor that transforms this way under rotation is called a Cartesian Tensor.
+            <br><br>
+            The simplest example of a Cartesian Tensor of rank 2, for example, is formed from two vectors, say \(\vec U\) and \(\vec V\), so that \(T_{ij} = U_iV_j\).
+            That's it.
+            Under rotation, we produce a \(T_{ij}' = U_i'V_j' = \sum_{ln} R_{il} R_{jn}U_l V_n\).
+
+            <h2>Cartesian to Spherical</h2>
+            Cartesian coordinates are <i>reducible</i>, meaning that they can be decomposed into objects that can transform differently from each other under rotations.
+            We want to write tensors as a single object that transforms in one single way under rotation.
+            It turns out that to do this, we can reduce Cartesian tensors into spherical tensors.
+            <br><br>
+            A spherical tensor is parameterized by rank \(k\) and magnetic quantum number \(q\), and is defined by spherical harmonics (special functions defined on the surface of a sphere) and a vector \(\vec V\).
+            Spherical harmonics are described by angular momentum \(l\) and magnetic quantum number \(m\), and take some argument \(\hat n\) to describe the orientation of the spherical harmonic.
+            Essentially:
+            \[T^{(k)}_q = Y_{l=k, m=q}(\vec V)\]
+            But how do we actually convert from Cartesian tensors to spherical tensors?
+            The Cartesian components along the \(x, y,\) and \(z\) axes can be written in terms of spherical <i>coordinates</i>.
+            We can write \(x = r\sin\theta\cos\phi\), \(y = r\sin\theta\sin\phi\), and \(z=r\cos\theta\).
+            <br><br>
+            As a result, the spherical harmonics, which are typically written in spherical coordinates, can be written in terms of Cartesian coordinates, and Cartesian coordinates can be written in terms of spherical harmonics.
+            For example:
+            \[\begin{align}
+                Y_{1\pm1}(\hat r) &= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}\sin\theta e^{\pm i\phi} \\
+                &= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}\sin\theta (\cos\phi\pm i\sin\phi) \\
+                &= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}(\sin\theta\cos\phi \pm i\sin\theta\sin\phi) \\
+                &= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}\frac{1}{r}(r\sin\theta\cos\phi \pm ir\sin\theta\sin\phi) \\
+                &= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}\frac{(x\pm iy)}{r}
+            \end{align}\]
+            (note that the distance \(r = \sqrt{x^2 + y^2 + z^2}\) is invariant under rotation, and so is a scalar)
+            \[\begin{align}
+                Y_{10}(\hat r) &= \sqrt{\frac{3}{4\pi}}\cos\theta \\
+                &= \sqrt{\frac{3}{4\pi}}\frac{z}{r}
+            \end{align}\]
+            These relationships: \(Y_{1\pm1}(\hat r)= \mp\frac{1}{2}\sqrt{\frac{3}{2\pi}}\frac{(x\pm iy)}{r}\) and \(Y_{10}(\hat r) = \sqrt{\frac{3}{4\pi}}\frac{z}{r}\) can be applied to spherical tensors with rank 1 (since in that case, \(l=k=1\)).
+            \[\begin{align}
+                T^{(1)}_q &= Y_{1q}(\vec V) \\
+                T^{(1)}_1 &= Y_{11}(\vec V) = -\frac{1}{2}\sqrt{\frac{3}{2\pi}}\frac{(V_x + iV_y)}{||\vec V ||}\\
+                T^{(1)}_{-1} &= Y_{11}(\vec V) = \frac{1}{2}\sqrt{\frac{3}{2\pi}}\frac{(V_x - iV_y)}{||\vec V ||}\\
+                T^{(1)}_{0} &= Y_{10}(\vec V) = \sqrt{\frac{3}{4\pi}}\frac{V_z}{||\vec V||}
+            \end{align}\]
+            but, after some sort of finagling of the phase conventions which I do not really understand, we typically have:
+            \[\begin{align}
+                T^{(1)}_{\pm 1} &= \mp\frac{(V_x \pm iV_y)}{\sqrt 2}\\
+                T^{(1)}_{0} &= V_z
+            \end{align}\]
+            Thus we can build a spherical tensor using components of a Cartesian tensor.
+
+            <h2>Finally Spherical Tensors</h2>
+            We now look into the properties and definitions of spherical tensors.
+            <br><br>
+            <b><i>Transformation under rotation.</i></b> 
+            Spherical harmonic \(Y_{lm}(\theta, \phi) = \langle \hat r|lm\rangle\) by definition.
+            A rotation of spherical tensor \(|lm\rangle\) would look like:
+            \[
+                \hat R|lm\rangle = \sum_{m'}|lm'\rangle\langle lm'|\hat R|lm\rangle = \sum_{m'}|lm'\rangle D^{l}_{m'm}(\alpha, \beta, \gamma) \tag{1}
+            \]
+            where the space of all \(|lm\rangle\) for a \((2l+1)\)-dimensional subspace that is invariant under rotation.
+            For example, for spherical tensor \(A_{1\mu}\) with rank 1: 
+            \[\hat R(A_{1\mu}) = \sum_{m'}A_{1\mu'}D^l_{\mu'\mu}(\hat R)\]
+            <b>By definition, all spherical tensors transform this way under rotation</b>.
+            <br><br>
+            Say that \(\hat T_\mu^k\) with rank \(k\) and projection \(\mu = -k. -k + 1,\cdots,k-1, k\) is a family of operators.
+            This is how an <b>object</b> with angular momentum \(J\) transforms under rotation:
+            \[
+                \hat R|\psi_{JM}\rangle = \sum_{m'}|\psi_{JM'}\rangle D^{(J)}_{M'M}
+            \]
+            What about \(\hat R(\hat T^{(k)}_\mu|\psi_{JM}\rangle)\)?
+            \[\begin{align}
+                \hat R(\hat T^{(k)}_\mu|\psi_{JM}\rangle) &= \hat R(\hat T^{(k)}_\mu) \hat R|\psi_{JM}\rangle \\
+                &\text{and} \\
+                \hat R(\hat T^{(k)}_\mu|\psi_{JM}\rangle) &= \hat R(\hat T^{(k)}_\mu) \hat R^{-1}\hat R|\psi_{JM}\rangle \\
+                &\text{so} \\
+                 \hat R(\hat T^{(k)}_\mu) &= \hat R(\hat T^{(k)}_\mu) \hat R^{-1}
+            \end{align}\]
+            This is how <b>operators</b> transform under rotation.
+            <b>If</b> \(\hat R(\hat T^{(k)}_\mu)\) fits the form of (1) so that:
+            \[
+                 \hat R(\hat T^{(k)}_\mu) \hat R^{-1} = \sum_{\mu'}\hat T^{(k)}_{\mu'}D^{(k)}_{\mu'\mu}(\hat R)
+            \]
+            <b>then</b> \(\{\hat T^{(k)}_\mu\}\) is a spherical tensor of rank \(k\).
+            <br><br>
+            <b><i>Generic commutation relations.</i></b>
+            We've seen in the <a href="amt.html">past</a> that \([\hat J_i, \hat A_j] = i\hbar\epsilon_{ijk}A_k\) for vectors/tensors of rank 1 operators \(\hat {\vec A}\).
+            We've also seen that \([\hat J_i, \hat S]=0\) for all scalars/tensors of rank 0 \(\hat S\).
+            We can generalize these commutation relations to apply to tensors of any rank.
+            <br><br>
+            Using Stone's theorem:
+            \[\hat R = e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar}\]
+            so
+            \[\begin{align}
+                \hat R(\hat T^{(k)}_\mu) \hat R^{-1} &= \left ( e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar} \right ) \hat T^{(k)}_\mu \left (e^{i\phi\hat n\cdot\hat{\vec J}/\hbar} \right ) 
+                = \sum_{\mu'}\hat T^{(k)}_{\mu'}\langle k\mu'|e^{-i\phi \hat n\cdot \hat{\vec J}/\hbar}|k\mu\rangle \\
+            \end{align}\]
+            If we pick \(\phi \ll 1\) and expand to \(o(\phi^2)\):
+            \[\begin{align}
+                \left ( e^{-i\phi\hat n\cdot\hat{\vec J}/\hbar} \right ) \hat T^{(k)}_\mu \left (e^{i\phi\hat n\cdot\hat{\vec J}/\hbar} \right ) 
+                &= (\hat 1 - i\phi\hat n\cdot\hat{\vec J}/\hbar)\hat T^{(k)}_\mu(\hat 1 + i\phi\hat n\cdot\hat{\vec J}/\hbar) \\
+                &= \hat T^{(k)}_\mu - i\phi\hat n\cdot\hat{\vec J}/\hbar\hat T^{(k)}_\mu + \hat T^{(k)}_\mu i\phi\hat n\cdot\hat{\vec J}/\hbar  - i\phi\hat n\cdot\hat{\vec J}/\hbar \hat T^{(k)}_\mu  i\phi\hat n\cdot\hat{\vec J}/\hbar \\
+                &= \hat T^{(k)}_\mu + [- i\phi\hat n\cdot\hat{\vec J}/\hbar, \hat T^{(k)}_\mu] + o(\phi^2) \\
+                &= \hat T^{(k)}_\mu - \frac{i\phi}{\hbar} [\hat n\cdot\hat{\vec J}, \hat T^{(k)}_\mu] + o(\phi^2) \\
+                &\text{and} \\
+                \sum_{\mu'}\hat T^{(k)}_{\mu'}\langle k\mu'|e^{-i\phi \hat n\cdot \hat{\vec J}/\hbar}|k\mu\rangle
+                &= \sum_{\mu'}\hat T^{(k)}_\mu\left(\langle k\mu'|\hat 1-i\phi\hat n\cdot\hat{\vec J}/\hbar|k\mu\rangle\right ) \\
+                &= \sum_{\mu'}\hat T_{k\mu}\left ( \langle k\mu'|\hat 1|k\mu\rangle - \frac{i\phi}{\hbar}\langle k\mu'|\hat n\cdot\hat{\vec J}|k\mu\rangle \right ) \\
+                &= \sum_{\mu'}\hat T_{k\mu}\delta_{\mu\mu'} - \frac{i\phi}{\hbar}\hat T_{k\mu}\langle k\mu'|\hat n\cdot\hat{\vec J}|k\mu\rangle \\
+                &= \hat T_{k\mu} - \frac{i\phi}{\hbar} \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat n\cdot\hat{\vec J}|k\mu\rangle \\
+                &\text{so:} \\
+                \hat T^{(k)}_\mu - \frac{i\phi}{\hbar} [\hat n\cdot\hat{\vec J}, \hat T^{(k)}_\mu] + o(\phi^2) 
+                &=
+                \hat T_{k\mu} - \frac{i\phi}{\hbar} \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat n\cdot\hat{\vec J}|k\mu\rangle \\
+                [\hat n\cdot\hat{\vec J}, \hat T^{(k)}_\mu]
+                &=
+                \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat n\cdot\hat{\vec J}|k\mu\rangle \\
+            \end{align}\]
+            Our \(\hat n\) can be \(\hat x, \hat y, \hat z\), so we can make \(\hat n\cdot\hat{\vec J}\) into \(\hat J_x, \hat J_y, \hat J_z\), and by extension we can also find the commutators with \(\hat J_\pm\).
+            \[[\hat J_z, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_z|k\mu\rangle = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hbar\mu|k\mu\rangle = \hbar\mu\hat T^{(k)}_\mu \]
+            \[[\hat J_\pm, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_\pm|k\mu\rangle = \hbar\sqrt{k(k+1)-\mu(\mu\pm1)}\hat T^{(k)}_\mu\]
+            <b>Any \(\{\hat T^{(k)}_\mu\}\) that satisfies thes ecommutation relations are spherical tensors.</b>
+        </div>
+    </body>
+</html> 
