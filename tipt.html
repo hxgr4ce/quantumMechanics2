@@ -47,8 +47,149 @@
             \[\hat P|\psi\rangle = |\varphi_0\rangle\langle\varphi_0|\psi\rangle = |\varphi_0\rangle\]
             and, by nature of the projectors we defined,
             \[\hat 1 = \hat Q + \hat P\]
-            \[|\psi\rangle = (\hat Q + \hat P)|\psi\rangle = \hat Q|\psi\rangle + |\varphi_0\rangle\]
+            \[|\psi\rangle = (\hat Q + \hat P)|\psi\rangle = \hat Q|\psi\rangle + |\varphi_0\rangle \tag{1}\]
             all that is left for us to do to find an expansion for perturbed eigenstate \(|\psi\rangle\) is to find an expression for \(\hat Q|\psi\rangle\).
+            To do this, we start with our perturbed time independent Schrodinger equation:
+            \[\begin{align}
+                (\hat H_0 + \hat V)|\psi\rangle &= E|\psi\rangle \\
+                \hat V|\psi\rangle &= (E - \hat H_0)|\psi\rangle \\
+                &= (E-\hat H_0)(|\varphi_0\rangle + \hat Q |\psi\rangle) \\
+            \end{align}\]
+            and apply \(\hat Q\) to both sides:
+            \[\begin{align}
+                (\hat H_0 + \hat V)|\psi\rangle &= (E-\hat H_0)(|\varphi_0\rangle + \hat Q |\psi\rangle) \\
+                \hat Q\hat V|\psi\rangle &= \hat Q(E-\hat H_0)(|\varphi_0\rangle + \hat Q |\psi\rangle) \\
+                &= \hat Q(E-\hat H_0)|\varphi_0\rangle + \hat Q(E-\hat H_0)\hat Q |\psi\rangle \\
+            \end{align}\]
+            because we defined \(\hat Q\) as the orthogonal complement to \(\hat P\), we know that \(\hat Q|\varphi_0\rangle = 0\), so:
+            \[\begin{align}
+                \hat Q\hat V|\psi\rangle &= \hat Q(E-\hat H_0)\hat Q |\psi\rangle \\
+                &= \hat QE\hat Q |\psi\rangle - \hat Q\hat H_0\hat Q |\psi\rangle \\
+                &= E\hat Q |\psi\rangle - \hat Q\hat H_0\hat Q |\psi\rangle \\
+            \end{align}\]
+            here, projecting \(|\psi\rangle\) into the subspace of \(\hat Q\) means that we project it into one of the subspaces coressponding to unperturbed eigenstate \(|\varphi_n\rangle\).
+            Thus when we do \(\hat Q\hat H_0\hat Q |\psi\rangle\), the second projection into the subspace of \(\hat Q\) is redundant, so we can simply say:
+            \[\begin{align}
+                \hat Q\hat V|\psi\rangle &= E\hat Q |\psi\rangle - \hat H_0\hat Q |\psi\rangle \\
+                &= (E - \hat H_0)\hat Q|\psi\rangle \tag{2}
+            \end{align}\]
+            We're almost there!
+            In order to proceed, <i>we must make the assumption that perturbed energies E can only ever coincide with \(E^{(0)}_0\)</i>.
+            In other words, the only time a perturbed energy eigenvalue is equal to an unperturbed energy eigenvalue is when we are talking about the unperturbed eigenvalue <i>for our reference state \(|\varphi_0\rangle\)</i>.
+            I'm not exactly 100% on why we can make this assumption, but Dr. Argenti said so, soooooo...
+            <br><br>
+            Assumption in hand, we can now assert that \((E-\hat H_0)\) is invertible in the range of \(\hat Q\).
+            That is, \(\frac{1}{E-\hat H_0}\hat Q\) is always defined.
+            This is dependent on the fact that the denominator \(E-\hat H_0\) <i>will never be 0</i>:
+            \[(E-\hat H_0)\hat Q = \sum^\infty_{i=1}(E-E_i)|\varphi_i\rangle\langle\varphi_i|, \text{ where } E_i|\varphi_i\rangle\langle\varphi_i| \neq E^{(0)}_0 \implies E_i|\varphi_i\rangle\langle\varphi_i| \neq E\]
+            We call \(\frac{1}{E-\hat H_0}\hat Q\) operator \(\hat G_Q(E)\).
+            We use this in (2):
+            \[\begin{align}
+                \hat Q\hat V|\psi\rangle &= (E - \hat H_0)\hat Q|\psi\rangle \\
+                \hat G_Q(E)\hat V|\psi\rangle &= \hat Q|\psi\rangle
+            \end{align}\]
+            Finally, we know what \(\hat Q|\psi\rangle\) is, and can use it in (1):
+            \[\begin{align}
+                |\psi\rangle &= |\varphi_0\rangle + \hat Q|\psi\rangle \\
+                &= |\varphi_0\rangle + \hat G_Q(E)\hat V|\psi\rangle
+            \end{align}\]
+            Clearly here, we see that perturbed eigenfunction \(|\psi\rangle\) is made up of two components: the reference state \(|\varphi_0\rangle\), and a perturbation perpendicular to our reference state, \(\hat G_Q(E)\hat V|\psi\rangle\).
+            Note that our definition of \(|\psi\rangle\) includes a term with \(|\psi\rangle\) in it.
+            We can infinitely expand \(|\psi\rangle\) in the following way:
+            \[\begin{align}
+                |\psi\rangle &= |\varphi_0\rangle + \hat G_Q(E)\hat V|\psi\rangle \\
+                &= |\varphi_0\rangle + \hat G_Q(E)\hat V(|\varphi_0\rangle + \hat G_Q(E)\hat V|\psi\rangle) \\
+                &= |\varphi_0\rangle + \hat G_Q(E)\hat V|\varphi_0\rangle + (\hat G_Q(E)\hat V)^2|\psi\rangle \\
+                &= |\varphi_0\rangle + \hat G_Q(E)\hat V|\varphi_0\rangle + (\hat G_Q(E)\hat V)^2( |\varphi_0\rangle + \hat G_Q(E)\hat V|\psi\rangle) \\
+                &= |\varphi_0\rangle + \hat G_Q(E)\hat V|\varphi_0\rangle + (\hat G_Q(E)\hat V)^2|\varphi_0\rangle + (\hat G_Q(E)\hat V)^3|\psi\rangle \\
+                &= \cdots \\
+                &= \left \{ \sum_{n=0}^\infty (\hat G_Q(E)\hat V)^n \right \} |\varphi_0\rangle
+            \end{align}\]
+            This is often written as:
+            \[
+                |\psi\rangle = \sum_{n=0}^\infty |\psi^{(n)}\rangle, \text{ where } |\psi^{(n)}\rangle = (\hat G_Q(E)\hat V)^n |\varphi_0\rangle
+            \]
+            so that part of our job is done.
+            All that we need to do now is find perturbed energy \(E\).
+            We previously chose intermediate normalization \(\langle\varphi_0|\psi\rangle = 1\), so:
+            \[\begin{align}
+                E &= \langle\varphi_0|\psi\rangle E = \langle\varphi_0|E|\psi\rangle \\
+                &= \langle\varphi_0|\hat H|\psi\rangle = \langle\varphi_0|\hat H_0 + \hat V|\psi\rangle \\
+                &= \langle\varphi_0|\hat H_0|\psi\rangle + \langle\varphi_0|\hat V|\psi\rangle \\
+                &= E^{(0)}_0\langle\varphi_0|\psi\rangle + \langle\varphi_0|\hat V|\psi\rangle \\
+                &= E^{(0)}_0(1) + \langle\varphi_0|\hat V\sum_{n=0}^\infty |\psi^{(n)}\rangle \\
+                &= E^{(0)}_0 + \sum_{n=0}^\infty \langle\varphi_0|\hat V|\psi^{(n)}\rangle \\
+            \end{align}\]
+            which we often write as:
+            \[
+                E =  E^{(0)}_0 + \sum_{n=1}^\infty E^{(n)}, \text{ where } E^{(n)} = \langle\varphi_0|\hat V|\psi^{(n-1)}\rangle = \langle\varphi_0|\hat V (\hat G_Q(E)\hat V)^{n-1} |\varphi_0\rangle
+            \]
+            We're done!
+            Let's see what the first few \(|\psi^{(n)}\rangle\) and \(E^{(n)}\) are.
+            \[\begin{align}
+                |\psi^{(1)}\rangle &= \hat G_Q(E)\hat V|\varphi_0\rangle \\
+                &= \langle\varphi_i|\left (\frac{1}{E-\hat H_0}\hat Q\right )\hat V|\varphi_0\rangle \\
+                &= \sum_{i\neq 0}|\varphi_i\rangle\langle\varphi_i|\left (\frac{1}{E-\hat H_0}\right )\hat V|\varphi_0\rangle \\
+                &= \sum_{i\neq 0}|\varphi_i\rangle\left (\frac{1}{E-E_i^{(0)}}\right )\langle\varphi_i|\hat V|\varphi_0\rangle = \sum_{i\neq 0}|\varphi_i\rangle\frac{\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E_i^{(0)}} \\
+                |\psi^{(2)} &= (\hat G_Q(E)\hat V)^2|\varphi_0\rangle \\
+                &= \sum_{i,j\neq 0}|\varphi_j\rangle\frac{\langle \varphi_j|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{(E-E^{(0)}_j)(E-E^{(0)}_i)}
+            \end{align}\]
+            (Note that the true perturbed energy \(E\) appears in the expansion!)
+            \[\begin{align}
+                E^{(1)} &= \langle\varphi_0|\hat V|\varphi_0\rangle \\
+                E^{(2)} &= \langle\varphi_0|\hat V(\hat G_Q(E)\hat V)|\varphi_0\rangle = \frac{\langle\varphi_0|\hat V\hat Q\hat V|\varphi_0\rangle}{E-E^{(0)}_i} \\
+                &= \sum_{i\neq 0} \frac{\langle\varphi_0|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E^{(0)}_i} \\
+                &= \sum_{i\neq 0} \frac{V_{0i}V_{i0}}{E-E^{(0)}_i} = \sum_{i\neq 0} \frac{|V_{i0}|^2}{E-E^{(0)}_i} \\
+            \end{align}\]
+            <h2>Rayleigh-Schrodinger Perturbation Theory</h2>
+            This method gives perturbative terms that are not in terms of the perturbed energy (as in the Brillouin-Wigner method), and energy corrections/perturbations \(E^{(n)}(\lambda)\) scale exactly with \(\lambda^n\).
+            This method is also size extensive.
+            <br><br>
+            We once again begin with \(\hat H(\lambda) = \hat H_0 + \lambda\hat V\) where \(\hat H(\lambda)|\psi(\lambda)\rangle = E(\lambda)|\psi(\lambda)\rangle\).
+            We also still have the goal of writing \(E(\lambda)\) and \(|\psi(\lambda)\rangle\) as an expansion in terms of \(\lambda^n\) so that:
+            \[
+                E(\lambda) = \sum^\infty_{n=0}E^{(n)}\lambda^n \text{ and } |\psi(\lambda)\rangle = \sum_{n=0}^\infty|\psi^{(n)}\rangle\lambda^n
+            \]
+            This time, we substitute our expression for \(|\psi(\lambda)\rangle\) directly into our time independent Schrodinger equation:
+            \[\begin{align}
+                (\hat H_0+\lambda\hat V)|\psi(\lambda)\rangle &= E(\lambda)|\psi(\lambda)\rangle  \\
+                (\hat H_0+\lambda\hat V)\sum_{n=0}^\infty|\psi^{(n)}\rangle\lambda^n &= \left ( \sum^\infty_{n=0}E^{(n)}\lambda^n\right ) \left ( \sum_{n=0}^\infty|\psi^{(n)}\rangle\lambda^n\right ) \\
+                \sum_{n=0}^\infty\hat H_0|\psi^{(n)}\rangle\lambda^n + \sum_{n=0}^\infty\lambda \hat V|\psi^{(n)}\rangle\lambda^n &= \sum_{n,m}^\infty E^{(n)}|\psi^{(m)}\rangle\lambda^{n+m} \\
+                \sum_{n=0}^\infty\hat H_0|\psi^{(n)}\rangle\lambda^n + \sum_{n=1}^\infty\hat V|\psi^{(n-1)}\rangle\lambda^n &= \sum_{n=0}^\infty \lambda^n \sum_{k=0}^n E^{(n-k)}|\psi^{(k)}\rangle
+            \end{align}\]
+            We now evaluate this order by order, meaning that we look all terms for a single value of \(n\).
+            For \(n=0\), we have:
+            \[\begin{align}
+                \hat H_o|\psi^{(0)}\rangle\lambda^0 + 0 &= \lambda^0|\psi^{(0)}\rangle E^{(0)} \\
+                \hat H_0|\psi^{(0)}\rangle &= E^{(0)}|\psi^{(0)}\rangle
+            \end{align}\]
+            which of course recovers the unperturbed time independent Schrodinger equation.
+            For all \(n\gt0\), we have:
+            \[\begin{align}
+                \hat H_0|\psi^{(n)}\rangle + \hat V|\psi^{(n-1)}\rangle &= \sum_{k=0}^n|\psi^{(k)}\rangle E^{(n-k)} \\
+                &= \sum_{k=0}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} + |\psi^{(n)}\rangle E^{(0)} \\
+                \hat V |\psi^{(n-1)}\rangle - \sum_{k=0}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} &= (E^{(0)} - \hat H_0)|\psi^{(n)}\rangle \tag{3}
+            \end{align}\]
+            We once again use our projector \(\hat Q\), where \(\hat Q\) acting on unperturbed state \(|\psi^{(0)}\rangle\) is 0, and with the same intermediate normalization we had in the Brillouin-Wigner method, and use \(\hat G_Q(E^{(0)}) = \frac{1}{E^{(0)}-\hat H_0}\hat Q\)
+            \[\begin{align}
+                \hat Q (E^{(0)} - \hat H_0)|\psi^{(n)}\rangle &= \hat Q\hat V |\psi^{(n-1)}\rangle - \hat Q \sum_{k=0}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} \\
+                &= \hat Q\hat V |\psi^{(n-1)}\rangle - \hat Q \sum_{k=1}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} \\
+                \hat Q|\psi^{(n)}\rangle &= \hat G_Q(E^{(0)})\hat V|\psi^{(n-1)}\rangle - \hat G_Q(E^{(0)})\sum_{k=1}^{n-1}|\psi^{(k)}\rangle E^{(n-k)}
+            \end{align}\]
+            and of course, for \(n\gt 0\), \(\hat Q|\psi^{(n)}\rangle = |\psi^{(n)}\rangle\).
+            So we have:
+            \[|\psi^{(n)}\rangle = \hat G_Q(E^{(0)})\hat V|\psi^{(n-1)}\rangle - \hat G_Q(E^{(0)})\sum_{k=1}^{n-1}|\psi^{(k)}\rangle E^{(n-k)}\]
+            To find our energy perturbations \(E^{(n)}\) for \(n\gt 0\), we simply project (3) onto \(|\psi^{(0)}\rangle\): 
+            \[\begin{align}
+                \hat V |\psi^{(n-1)}\rangle - \sum_{k=0}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} &= (E^{(0)} - \hat H_0)|\psi^{(n)}\rangle \\
+                \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle - \langle\psi^{(0)}|\sum_{k=0}^{n-1}|\psi^{(k)}\rangle E^{(n-k)} &= \langle\psi^{(0)}|(E^{(0)} - \hat H_0)|\psi^{(n)}\rangle \\
+                \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle - \sum_{k=0}^{n-1}\langle\psi^{(0)}|\psi^{(k)}\rangle E^{(n-k)} &= 0 \\
+                \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle - \sum_{k=0}^{n-1}\delta_{0,k} E^{(n-k)} &= 0 \\
+                \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle &= \sum_{k=0}^{n-1}\delta_{0,k} E^{(n-k)} \\
+                \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle &= E^{(n-0)} = E^{(n)}
+            \end{align}\]
+            This result matches the Brillouin-Wigner result to first and second order.
+            
         </div>
     </body>
 </html> 
