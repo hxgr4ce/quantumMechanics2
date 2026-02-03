@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Time-Independent Perturbation Theory</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Time-Independent Perturbation Theory</h1>
+            <h2>Motivating Perturbation Theory</h2>
+            Last semester, we saw that you can solve for the eigenvalues and eigenfunctions of the Hamiltonian in a few <i>very specific</i> idealized cases. 
+            It is actually not very common at all to be able to do so in realistic cases.
+            For example, sometimes the associated Hilbert space has billions or even trillions of dimensions, so solving \(\hat H|\psi_n\rangle=E|\psi_n\rangle\) is near impossible to sove.
+            In some of these cases, we turn to perturbation theory.
+            <br><br>
+            Essentially, we can describe a certain Hamiltonian as an idealized/model Hamiltonian <i>plus some perturbation</i>:
+            \[\hat H = \hat H_0 + \lambda\hat V, \lambda \in [0,1]\]
+            where \(\hat H_0\) is the model Hamiltonian, \(\lambda\hat V\) is the perturbation, and \(\lambda\) is a scaling factor that is often slowly increased from 0 to 1 so that we can see the transition from \(\hat H_0\) to \(\hat H\).
+            <br><br>
+            We can then solve \(\hat H(\lambda)|\psi_n(\lambda)\rangle=E(\lambda)|\psi_n(\lambda)\rangle\), knowing that \(\hat H_0|\psi^{(0)}\rangle_n=E^{(0)}_n|\psi^{(0)}_n\rangle\).
+            Of course, we should have already solved the idealized cases, so we should know \(|\psi^{(0)}_n\rangle\) and \(E^{(0)}_n\) from the outset.
+            <br><br>
+            In both of the methods described below, we choose a "reference" eigenstate of the model Hamiltonian, \(|\varphi_0\rangle\) which has eignevalue \(E^{(0)}_n\) so that:
+            \[\lim_{\lambda\to 0}|\psi_n(\lambda)\rangle = |\varphi_0\rangle \text{ and } \lim_{\lambda\to 0}E_n(\lambda) = E^{(0)}_n\]
+            Our ultimate goal is to solve for the eigenstates and eigenfunctions of the perturbed Hamiltonian, \(|\psi_n(\lambda)\rangle\) and \(E_n(\lambda)\) as expansions in powers of \(\lambda\).
+            
+            <h2>The Brillouin-Wigner Perturbation Theory</h2>
+            This method is simpler, but is not <i>size consistent</i>, meaning that \(E^{[N]}_{A+B} \neq E^{[N]}_A + E^{[N]}_B\).
+            This means that we are unable to model two independent systems that are, over time, gradually brought close enough to interact.
+            <br><br>
+            The non-degenerate case begins as follows.
+            Say that the unperturbed Hamiltonian behaves as:
+            \[\hat H_0|\varphi_n\rangle = E^{(0)}_n|\varphi_n\rangle, \langle\varphi_n|\varphi_m\rangle = \delta_{nm}\]
+            and that our reference eigenstate is  \(|\varphi_0\rangle\).
+            We introduce a projector \(\hat P\) which projects into the eigenspace of our reference eigenstate, so \(\hat P \equiv |\varphi_0\rangle\langle\varphi_0|\), and \(\hat P\)'s orthogonal complement, \(\hat Q = \hat 1 - \hat P = \sum_{n\neq0}|\varphi_n\rangle\langle\varphi_n|\).
+            <br><br>
+            Note that in Brillouin-Wigner perturbation theory, we assume that \(\lambda=1\), so we write perturbed eigenstate \(|\psi_n(\lambda)\) as simply \(|\psi_n\rangle\) or even just \(|\psi\rangle\).
+            <br><br>
+            Now, for arbitrary orthonormal eigenstate \(|\psi\rangle\) of the perturbed Hamiltonian, we choose an <i>intermediate normalization</i> \(\langle\varphi_0|\psi\rangle = 1\).
+            This applies to all eigenstates (except one?), since they are all orthonormal.
+            We can then see the following:
+            \[(\hat H_0 + \hat V)|\psi\rangle = E|\psi\rangle\]
+            \[\hat P|\psi\rangle = |\varphi_0\rangle\langle\varphi_0|\psi\rangle = |\varphi_0\rangle\]
+            and, by nature of the projectors we defined,
+            \[\hat 1 = \hat Q + \hat P\]
+            \[|\psi\rangle = (\hat Q + \hat P)|\psi\rangle = \hat Q|\psi\rangle + |\varphi_0\rangle\]
+            all that is left for us to do to find an expansion for perturbed eigenstate \(|\psi\rangle\) is to find an expression for \(\hat Q|\psi\rangle\).
+        </div>
+    </body>
+</html> 

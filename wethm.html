@@ -24,6 +24,34 @@
             <br><br>
             Say that we have a state \(\langle \alpha, jm|\hat T^{(k)}_k|\alpha', j'j'\rangle\).
             Here, the magnetic numbers \(M, \mu, M'\) are all as large as possible, given that a magnetic number \(m = -j,\cdots,j\).
+            \(\hat T^{(k)}_k|\alpha', j'j'\rangle\) is also evidently an eigenstate of \(\hat J_z\) where \(m=k+j'\) and \(j_{total}=k+j'\).
+            <br><br>
+            Recalling our demonstration of <a href="addition.html#general">the general case for the addition of angular momenta</a>, we know that \(\langle \alpha, jm|\hat T^{(k)}_k|\alpha', j'j'\rangle\) must be equal to \(\delta_{j, k+j'}\delta_{m, k+j'} = C^{j'+k, j'+k}_{jj'kk}=1\).
+            <br><br>
+            Now, <i>if</i> we know \(\langle \alpha, jm|\hat T^{(k)}_\mu|\alpha', j'm'\rangle\) for \(m=m, m+1,\cdots, j\), then we can do the following: 
+            Using the <a href="sphericalTensors.html#commut">generalized commutation properties</a> of spherical tensors,
+            \[\begin{align}
+                \langle \alpha, jm|[\hat J_+, \hat T^{(k)}_\mu]|\alpha', j'm'\rangle &= \hbar\sqrt{k(k+1)-\mu(\mu+1)}\langle \alpha, jm|\hat T^{(k)}_{\mu+1}|\alpha', j'm'\rangle
+            \end{align}\]
+            The left hand side of this equation is:
+            \[\begin{align}
+                \langle \alpha, jm|[\hat J_+, \hat T^{(k)}_\mu]|\alpha', j'm'\rangle &= \langle\alpha jm|\hat J_+\hat T^{(k)}_{\mu}|\alpha' j'm'\rangle - \langle\alpha jm|\hat T^{(k)}_{\mu}\hat J_+|\alpha' j'm'\rangle \\
+                &= \hbar\sqrt{j(j+1)-m(m-1)}\langle\alpha jm-1|\hat T^{(k)}_\mu|\alpha' j'm'\rangle - \hbar\sqrt{j'(j'+1)-m'(m'+1)}\langle\alpha j m|\hat T^{(k)}_\mu|\alpha' j'm'+1\rangle
+            \end{align}\]
+            and setting this equal to the right hand side of the equation yields:
+            \[\begin{align}
+                \hbar\sqrt{j(j+1)-m(m-1)}\langle\alpha jm-1|\hat T^{(k)}_\mu|\alpha' j'm'\rangle &=
+                \hbar\sqrt{j'(j'+1)-m'(m'+1)}\langle\alpha j m|\hat T^{(k)}_\mu|\alpha' j'm'+1\rangle
+                +
+                \hbar\sqrt{k(k+1)-\mu(\mu+1)}\langle \alpha, jm|\hat T^{(k)}_{\mu+1}|\alpha', j'm'\rangle \\
+                \langle\alpha jm-1|\hat T^{(k)}_\mu|\alpha' j'm'\rangle
+                &=
+                \sqrt{\frac{j'(j'+1)-m'(m'+1)}{j(j+1)-m(m-1)}}\langle\alpha j m|\hat T^{(k)}_\mu|\alpha' j'm'+1\rangle
+                +
+                \sqrt{\frac{k(k+1)-\mu(\mu+1)}{j(j+1)-m(m-1)}}\langle \alpha, jm|\hat T^{(k)}_{\mu+1}|\alpha', j'm'\rangle
+            \end{align}\]
+            Clearly, \(\langle\alpha jm-1|\hat T^{(k)}_\mu|\alpha' j'm'\rangle\) follows the <i>exact same recurrence relation as the Clebsch-Gordan coefficients!</i>
+            Hence we see that indeed, \(\langle\alpha jm-1|\hat T^{(k)}_\mu|\alpha' j'm'\rangle \propto C^{jm}_{j'm'k\mu}\), just as the Wigner-Eckhart theorem states.
         </div>
     </body>
 </html> 

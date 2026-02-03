@@ -138,7 +138,7 @@
             \]
             <b>then</b> \(\{\hat T^{(k)}_\mu\}\) is a spherical tensor of rank \(k\).
             <br><br>
-            <b><i>Generic commutation relations.</i></b>
+            <b><i id="commut">Generic commutation relations.</i></b>
             We've seen in the <a href="amt.html">past</a> that \([\hat J_i, \hat A_j] = i\hbar\epsilon_{ijk}A_k\) for vectors/tensors of rank 1 operators \(\hat {\vec A}\).
             We've also seen that \([\hat J_i, \hat S]=0\) for all scalars/tensors of rank 0 \(\hat S\).
             We can generalize these commutation relations to apply to tensors of any rank.
@@ -173,8 +173,8 @@
             \end{align}\]
             Our \(\hat n\) can be \(\hat x, \hat y, \hat z\), so we can make \(\hat n\cdot\hat{\vec J}\) into \(\hat J_x, \hat J_y, \hat J_z\), and by extension we can also find the commutators with \(\hat J_\pm\).
             \[[\hat J_z, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_z|k\mu\rangle = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hbar\mu|k\mu\rangle = \hbar\mu\hat T^{(k)}_\mu \]
-            \[[\hat J_\pm, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_\pm|k\mu\rangle = \hbar\sqrt{k(k+1)-\mu(\mu\pm1)}\hat T^{(k)}_\mu\]
-            <b>Any \(\{\hat T^{(k)}_\mu\}\) that satisfies thes ecommutation relations are spherical tensors.</b>
+            \[[\hat J_\pm, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_\pm|k\mu\rangle = \hbar\sqrt{k(k+1)-\mu(\mu\pm1)}\hat T^{(k)}_{\mu\pm 1}\]
+            <b>Any \(\{\hat T^{(k)}_\mu\}\) that satisfies these commutation relations are spherical tensors.</b>
         </div>
     </body>
 </html> 
