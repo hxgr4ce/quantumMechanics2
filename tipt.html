@@ -190,6 +190,251 @@
             \end{align}\]
             This result matches the Brillouin-Wigner result to first and second order.
             
+            <h2 id="degen">The Degenerate Case</h2>
+            <b><i>The motivating issue.</i></b>
+            We previously assumed energy levels are well separated/non-degenerate.
+            Say now instead that unperturbed eigenstates in set \(D\) <i>all</i> have energy \(E_D\), and that as before, we have:
+            \[
+                \hat H = \hat H_0 + \hat V, \hat H_0|\varphi_i\rangle = E^{(0)}_i|\varphi_i\rangle
+            \]
+            If we use the same methods as before, we will run into divide-by-0 issues.
+            Not only that, but if the energy levels are just very close, we are unable to expand the energy corrections as powers of \(\lambda\).
+            <br><br>
+            Say that we have a system with states \(\{|1\rangle, |2\rangle\}\), which means (apparently) that our Hamiltonian looks like:
+            \[
+                \mathbb{H} = 
+                \pmatrix{
+                    E_1 & V \\
+                    V^* & E_2
+                }
+            \]
+            where \(V\) is some interaction term.
+            We want to diagonalize \(\mathbb{H}\).
+            We can alternatively say that
+            \[
+                \mathbb{H} = 
+                \pmatrix{
+                    E_1 & V \\
+                    V^* & E_2
+                } =
+                E_1\mathbb{1} + 
+                \pmatrix{
+                    0 & V \\
+                    V^* & \Delta
+                }
+            \]
+            where \(\Delta = E_2-E_1\).
+            To find the eigenvalues and eigenvectors of \(\mathbb{H}\), then, we can just find the eigenvalues and eigenvectors of the other matrix (and then add \(E_1\) to those eigenvalues).
+            \[\begin{align}
+                \begin{vmatrix}
+                    -\mathcal E & V \\
+                    V^* & \Delta - \mathcal E
+                \end{vmatrix}
+                &= 
+                \mathcal E(\mathcal E-\Delta) - |V|^2
+                = 0 \\\
+                &= 
+                \mathcal E^2 - \Delta\mathcal E-|V|^2 \\
+                \mathcal E_\pm &= \frac{\Delta}{2}\pm\sqrt{\frac{\Delta^2}{4}+|V|^2}
+            \end{align}\]
+            If we assume that \(\Delta \neq 0\), then we can rewrite and say that 
+            \[\mathcal E_\pm = \frac{\Delta}{2}\left\{1\pm\sqrt{1 + \left|\frac{2V}{\Delta}\right|^2}\right\}\]
+            Recall that in our previous approach to time-independent perturbation theory, we want to write the true energies \(E(\lambda)\) as expansions of powers of \(\lambda\). 
+            We <i>cannot</i> do this, evidently, if the Taylor series does not converge for these energies.
+            <br><br>
+            Thus we want \(\mathcal E_\pm\) to converge.
+            however, \(\sqrt{1+x}\) has a <i>radius of convergence</i>.
+            Each term in the Taylor expansion comes closer and closer to approximating \(\sqrt{1+x}\) <i>only</i> on the interval from \(x=-1\) to \(x=1\).
+            If you want, you can see this by plotting 
+            \[\sum_{n=0}^{c}\pmatrix{1/2 \\ k}x^k\]
+            for increasing values of the integer \(c\)...
+            Either way, this means that \(\left|\frac{2V}{\Delta}\right|^2\) has to stay between -1 and 1 in order for \(\mathcal E_\pm\) to be well-defined.
+            Ohterwise, we're unable to write the true energy \(\mathcal E_\pm\) as some model Hamiltonian's eigenvalue plus some corrective amount described by such an expansion.
+            <br><br>
+            Clearly, \(\left|\frac{2V}{\Delta}\right|^2\) is always positive, so we just need to ensure that it is always less than 1.
+            This means that:
+            \[\begin{align}
+                \left|\frac{2V}{\Delta}\right|^2 &\lt 1 \\
+                2|V| &\lt \Delta \\
+                |V| &\lt \frac{\Delta}{2}
+            \end{align}\]
+            <p>Now, if we plot eigenvalues \(\mathcal E_\pm\) over varying \(|V|\), we get something that looks like this:</p>
+            <div style="text-align: center;">
+                <img src="images/tipt1.PNG" style="width: 40%;">
+            </div>
+            <p>where the red and blue lines represent \(\mathcal E_+\) and \(\mathcal E_-\) respectively, the \(x\)-axis is \(|V|\), and the \(y\)-axis is energy.</p>
+            In this plot, I set \(\Delta\) to 1, and we see that for \(|V|\ll\Delta\), there is quadratic behavior in how both of the energies vary.
+            This is because for \(|V|\ll\Delta\), \(\left|\frac{2V}{\Delta}\right|^2\) is extremely small, and so 
+            \[\mathcal E_\pm = \frac{\Delta}{2} \left\{ 1\pm\sqrt{1 + \left|\frac{2V}{\Delta}\right|^2}\right\} \approx \frac{\Delta}{2} \left\{ 1\pm 1 + \left|\frac{2V}{\Delta}\right|^2\right\}\]
+            \[
+                \mathcal E_+ \approx \Delta + \frac{2|V|^2}{\Delta}
+                \text{ and }
+                \mathcal E_- \approx -\frac{2|V|^2}{\Delta}
+            \]
+            We also see that for \(|V| \gg \Delta\), the energies seem to vary linearly with \(\Delta\).
+            This is because for \(|V| \gg \Delta\):
+            \[
+                \mathcal E_\pm = \frac{\Delta}{2} \left\{ 1\pm\sqrt{1 + \left|\frac{2V}{\Delta}\right|^2}\right\} = \frac{\Delta}{2}\left\{1\pm\frac{2|V|}{\Delta}\sqrt{\frac{\Delta^2}{4|V|^2} + 1}\right\}
+            \]
+            \[
+                \mathcal E_\pm \approx \frac{\Delta}{2}\left\{1\pm\frac{2|V|}{\Delta}(1 + \frac{1}{2}\frac{\Delta^2}{4|V|^2})\right\} = \frac{\Delta}{2}\left\{1\pm\frac{2|V|}{\Delta}(1 + \frac{\Delta^2}{8|V|^2})\right\}
+            \]
+            This \( \frac{\Delta^2}{8|V|^2}\) term is extremely small, hence we end up with \(\mathcal E_\pm \approx \frac{\Delta}{2}\left\{1\pm\frac{2|V|}{\Delta}\right\}\), which means that:
+            \[
+                \mathcal E_+ \approx \frac{\Delta}{2} + |V|
+                \text{ and }
+                \mathcal E_- \approx \frac{\Delta}{2} - |V|
+            \]
+            which are plotted in orange and green above.
+            This linear separation is actually a hallmark of degenerate or strongly interacting states.
+            <p>If we really did have degenerate states instead of just strongly interacting ones, \(\Delta=0\), and the plot would look like:</p>
+            <div style="text-align: center;">
+                <img src="images/tipt2.PNG" width="40%">
+            </div>
+            <p>
+                where the \(x\)-axis still varies with \(|V|\), the \(y\)-axis still varies with energy, the red line represents \(\mathcal E_+\), the blue line represents \(\mathcal E_-\), and the purple line indicates that both \(\mathcal E_+\) and \(\mathcal E_-\) are plotted there.
+                Here, \(\mathcal E_+ = |V|\) and \(\mathcal E_- = -|V|\).
+            </p>
+            But what if we keep the interaction/perturbation \(V\) constant and change the value of \(\Delta - E_2 - E_1\)?
+            In this case, the eigenvectors and eigenvalues increase and/or decrease with the changes to \(\Delta\).
+            <br><br>
+            Let's also plot these energies against the unperturbed energies; we know that the unperturbed matrix is \(\pmatrix{0&0\\0&\Delta}\), which clearly means that the eigenvalues are \(0\) and \(\Delta\).
+            These correspond to the states \(|1\rangle, |2\rangle\) from earlier.
+            <br><br>
+            <div style="text-align: center;">
+                <img src="images/tipt3.PNG" width="80%">
+            </div>
+            <br>
+            Since \(\Delta\) is now our independent variable, the \(x\)-axis varies with \(\Delta\), and the \(y\)-axis still varies with energy.
+            The green and orange lines plot the unperturbed energies as a function of \(\Delta\), and the red line plots \(\mathcal E_+\) while the blue line plots \(\mathcal E_-\).
+            <br><br>
+            There are a few things of note here.
+            <ul>
+                <li>
+                    First, the unperturbed eigenvalues cross!
+            That means for some value of \(\Delta\), in this case 0, there is degeneracy of 2 (which is pretty obvious, but alas).
+                </li>
+                <li>
+                    Second, the perturbed values do <i>not</i> cross!
+                    We see that as they approach the origin, they veer away from each other.
+                    This is called adn <i>avoided crossing</i>.
+                </li>
+                <li>
+                    Finally, the character of \(\mathcal E_+\) changes; first it appears to follow eigenvalue \(\Delta\), then switches and follows eigenvalue 0.
+                    The reverse is true for \(\mathcal E_-\); first it appears to follow eigenvalue 0, and then, around the avoided crossing, changes character and begins to follow eigenvalue \(\Delta\).
+                    In general, this behavior is described as the following:
+                    \[\begin{align}
+                        \hat H|\pm\rangle &= \mathcal E_\pm|\pm\rangle \\
+                        |\pm\rangle &= A_\pm|1\rangle + b_\pm|2\rangle \text{ and } |a_\pm|^2+|b_\pm|^2=1 \\
+                        |+\rangle :|1\rangle \to|2\rangle &\text{ and } |-\rangle:|2\rangle \to -|1\rangle
+                    \end{align}\]
+                </li>
+            </ul>
+            We could have, of course, predicted this behavior if we looked at our expression for \(\mathcal E_\pm\).
+            When \(|\Delta| \gg |V|\), the \(\left|\frac{2V}{\Delta}\right|^2\) term gets very small, so \(\mathcal E_\pm \approx \frac{\Delta}{2}\pm\frac{|\Delta|}{2}\).
+            This means that when \(\Delta\) is positive, \(\mathcal E_+ \approx \Delta\) and \(\mathcal E_- \approx 0\) and when \(\Delta\) is negative, \(\mathcal E_+ \approx 0\) and \(\mathcal E_- \approx \Delta\).
+            <br><br>
+
+            <b><i>The actual method.</i></b>    
+            Either way, we see that we cannot always use time independent perturbation theory as we approached it earlier.
+            When the existing model Hamiltonian \(\hat H_0\) has degeneracy, we make the following modifications:
+            <br><br>
+            Call the space of degenerate eigenstates \(D\).
+            These states all have eigenvalue \(E_D\), with other eigenvalues we call \(E^{(0)}_i\).
+            <br><br>
+            We define a projector \(\hat P\) that projects onto the entire space \(D\):
+            \[
+                \hat P = \sum_{i \in D} |\varphi_i\rangle\langle\varphi_i|
+            \]
+            and also define the orthogonal projector \(\hat Q = \hat 1 - \hat P\), whose corresponding subspace is simply everything outside of \(D\).
+            With these definitions, \(\hat 1 = \hat P + \hat Q\).
+            Thus we can write perturbation \(\hat V\) as:
+            \[\begin{align}
+                \hat V &= (\hat P + \hat Q)\hat V(\hat P + \hat Q) \\
+                &= \hat P\hat V\hat P + \hat P\hat V\hat Q + \hat Q\hat V\hat P + \hat Q\hat V\hat Q \\
+            \end{align}\]
+            or, more concisely,
+            \[
+                \hat V = \hat V_{PP} + \hat V_{PQ} + \hat V_{QP} + \hat V_{QQ}
+            \]
+            These four components of \(\hat V\) take an arbitrary vector, project either into \(D\) or out of \(D\), apply some perturbation, then project the result either into \(D\) or out of it.
+            We make the assumption that one of these components <i>can resolve the degeneracy of \(\hat H_0\) in \(D\)</i>.
+            <br><br>
+            Clearly, \(\hat V_{QQ}\) and \(\hat V_{QP}\) result in perturbations in the subspace of \(\hat Q\), so not in \(D\).
+            \(\hat V_{PQ}\) can <i>introduce</i> degeneracy to \(D\), not remove it.
+            So, we have to place all of our hopes on \(\hat V_{PP}\).
+            <br><br>
+            Note here that going forward, we make the key assumption that \(\hat V_{PP}\) will indeed resolve the degeneracy in the model Hamiltonian.
+            <br><br>
+            We define a <i>new</i> model Hamiltonian, \(\hat H_0^{'} = \hat H_0 + \lambda\hat V_{PP}\) (where \(\lambda\) parameterizes the perturbation just as it did earlier), so that:
+            \[
+                \forall i \in D, \hat H_0^{'}|\varphi_i^{'}\rangle  = E_i^{'}|\varphi_i^{'}\rangle \text{ and } \forall j \notin D, \hat H_0^{'}|\varphi_j\rangle = E^{(0)}_j|\varphi_j\rangle
+            \]
+            where, if we are considering an eigenvector that is not in \(D\), the new model Hamiltonian behaves just as the old model hamiltonian behaved.
+            Because of our key assumption that we made earlier, we can also say that:
+            \[
+                \hat V_{PP}|\varphi^{'}_i\rangle = v_i|\varphi_i^{'}\rangle
+            \]
+            or that \(\hat V_{PP}\) is diagonal in this basis.
+            As a result:
+            \[
+                \hat H_0^{'}|\varphi_i^{'}\rangle = (\hat H_0+\lambda\hat V_{PP})|\varphi_i^{'}\rangle  = (E_D+\lambda v_i)|\varphi_i^{'}\rangle
+            \]
+            which means that our new "unperturbed" eigenvalues are \(E^{'}_i = E_D + \lambda v_i\).
+            Note here that the perturbation term that is linear in \(\lambda\) is the asymptotically linear splitting that we saw earlier.
+            <br><br>
+            We additionally define a \(\hat Q^{'}_i = \hat 1 - |\varphi_i^{'}\rangle\langle\varphi_i^{'}|\), which is the projector that excludes the subspace of \(|\varphi_i^{'}\rangle\) only.
+            We can write this projector in terms of the subspaces in \(D\) and outside of \(D\):
+            \[
+                \hat Q_i^{'} = \sum_{j\in D, j\neq i}|\varphi_j^{'}\rangle\langle\varphi_j^{'}| + \sum_{j\notin D}|\varphi_j\rangle\langle\varphi_j|
+            \]
+            Again, we are depending on the fact that \(\hat V_{PP}\) resolves all of the degeneracy in \(D\), so we assume that none of its eigenvalues are degenerate.
+            <br><br>
+            We can now use the original time-independent perturbation theory framework, now using \(\hat H_0^{'}\) as our new model Hamiltonian, and \(\hat V^{'} = \hat V_{PQ} + \hat V_{QP} + \hat V_{QQ}\) as the new perturbation.
+            <br><br>
+            Let's say that our reference model eigenvector is the previously degenerate \(|\varphi_i^{'}\rangle \in D\), and look at what happens to it:
+            \[
+                E^{'(1)}_i = \langle \varphi_i^{'}|\hat V^{'}|\varphi_i^{'}\rangle 
+            \]
+            because \(\hat Q|\varphi_i^{'}\rangle = 0\) (we chose \(|\varphi_i^{'}\rangle \in D\)), and all terms in \(\hat V^{'}\) have \(\hat Q\) in them, \(E^{'(1)}_i=0\).
+            Thus the corrected energy to first order is:
+            \[
+                E^{'}_i + E^{'(1)}_i = E^{'}_i = E_D + \lambda v_i + 0
+            \]
+            The corresponding perturbed eigenvector is:
+            \[\begin{align}
+                |\varphi_i^{'(1)}\rangle &= \hat G_{Q^{'}_i}(E^{'}_i)\hat V^{'}|\varphi^{'}_i\rangle
+                = \frac{1}{E^{'}_i - \hat H_0^{'}}\hat Q_i^{'} \hat V^{'} |\varphi^{'}_i\rangle \\
+                &= \frac{1}{E^{'}_i - \hat H_0^{'}}\left (\sum_{j\in D, j\neq i}|\varphi_j^{'}\rangle\langle\varphi_j^{'}| + \sum_{j\notin D}|\varphi_j\rangle\langle\varphi_j|\right ) \hat V^{'} |\varphi^{'}_i\rangle \\
+                &= \sum_{j\in D, j\neq i}\frac{1}{E^{'}_i - \hat H_0^{'}}|\varphi_j^{'}\rangle\langle\varphi_j^{'}| \hat V^{'} |\varphi^{'}_i\rangle + \sum_{j\notin D}\frac{1}{E^{'}_i - \hat H_0^{'}}|\varphi_j\rangle\langle\varphi_j| \hat V |\varphi_i^{'}\rangle \\
+                &= \sum_{j\in D, j\neq i}\frac{|\varphi_j^{'}\rangle\langle\varphi_j^{'}| \hat V^{'} |\varphi^{'}_i\rangle}{E^{'}_i - E^{'}_j} + \sum_{j\notin D}\frac{|\varphi_j\rangle\langle\varphi_j| \hat V |\varphi_i^{'}\rangle}{E^{'}_i - E^{(0)}_j} \\
+                &= 0 + \sum_{j\notin D}\frac{|\varphi_j\rangle\langle\varphi_j| \hat V |\varphi_i^{'}\rangle}{E^{'}_i - E^{(0)}_j} \\
+            \end{align}\]
+            The second order energy correction is:
+            \[
+                E_i^{'(2)} = \sum_{j\notin D} \frac{\langle\varphi_i^{'}|\hat V|\varphi_j\rangle\langle\varphi_j|\hat V|\varphi_i^{'}\rangle}{E^{'}_i - E_j^{(0)}}
+            \]
+            If we wanted to parameterize \(\hat V\) with \(\lambda\) and use \(\lambda\hat V\) instead of just \(\hat V\):
+            \[
+                E_i^{'(2)} = \lambda^2\sum_{j\notin D} \frac{\langle\varphi_i^{'}|\hat V|\varphi_j\rangle\langle\varphi_j|\hat V|\varphi_i^{'}\rangle}{E^{'}_i - E_j^{(0)}}
+            \]
+            which means that the second order correction is linear in \(\lambda^2\).
+            Thus, to second-order correction, the true energy is:
+            \[
+                E^{'}_i = E_D \lambda ^0 + \lambda v_i + c\lambda ^2
+            \]
+            where \(c = \sum_{j\notin D} \frac{\langle\varphi_i^{'}|\hat V|\varphi_j\rangle\langle\varphi_j|\hat V|\varphi_i^{'}\rangle}{E^{'}_i - E_j^{(0)}}\).
+            In this way, we get a neat expansion for the energy in terms of \(\lambda^n\).
+            <br><br>
+            Of course, remember that this rides on the assumption that \(\hat V_{PP}\) breaks up the degeneracy in \(D\) which means that for all of this to work, <i>none of the \(v_i\) may coincide</i>.
+            <br><br>
+            Also notice that now, \(\hat H_0^{'}\) depends on \(\lambda\), so \(|\varphi_i^{'}\) also scales in \(\lambda\), which means that we may miss some contributions to \(|\psi\rangle\) that are linear in \(\lambda\), and that these missing terms can come from inside \(D\).
+            <br><br>
+            I actually have no idea what any of this actually means, and Dr. Argenti brings up this point only to later say that the conclusion that 
+            \[
+                E_i^{'} = E_D + \lambda v_i + \lambda^2\sum_{j\notin D}\frac{|\langle\varphi_i^{'}|\hat V|\varphi_j\rangle|^2}{E_D - E_j^{(0)}}
+            \]
+            still holds.
         </div>
     </body>
 </html> 
