@@ -53,7 +53,7 @@
             can never yield the result \(x\cdot 1 + 1 \cdot y\), even though \(x\) is a perfectly valid vector in \(V_I\) and \(y\) is a perfectly valid vector in \(V_{II}\).
             This means that \(M\) isn't even closed under addition and is not a vector space, nor is it bilinear.
             <br><br>
-            If we instead tale all linear combinations of these diadic products: \(V = \{\sum_{i=0}^2\sum_{j=0}^1 x^i Y_j c_{ij}\}\), we can indeed get the result  \(x\cdot 1 + 1 \cdot y\).
+            If we instead take all linear combinations of these diadic products: \(V = \{\sum_{i=0}^2\sum_{j=0}^1 x^i y^j c_{ij}\}\), we can indeed get the result  \(x\cdot 1 + 1 \cdot y\).
             This is a 6-dimensional vector space and is the result of the tensor product between vector spaces \(V_I\) and \(V_{II}\).
             <br><br>
             Note that a state \(x\cdot 1 + 1 \cdot y\) indicates that the overall state is a combination of <i>two possible states</i>: 1) that \(f(x) = x\) <i>and</i> \(g(y) = 1\) <b>OR</b> 2) that \(f(x) = 1\) <i>and</i> \(g(y) = y\).
@@ -64,9 +64,9 @@
             <h2 id="formal">A more formal definition of the Tensor Product</h2>
             <b><i>The freely generated vector space.</i></b>
             As mentioned before, vector spaces \(V\) and \(W\) have Cartesian product \(V \times W = \{(v, w), v \in V, w \in W\}\).
-            From this define the <i>freely generated</i> vector space \(E_{V\times w}\):
+            From this define the <i>freely generated</i> vector space \(E_{V\times W}\):
             \[E_{V\times W} = \{\sum_{(v, w)\in S} (v, w)c_{v,w} \vert S \subset V \times W, S \text{ is finite}, c_{v,w} \in \mathbb C\}\]
-            To enforce bilinearity, we also introduce the following equivalence relationto \(E_{V\times W}\):
+            To enforce bilinearity, we also introduce the following equivalence relation to \(E_{V\times W}\):
             \[
                 \begin{cases}
                     \forall \alpha, \beta  \in \mathbb C, w\in W, v_1, v_2 \in V: (\alpha v_1 + \beta v_2, w) \sim \alpha(v_1, w) + \beta(v_2, w) \\
@@ -79,7 +79,7 @@
             which means that we describe an ordered pair as:
             \[(v, w) = (\sum_i v_i a_i, \sum_j w_j b_j) = \sum_{ij}(v_i, w_j) a_i b_j\]
             So, any ordered pair can be written as a linear combination of pairs of basis vectors. 
-            This means that we can write an element in \(E_{v\times W}\) as:
+            This means that we can write an element in \(E_{V\times W}\) as:
             \[\begin{align}
                 \sum_{(v, w)\in S}(v, w) c_{v, w} &= \sum_{(v, w)\in S} (\sum_{i=1}^N v_i a_i(v), \sum_{j=1}^M w_j b_j(w))c_{v,w} \\
                 &\sim \sum_{(v,w)\in S} \sum_{ij} (v_i, w_j) a_i(v)b_j(w) c_{v,w} \\
