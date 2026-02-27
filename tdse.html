@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Time-Dependent Schrodinger Equation</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Time-Dependent Schrodinger Equation</h1>
+            We saw last semester that time evolution is described by the Schrodinger equation, \(i\hbar\partial_t | \psi(t)\rangle = \hat H|\psi(t)\rangle\), where the Hamiltonian \(\hat H\) is time independent.
+            Sometimes, we also encounter situations where a quantum system is in an external field that is time dependent, \(\vec F(t)\), which is in reality part of a larger quantum system with different degrees of freedom.
+            <br><br>
+            In this case, we can write the total state as 
+            \[|\psi\rangle = |\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle\] 
+            (this is a product state, but the total state could very well be entangle as well).
+            Here, \(|\psi_{rad}(t)\rangle\) is the time dependent state of the external field where \(\langle \psi_{rad}(t)|\psi_{rad}(t)\rangle = 1\), and the corresponding subspace \(V_{rad}\) does not "care" about the quantum system because it is extremely small in comparison.
+            <br><br>
+            The total system Hamiltonian is, therefore:
+            \[
+                \hat H = \hat H_{sys} \otimes \hat 1 + \hat 1 \otimes \hat H_{rad} + \hat O\otimes\hat F
+            \]
+            where the term \(\hat O \otimes \hat F\) is some interaction term, and the total system Hamiltonian is still time independent.
+            <br><br>
+            We plug this all into the Schrodinger equation:
+            \[\begin{align}
+                i\hbar\partial_t |\psi(t)\rangle &= \hat H|\psi(t)\rangle \\
+                i\hbar\partial_t \left(|\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle\right) &= \left(\hat H_{sys} \otimes \hat 1 + \hat 1 \otimes \hat H_{rad} + \hat O\otimes\hat F\right)\left( |\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle\right) \\
+            \end{align}\]
+            The left hand side of this equation becomes
+            \[\begin{align}
+                i\hbar\partial_t |\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle + |\psi_{sys}(t)\rangle \otimes i\hbar\partial_t|\psi_{rad}(t)\rangle
+            \end{align}\]
+            and the right hand side of this equation becomes
+            \[\begin{align}
+                &\left(\hat H_{sys} \otimes \hat 1 + \hat 1 \otimes \hat H_{rad} + \hat O\otimes\hat F\right)\left( |\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle\right) \\
+                &= \hat H_{sys}|\psi_{sys}(t)\rangle \otimes|\psi_{rad}(t)\rangle + |\psi_{sys}(t)\rangle \otimes\hat H_{rad}|\psi_{rad}(t)\rangle + \hat O|\psi_{sys}(t)\rangle\otimes\hat F|\psi_{rad}(t)\rangle \\
+            \end{align}\]
+            To continue, we project both sides into the system space by using \(\hat 1 \otimes \langle\psi_{rad}(t)| : V\to V_{sys}\) which has the action of \(|\phi\rangle\otimes|\chi\rangle \mapsto |\phi\rangle\langle\psi_{rad}(t)|\chi\rangle\), where \(\langle\psi_{rad}(t)|\chi\rangle\) is a scalar.
+            <br><br>
+            The left hand side of the equation is then:
+            \[
+                i\hbar\partial_t|\psi_{sys}(t)\rangle  + |\psi_{sys}(t)\rangle\langle\psi_{rad}(t)|i\hbar\partial_t|\psi_{rad}(t)\rangle
+            \]
+            and the right hand side of the equation is then:
+            \[
+                \hat H_{sys}|\psi_{sys}(r)\rangle + |\psi_{sys}(t)\rangle\langle \psi_{rad}(t) | \hat H_{rad}|\psi_{rad}(t)\rangle + \hat O|\psi_{sys}(t)\rangle \langle\psi_{rad}(t)|\hat F|\psi_{rad}(t)\rangle
+            \]
+            Remeber that the external field is its own quantum system, where \(i\hbar\partial_t|\psi_{rad}(t)\rangle = \hat H_{rad}|\psi_{rad}(t)\rangle\) holds, which means that the term
+            \[
+                |\psi_{sys}(t)\rangle\langle\psi_{rad}(t)|i\hbar\partial_t|\psi_{rad}(t)\rangle
+            \]
+            on the left hand side is equal to 
+            \[
+                |\psi_{sys}(t)\rangle\langle \psi_{rad}(t) | \hat H_{rad}|\psi_{rad}(t)\rangle
+            \]
+            on the right hand side.
+            This means that our full equation is simply:
+            \[
+                i\hbar\partial_t|\psi_{sys}(t)\rangle = \hat H_{sys}|\psi_{sys}(r)\rangle + \hat O|\psi_{sys}(t)\rangle \langle\psi_{rad}(t)|\hat F|\psi_{rad}(t)\rangle
+            \]
+            We also say that field \(F(t) = \langle\psi_{rad}(t)|\hat F|\psi_{rad}(t)\rangle\), so our equation is:
+            \[\begin{align}
+                i\hbar\partial_t|\psi_{sys}(t)\rangle &= \hat H_{sys}|\psi_{sys}(r)\rangle + \hat OF(t)|\psi_{sys}(t)\rangle \\
+                &= (\hat H_{sys} + \hat OF(t))|\psi_{sys}(t)\rangle \\
+                &= \hat H(t)|\psi_{sys}(t)\rangle
+            \end{align}\]
+            where we've defined an effective time-<i>dependent</i> Hamiltonian, \(\hat H(t)\).
+            What does this Hamiltonian look like?
+
+            <h2>The Effective, Time-Dependent Hamiltonian</h2>
+
+            Say that we have particles with mass, charge, and position \(\{m_i, q_i, \vec r_i\}\) in classical fields \(\{\vec E, \vec B\}\).
+            We can bust out the fill Hamiltonian that I guess we should have seen in undergrad:
+            \[
+                \hat H = \sum_i \frac{1}{2m_i}(\vec p_i - \frac{q_i}{c}\vec A(\hat{\vec r_i}, t))^2 + \sum_{i, j\gt i}\frac{q_iq_j}{|\hat{\vec r_i} - \hat{\vec r_j}|} + \frac{1}{8\pi}\int d^3r(\vec E_\perp(r, t)|^2 + |\vec B(r, t)|^2)
+            \]
+            which includes vector potential \(\vec A\) and the transverse/perpendicular component of the electric field, \(\vec E_\perp\).
+            Note that here, we treat all fields as classical, use Gauss units, and assume that th kinetic energy of each particle in the system is well under the relativistic limit \(m_ic^2\).
+            <br><br>
+            This Hamiltonian can be broken down into the following components:
+            \[\begin{align}
+                \hat H_{matter} &= \sum_i \frac{1}{2m_i}\vec p_i + \sum_{i, j\gt i}\frac{q_iq_j}{|\hat{\vec r_i} - \hat{\vec r_j}|} \\
+                H_{rad} &= \frac{1}{8\pi}\int d^3r(\vec E_\perp(r, t)|^2 + |\vec B(r, t)|^2) \\
+                \hat H_{interaction} &= \sum_i \frac{1}{2m_i}(-\frac{q_i}{c}\hat{\vec p}\cdot\vec A + \frac{q_i^2}{c^2}A^2)
+            \end{align}\]
+            where \(H_{rad}\) is not an operator because it is classical (but will become an operator if we quantize) and the order of the dot product \(\hat{\vec p}\cdot\vec A\) does not matter.
+            <br><br>
+            <b><i>What is the vector potential?</i></b>
+            Mawell's equation in Gauss units are as follows:
+            \[\begin{align}
+                \vec\nabla\cdot\vec E &= 4\pi\rho \\
+                \vec\nabla\cdot\vec B &= 0 \\
+                \vec\nabla\times\vec E &= -\frac{1}{c}\partial_t\vec B \\
+                \vec\nabla\times\vec B &= \frac{4\pi}{c}\vec j + \frac{1}{c}\partial_t\vec E
+            \end{align}\]
+            The second and third equations are linear in the gield, or in other words, they are homogenous equations that <i>constrain</i> the field.
+            <br><br>
+            Since \(\vec\nabla\vec B = 0\), we can find some vector field \(\vec A\) where \(\vec B = \vec\nabla \times \vec A\), so that \(\vec\nabla\cdot\vec\nabla\times \vec A = 0\).
+            You can verify this with \(\partial_iB_i = \partial_i\epsilon_{ijk}\partial_j A_k = \epsilon_{ijk}\partial_i\partial_j A_k = 0\).
+            Thus \(\vec B\) is the curl of vector potential \(\vec A\).
+            <br><br>
+            This definition of \(\vec B\) can be used to define \(\vec E\) in terms of \(\vec A\):
+            \[
+                \vec\nabla\times \vec E = -\frac{1}{c}\partial_t\vec\nabla\times A \implies \vec\nabla\times \vec E + \frac{1}{c}\partial_t\vec\nabla\times \vec A = 0
+            \]
+            if the curl of something is 0, then it can be written as \(\vec\nabla\phi\) where \(\phi\) is a scalar field.
+            So, we can say that
+            \[
+                \vec E + \frac{1}{c} \partial_t \vec A = -\vec\nabla\phi
+            \]
+            where we use negative \(-\vec\nabla\phi\) by convention.
+            This means that we can re-define \(\vec E\) as \(-\vec\nabla\phi - \frac{1}{c}\partial_t\vec A\).
+            <br><br>
+            In summary:
+            \[
+                \begin{cases}
+                \vec B = \vec \nabla \times \vec A \\
+                \vec E = -\vec\nabla\phi - \frac{1}{c}\partial_t\vec A
+                \end{cases}
+            \]
+            <b><i>Gauge.</i></b>
+            The auxiliary fields \(\phi\) and \(\vec A\) are <i>not</i> uniquely defined by the physically observable fields \(\vec E\) and \(\vec B\), which we can physically observe via \(\vec F = q(\vec E + \frac{\vec v}{c} \times \vec B)\).
+            You can, in fact, define a new vector potential \(\vec A^{'} = \vec A + \vec\nabla\chi\), where \(\chi\) is a scalar field.
+            This means that the magnetic field realized by \(\vec A'\) is:
+            \[
+                \vec B' = \vec\nabla\times \vec A' = \vec\nabla\times(\vec A + \vec\nabla\chi) = \vec\nabla\times \vec A = \vec B
+            \]
+            exactly the same magnetic field that \(\vec A\) realized!
+            This means that we can really select our vector potential from many different \(\vec A\).
+            <br><br>
+            With this new vector potential, \(\vec E\) becomes:
+            \[
+                \vec E' = -\vec\nabla\phi' - \frac{1}{c}\partial_t\vec A' = -\vec\nabla\phi' - \frac{1}{c}\partial_t(\vec A + \vec\nabla\chi) = -\vec\nabla(\phi' + \frac{1}{c}\partial_t\chi) - \frac{1}{c}\partial_t\vec A
+            \]
+            If we say that \(\phi' = \phi - \frac{1}{c}\partial_t\chi\), then we have:
+            \[
+                \vec E' = -\vec\nabla\phi - \frac{1}{c}\partial_t\vec A = \vec E
+            \]
+            the same electric field that was realized by \(\vec A\) and \(\phi\).
+            <br><br>
+            In summary for many possible \(\vec A\) and \(\phi\), the fields \(\vec E\) and \(\vec B\) are fixed, which makes sense, since these fields are physically observable while \(\vec A\) and \(\phi\) are not.
+            This is called a gauge invariance, where the electric and magnetic fields are invariant under the <i>gauge transformation</i>:
+            \[
+                \begin{cases}
+                    \vec A \mapsto \vec A' \equiv \vec A = \vec\nabla\chi \\
+                    \phi \mapsto \phi' \equiv \phi - \frac{1}{c}{\partial_t\chi}
+                \end{cases}
+            \]
+            which is paramterized by a certain value of \(\chi\).
+            <br><br>
+            Because of gauge invariance, we are able to impose more constraints onto \(\vec A\) and \(\phi\).
+            In particular, the Coulomb gauge uses a vector potential \(\vec A\) which is constrained by the condition that \(\vec\nabla\cdot\vec A = 0\).
+            Say that we had a vector potential \(\vec A\) where \(\vec\nabla\cdot\vec A \neq 0\).
+            We would only need to find a new vector potential \(\vec A' = \vec A + \vec\nabla\chi\) that does satisfy our constraint:
+            \[
+                \vec\nabla\cdot\vec A' = 0 \implies \vec\nabla\cdot (\vec A + \vec\nabla\chi) = 0 \implies \vec\nabla^2\chi = -\vec\nabla\cdot\vec A
+            \]
+            this last equation turns out to be a Poisson equation which has a closed form solution which we can use to find the value of \(\chi\).
+            \[
+                \chi(\vec r, t) = \frac{1}{4\pi}\int d^3 r' \frac{\vec\nabla\cdot\vec A(\vec r', t)}{|\vec r - \vec r'|} + \psi(\vec r)
+            \]
+            where \(\psi(\vec r)\) is a harmonic function where \(\nabla^2\psi = 0\).
+            <br><br>
+            <b><i>Maxwell's Equations under the Coulomb gauge.</i></b>
+            Knowing that \(\vec\nabla\cdot\vec A = 0\), Maxwell's equations can be written differently.
+            The first equation changes as follows:
+            \[\begin{align}
+                \vec\nabla\cdot\vec E &= 4\pi \rho \\
+                \vec\nabla\cdot(-\vec\nabla\phi - \frac{1}{c}\partial_t\vec A) &= 4\pi\rho \\
+                &= -\vec\nabla^2\phi - \frac{1}{c}\partial_t\vec\nabla\cdot\vec A \\
+                4\pi\rho &= -\vec\nabla^2\phi
+            \end{align}\]
+            We can again apply the Poisosn equation, which tells us that:
+            \[
+                \phi(\vec r, t) = \int d^3 r'\frac{\rho(\vec r, t)}{|\vec r - \vec r'|}
+            \]
+            (if we set \(\phi\) to go to 0 as \(\vec r \to 0\), \(\psi=0\)...)
+            \(\phi\) this depends on the motion/position of charged particles, \(\rho(\vec r, t) = \langle \psi_{sys}|\sum_i q_i \delta(\vec r - \hat{\vec r_i})|\psi_{sys}\rangle\), which only depends on the quanutm system and not the external field.
+            <br><br>
+            The fourth equation changes as follows:
+            \[\begin{align}
+                \vec\nabla\times\vec B &= \frac{4\pi}{c}\vec j + \frac{1}{c}\partial_t\vec E \\
+                \vec\nabla\times(\vec\nabla\times\vec A) &= \frac{4\pi}{c}\vec j + \frac{1}{c}\partial_t(-\vec\nabla\phi - \frac{1}{c}\partial_t\vec A) \\
+                \vec\nabla(\vec\nabla\cdot\vec A) - \nabla^2\vec A &= \frac{4\pi}{c}\vec j - \frac{1}{c}\partial_t\vec\nabla\phi - \frac{1}{c^2}\partial_t^2\vec A \\
+                - \nabla^2\vec A &= \frac{4\pi}{c}\vec j - \frac{1}{c}\partial_t\vec\nabla\phi - \frac{1}{c^2}\partial_t^2\vec A \\
+                (\frac{1}{c^2}\partial_t^2 - \nabla^2)\vec A &= \frac{4\pi}{c}\vec j - \frac{1}{c}\partial_t\vec\nabla\phi
+            \end{align}\]
+            we can further break this down by splitting \(\vec j\) into transverse and longitudinal parts, \(\vec j_\perp\) and \(\vec j_\parallel\).
+            In general, for some vector field \(\vec F = \vec F_\perp + \vec F_\parallel\):
+            \[
+                \vec\nabla \cdot \vec F_\perp = 0 \text{ and } \vec\nabla\times \vec F_\parallel = 0
+            \]
+            our fourth equation as we rewrote it above has a \(-\frac{1}{c}\partial_t\vec\nabla\phi\) term whose curl must be 0, so it is a longitudinal component.
+            Furthermore, the left hand term is purely transverse, since \(\vec\nabla\cdot(\frac{1}{c^2}\partial_t^2 - \nabla^2)\vec A = (\frac{1}{c^2}\partial_t^2 - \nabla^2)(\vec\nabla\cdot\vec A) = 0\).
+            Then we obtain the transverse equation:
+            \[
+                (\frac{1}{c^2}\partial_t^2 - \nabla^2)\vec A = \square\vec A = \frac{4\pi}{c}\vec j_\perp
+            \]
+            which has known solution:
+            \[
+                \vec A(\vec r, t) = \frac{1}{c}\int d^3r'\frac{\vec j_\perp(\vec r', t')}{|\vec r - \vec r'|}
+            \]
+            where \(t' = t - \frac{|\vec r - \vec r'|}{c}\) is apparently the "time when you reach the detector".
+            We also obtain the longitudinal equation:
+            \[
+                \vec j_\parallel = \frac{1}{4\pi}\partial_t\vec\nabla\phi = -\partial_t\rho
+            \]
+            which expresses the conservation of charge.
+        </div>
+    </body>
+</html> 
