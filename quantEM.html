@@ -1,0 +1,683 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quantization of the Electromagnetic Field</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Quantization of the Electromagnetic Field</h1>
+            In order to quantize the electromagnetic field (in the absence of charge), we can follow a similar process to last semester.
+            The first step is to find independent, <i>canonically conjugated variables</i> \(q\) and \(p\), meaning that they follow these rules:
+            \[
+                \{q,p\}_{PB}=1 \implies [\hat q, \hat p] = i\hbar 
+                \text{ where } 
+                q(t) \mapsto \hat q 
+                \text{ and } 
+                p(t) \mapsto \hat p
+            \]
+            this means that 
+            \[
+                \dot q = \frac{\partial H(q, p)}{\partial p}
+                \text{ and }
+                \dot p = -\frac{\partial H(q,p)}{\partial q}
+            \]
+            Thus we begin by finding a set of indiependent, canonically conjugated variables.
+            <br><br>
+            Using the Coulomb gauge and Gauss units, the classical hamiltonian of the field is:
+            \[
+                H = \frac{1}{8\pi}\int(|\vec E_\perp|^2 + |\vec B|^2)d^3r
+            \]
+            and via Maxwell's equations, 
+            \begin{align}
+                \vec E &= -\frac{1}{c}\partial_t\vec A \\
+                \vec B &= \vec\nabla\times\vec A \\
+                \vec\nabla\cdot\vec A &= 0
+            \end{align}
+            (see how we obtain the vector potential <a href="tdse.html#vecPot">here</a>) where the last line is a result from the Coulomb gauge, which requires \(\vec A\) to be transverse.
+            Clearly, \(\vec E\) and \(\vec B\) ar enot independent, as they are both in terms of \(\vec A\).
+            Thus to find some \(H(q,p)\) where \(q\) and \(p\) are independent, we must parameterize \(\vec A\).
+            Once we do that, we define the Hamiltonian, then find our canonically conjugated variables.
+
+            <h2>Parameterizing \(\vec A\)</h2>
+            <b><i>Defining boundary conditions.</i></b>
+            We do this by first finding the set of constraints on \(\vec A\).
+            <br>
+            First, obviously, the Coulomb gauge says that \(\vec \nabla\cdot\vec A = 0\).
+            <br>
+            Second, since \(\vec E\) and \(\vec B\) are observable, \(\vec A \in \mathbb R\).
+            <br>
+            Third, we notice that our current definitions of \(\vec E\) and \(\vec B\) satisfy the first three of Maxwell's equations:
+            \begin{align}
+                \vec\nabla\cdot\vec E &= 4\pi\rho \\
+                \vec\nabla\cdot\vec B &= 0 \\
+                \vec\nabla\times\vec E &= -\frac{1}{c}\partial_t\vec B
+            \end{align}
+            but we still need to satisfy the final one:
+            \begin{align}
+                \vec\nabla\times\vec B &= \frac{4\pi}{c}\vec j + \frac{1}{c}\partial_t\vec E \\
+                \vec\nabla\times\left(\vec\nabla\times\vec A\right) &= 0 + \frac{1}{c}\partial_t\left(-\frac{1}{c}\partial_t\vec A\right) \\
+                -\nabla^2\vec A &= -\frac{1}{c}\partial_t^2\vec A \\
+                \left[\frac{1}{c^2}\partial^2_t - \nabla^2\right] \vec A &= 0 \\
+                \Box\vec A &= 0
+            \end{align}
+            where the operator \(\Box\) is called d'Alembertian.
+            \(\Box\vec A = 0\) is our final constraint.
+            <br><br>
+            We add another extra feature to our problem space, mostly, it seems, to make some of the integrals easier.
+            \(\vec A\) is defined over all space, however we confine it to a cube with a side length of \(L\) which has periodic boundary conditions.
+            This discretizes momentum space, but later we can take the limit as \(V = L^3 \to \infty\), which yields results that are independent of the discretization chosen.
+            Under this discretization, we have:
+            \[
+                \vec A(\vec r + \hat x_i L , t) = \vec A(\vec r, t)
+                \text{ for }
+                \vec A(\vec r, t) : [0, L]^3\times \mathbb R \to \mathcal E(3)
+            \]
+            Essentially, we want a \(\vec r\) to be equivalent to \(\vec(r + \hat x_i L)\), where \(\hat x_i = \hat x, \hat y, \hat z\).
+            This means that the behavior of \(\vec A\) at \(\vec r\) is the same as the behavior at \(\vec A\) after we have walked a distance of \(L\) in purely the \(\hat x, \hat y,\) or \(\hat z\) directions, starting at \(\vec r\).
+            Another way to write the vector potential is:
+            \[
+                \vec A(\vec r, t) = \sum_{\vec k} \vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}
+                \text{ for }
+                k = \frac{2\pi}{L} n_x \hat x + \frac{2\pi}{L} n_y \hat y + \frac{2\pi}{L} n_z \hat z,
+                n_i \in \mathbb Z
+            \]
+            This is apparently a Fourier series. 
+            Recall that \(e^{i\vec k\cdot\vec r}\) describes a plane wave, or a free particle (sans some prefactor) moving with no potential energy and momentum \(\hbar\vec k\).
+            This means that \(\vec k\) is the wavevector which is equal to \(k\cdot\hat k\), where \(k\) is the wavenumber and \(\hat k\) is the direction the plane wave propogates in.
+            This definition of \(\vec A(\vec r, t)\) matches our boundary conditions:
+            \begin{align}
+                e^{i\vec k\cdot(\vec r + \hat x_i L)} &= e^{i\vec k\cdot\vec r} \\
+                \vec k\cdot(\vec r + \hat x_i L) &= \vec k\cdot \vec r + L(\vec k \cdot \hat x_i)
+                = \vec k\cdot\vec r + Lk_i \\
+                &= \vec k\cdot\vec r + L\frac{2\pi}{L} n_i = \vec k\cdot\vec r + 2\pi n_i \\
+                e^{i\vec k\cdot(\vec r + \hat x_i L)} 
+                &=
+                e^{i(\vec k\cdot\vec r + 2\pi n_i)} \\
+                &= 
+                e^{i\vec k\cdot\vec r}e^{i2\pi n_i} \\
+                &=
+                e^{i\vec k\cdot\vec r}
+            \end{align}
+            Notice how \(\vec A(\vec r, t) = \sum_{\vec k} \vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}\) separates the time and space dependencies within \(\vec A\) into two separate terms.
+            Also note that
+            \[
+                \sum_{\vec k} = \sum^\infty_{n_x = -\infty}\sum^\infty_{n_y = -\infty}\sum^\infty_{n_z = -\infty}
+            \]
+            <b><i>Enforcing boundary conditions.</i></b>
+            We now have the following conditions to enforce:
+            <ul>
+                <li>\(\vec\nabla\cdot\vec A = 0\)</li>
+                <li>\(\vec A\) is real</li>
+                <li>\(\Box \vec A = 0\)</li>
+            </ul>
+            Using our new definition of \(\vec A\), we enforce the first condition:
+            \[
+                \vec\nabla\cdot\vec A = \vec\nabla\cdot\left(\sum_{\vec k} \vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}\right)
+                = \sum_{\vec k} \vec\nabla\cdot\vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}
+                = 0
+            \]
+            In general, the divergence of a product between a vector and a function that depends on a position vector, \(\vec\nabla\cdot\vec Af(\vec r)\), can be written as a sum of vector components:
+            \[
+                \sum_i\partial_i A_if(\vec r) = \sum_i A_i\partial_i f(\vec r) = \vec A\cdot\vec\nabla f(\vec r)
+            \]
+            Thus we have
+            \[
+                \vec\nabla\cdot\vec A = \sum_{\vec k} \vec A_{\vec k}(t) (\vec\nabla\cdot e^{i\vec k\cdot\vec r})
+                = \sum_{\vec k} \vec A_{\vec k}(t)i\vec ke^{i\vec k\cdot\vec r} = 0
+            \]
+            The term \(e^{i\vec k\cdot\vec r}\) is never 0, since it lies on the unit circle in the complex plane. 
+            This means that \(\vec A_{\vec k}(t)\cdot\vec k=0, \forall \vec k\), or in other words, that \(\vec A_{\vec k}(t)\) must be perpendicular to \(\vec k\).
+            Since we are in a three-dimensional space, we can find two unit vectors that form an orthonormal basis with \(\hat k\).
+            Call these \(\hat\epsilon_{k,1}\) and \(\hat\epsilon_{k,2}\).
+            <br><br>
+            We say that \(\hat\epsilon_{k,i}\cdot\hat\epsilon_{k,j}^* = \delta_{ij}\) and that \(\hat\epsilon_{-\vec k, i} \equiv \hat\epsilon_{\vec k, i}^*\) for \(i, j\in\{1,2\}\) and, of course, that \(\hat\epsilon_{k,i}\cdot\vec k = 0\).
+            Since \(\vec A_{\vec k}(t)\) is perpendicular to \(\hat k\), it must be in the plane of \(\hat\epsilon_{k,1}\) and \(\hat\epsilon_{k,2}\), we can write \(\vec A_{\vec k}(t)\) as a linear combination of the two:
+            \[
+                \vec A_{\vec k}(t) = \sum_{i=1}^2 A_{\vec k, i}(t) \hat \epsilon_{\vec k, i}
+            \]
+            for time-dependent coefficient \(A_{\vec k, i}(t)\).
+            Note that as a result, if we have well defined \(\vec k\) and \(i\), we have defined an specific <i>mode</i> with wavevector \(\vec k\) and polarization \(i\).
+            The vector field (or one of its components) propagates along \(\vec k\), and \(i\) indicates which transverse unit vector \(\hat \epsilon_{\vec k, i}\) the vector potential (or one of its components) varies along.
+            <br>
+            It is possible to have a single fixed \(\vec k\) and a combination of \(\hat \epsilon_{\vec k, i}\)'s, in which you would still have transverse polarization, just at an angle.
+            <div style="text-align: center; padding: 5px;">
+                <img src="images/polarization.png" style="width: 100%;">
+                <br>
+                <p style="color: grey;"><i>From PhysicsOpenLab, <a href="https://physicsopenlab.org/2019/08/20/polarization-of-light/">"Polarization of Light"</a>.</i></p>
+            </div>
+            but we can treat such cases as two components polarized along different \(\hat \epsilon_{\vec k, i}\)'s.
+            <br><br>
+            Anyway, if we define \(\vec A_{\vec k}(t)\) in this way, then \(\vec A(\vec r, t) = \sum_{\vec k} \vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}\) satisfies the first constraint that \(\vec\nabla\cdot\vec A = 0\).
+            In other words, we have found that this definition of \(\vec A(\vec r, t)\):
+            \[
+                \vec A(\vec r, t)
+                =
+                \sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \tag{1}
+            \]
+            meets the first requirement.
+            <br>
+            We now enforce the next requirement that \(\vec A(\vec r, t)\) is real, or that
+            \[
+                \vec A(\vec r, t) = \vec A(\vec r, t)^*
+            \]
+            Using (1),
+            \[
+                \vec A(\vec r, t)^* = \sum_{\vec k, i} A^*_{\vec k, i}(t) \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}
+            \]
+            Because \(\vec k\) can range from negative to positive, we can simply swap all \(\vec k\) with \(-\vec k\):
+            \[
+                \vec A(\vec r, t)^* = \sum_{-\vec k, i} A^*_{-\vec k, i}(t) \hat \epsilon^*_{-\vec k, i} e^{(-i)-\vec k \cdot\vec r}
+            \]
+            and we said that \(\hat\epsilon_{-\vec k, i} \equiv \hat\epsilon_{\vec k, i}^*\), so \(\hat\epsilon^*_{-\vec k, i} = \hat\epsilon_{\vec k, i}\):
+            \[
+                \vec A(\vec r, t)^* = \sum_{-\vec k, i} A^*_{-\vec k, i}(t) \hat\epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+            \]
+            We then do the following:
+            \begin{align}
+                \vec A(\vec r, t) &= \vec A(\vec r, t)^* \\
+                \vec A(\vec r, t) - \vec A(\vec r, t)^* &= 0 \\
+                \left(\sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \right) - \left(\sum_{-\vec k, i} A^*_{-\vec k, i}(t) \hat\epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right) &= 0 \\
+                \sum_{\vec k, i} \left( A_{\vec k, i}(t) - A^*_{-\vec k, i}(t)\right)\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} &= 0 \\
+                \implies A_{\vec k, i}(t) - A^*_{-\vec k, i}(t) &= 0, \forall \vec k, i
+            \end{align}
+            Essentially we have found that in order for \(\vec A(\vec r, t)\) to be real, the coefficients that describe \(\vec A(\vec r, t)\) in the plane perpendicular to \(\vec k\) must follow:
+            \[
+                A_{\vec k, i}(t) = A^*_{-\vec k, i}(t) \tag{2}
+            \]
+            We now enforce the final constraint that \(\Box\vec A = 0\).
+            \begin{align}
+                \Box\vec A(\vec r, t) &= \Box \sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \text{ using (1)} \\
+                &= \left[\frac{1}{c^2}\partial^2_t - \nabla^2\right]\sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &= \sum_{\vec k, i}\left(\frac{1}{c^2}\ddot A_{\vec k, i}(t) + k^2 A_{\vec k, i}(t)\right) \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+            \end{align}
+            since \(-\nabla^2 A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\) is equal to \(A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} \left(-\nabla^2e^{i\vec k \cdot\vec r}\right) = A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} k^2 e^{i\vec k \cdot\vec r}\).
+            Setting this equal to 0 indicates that \(\frac{1}{c^2}\ddot A_{\vec k, i}(t) + k^2 A_{\vec k, i}(t)=0\), which results in a second-order homogenous equation:
+            \[
+                \ddot A_{\vec k, i}(t) + k^2c^2A_{\vec k, i}(t) = 0
+            \]
+            Remember that \(\vec k\) is our momentum vector (and what \(\vec k\)'s are allowed is restricted by our discretization).
+            We are describing the motion of particles in the electromagnetic field, so they all move at the speed of light, or at \(c\).
+            This has units of \([L]/[T]\), and our wavenumber \(k\) has units of \(1/[L]\), so \([kc] = 1/[T]\), or units of frequency.
+            As a result, we can define
+            \[\omega = ck\]
+            which means that our second-order equation is:
+            \[
+                \ddot A_{\vec k, i}(t) + \omega^2 A_{\vec k, i}(t) = 0
+            \]
+            which has closed form solution:
+            \begin{align}
+                A_{\vec k, i}(t) &= C^+_{\vec k, i}(t=0) e^{i\omega t} + C^-_{\vec k, i}(t=0) e^{-i\omega t} \\
+                &= C^+_{\vec k, i}(t) + C^-_{\vec k, i}(t) \tag{3}
+            \end{align}
+            for \(C^\pm_{\vec k, i}(t=0) \in \mathbb C\).
+            You might be more used to seeing it in this form:
+            \[
+                A_{\vec k, i}(t) = C_1\cos(\omega t) + C_2\sin(\omega t)
+            \]
+            but we can show that they're the same as follows:
+            \begin{align}
+                A_{\vec k, i}(t) &= C_1\cos(\omega t) + C_2\sin(\omega t) \\
+                &= C_1\frac{1}{2}\left(e^{i\omega t} + e^{-i\omega t}\right) + C_2\frac{1}{2i}\left(e^{i\omega t}-e^{-i\omega t}\right) \\
+                &= \left(\frac{C_1}{2} + \frac{C_2}{2i}\right)e^{i\omega t} + \left(\frac{C_1}{2} - \frac{C_2}{2i}\right)e^{-i\omega t}
+            \end{align}
+            where \(C_1\) and \(C_2\) are determined by initial conditions, hence we can write  \(\left(\frac{C_1}{2} + \frac{C_2}{2i}\right)\) as \(C^+(t=0)\) and \(\left(\frac{C_1}{2} - \frac{C_2}{2i}\right)\) as \(C^-(t=0)\).
+            <br><br>
+            We now use (2):
+            \begin{align}
+                A_{\vec k, i}(t) &= A^*_{-\vec k, i}(t) \\
+                C^+_{\vec k, i}(0)e^{i\omega t} + C^-_{\vec k, i}(0)e^{-i\omega t} &= C^{+*}_{-\vec k, i}(0)e^{-i\omega t} + C^{-*}_{-\vec k, i}(0)e^{i\omega t} \\
+                \left[C^+_{\vec k, i}(0) - C^{-*}_{-\vec k, i}(0)\right] e^{i\omega t} &= \left[C^{+*}_{-\vec k, i}(0) - C^-_{\vec k, i}(0)\right]e^{-i\omega t} \\
+                \left[C^+_{\vec k, i}(0) - C^{-*}_{-\vec k, i}(0)\right] e^{i\omega t} &- \left[C^{+*}_{-\vec k, i}(0) - C^-_{\vec k, i}(0)\right]e^{-i\omega t} = 0, \forall t \\
+                C^+_{\vec k, i}(0) = C^{-*}_{-\vec k, i}(0) &\text{ and } C^{+*}_{-\vec k, i}(0) = C^-_{\vec k, i}(0) \\
+                C^\pm_{\vec k, i}(0) &= C^{\mp*}_{-\vec k, i}(0) \\
+                C^\pm_{\vec k, i}(t) &= C^{\mp*}_{-\vec k, i}(t)
+            \end{align}
+            We now use (3) in (1):
+            \begin{align}
+                \vec A(\vec r, t)
+                &=
+                \sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} \left(C^+_{\vec k, i}(t) + C^-_{\vec k, i}(t)\right) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} C^+_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} + \sum_{\vec k, i} C^-_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+            \end{align}
+            Since every \(\vec k\) has a corresponding \(-\vec k\) and we're ranging over all \(\vec k\), we can re-write the first term using \(-\vec k\) and still get the same result:
+            \begin{align}
+                \vec A(\vec r, t)
+                &=
+                \sum_{\vec k, i} C^+_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} + \sum_{\vec k, i} C^-_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} C^+_{-\vec k, i}(t) \hat \epsilon_{-\vec k, i} e^{-i\vec k \cdot\vec r} + \sum_{\vec k, i} C^-_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &= 
+                \sum_{\vec k, i} C^{-*}_{\vec k, i}(t) \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + \sum_{\vec k, i} C^-_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} C^{-*}_{\vec k, i}(t) \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + C^-_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \tag{4}
+            \end{align}
+            using \(\hat\epsilon_{-\vec k, i} \equiv \hat\epsilon_{\vec k, i}^*\).
+            We now have an expression for \(\vec A(\vec r, t)\) that satisfies all constraints and depends only on parameter \(C^{-}_{\vec k, i}(0)\).
+            <br><br>
+            <h2>Finding the Hamiltonian</h2>
+            We can now define our Hamiltonian.
+            Classically, the Hamiltonian of the electromagnetic field is:
+            \[
+                H = \frac{1}{8\pi}\int d^3 r(E_\perp^2 + B^2)
+            \]
+            Now that we have rigorously defined \(\vec A(\vec r, t)\), we can come up with an exact expression for the Hamiltonian.
+            Recall that \(\vec E = -\frac{1}{c}\partial_t\vec A\) and \(\vec B = \vec\nabla\times\vec A \).
+            We use (1) for now just for convenience, and fill in with (3) later.
+            \begin{align}
+                \vec E_\perp 
+                &= 
+                -\frac{1}{c}\partial_t \left(\sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right) \\
+                &=
+                -\frac{1}{c} \sum_{\vec k, i} \dot A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+            \end{align}
+            Since \(\vec E_\perp\) and \(\vec B\) are real, \(\vec E_\perp\cdot\vec E_\perp = \vec E_\perp\cdot \vec E_\perp^*\):
+            \begin{align}
+                \vec E_\perp 
+                &=
+                -\frac{1}{c} \sum_{\vec k, i} \dot A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                \vec E^2_\perp &= \frac{1}{c^2}\sum_{\vec k, i}\sum_{\vec k', j} \dot A_{\vec k, i}(t) \dot A^*_{\vec k', j}(t) \hat \epsilon_{\vec k, i}\hat \epsilon^*_{\vec k', j} e^{i(\vec k -\vec k')\cdot\vec r} \\
+                \int d^3 r \vec E^2_\perp &= \frac{1}{c^2}\sum_{\vec k, i}\sum_{\vec k', j} \dot A_{\vec k, i}(t) \dot A^*_{\vec k', j}(t) \hat \epsilon_{\vec k, i}\hat \epsilon^*_{\vec k', j} \int d^3 r e^{i(\vec k -\vec k')\cdot\vec r} \tag{5}
+            \end{align}
+            We can see that
+            \[
+                \int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r}
+                =
+                V\,\delta_{\vec k\vec k'}
+            \]
+            by doing:
+            \begin{align}
+                \vec r &= x\hat x+y\hat y+z\hat z \\
+                (\vec k-\vec k')\cdot \vec r
+                &=
+                (k_x-k_x')x+(k_y-k_y')y+(k_z-k_z')z \\
+                \int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r}
+                &=
+                \int_0^L dx\int_0^L dy\int_0^L dz\,
+                e^{i[(k_x-k_x')x+(k_y-k_y')y+(k_z-k_z')z]} \\
+                &=
+                \left(\int_0^L dx\, e^{i(k_x-k_x')x}\right)
+                \left(\int_0^L dy\, e^{i(k_y-k_y')y}\right)
+                \left(\int_0^L dz\, e^{i(k_z-k_z')z}\right) \\
+                &=
+                \int_0^L dx\, e^{i\frac{2\pi}{L}(n_x-n_x')x}
+                \int_0^L dy\, e^{i\frac{2\pi}{L}(n_y-n_y')y}
+                \int_0^L dz\, e^{i\frac{2\pi}{L}(n_z-n_z')z}
+            \end{align}
+            If \(n_i = n_i'\), then each exponential becomes \(e^0=1\).
+            This means that each term yields \(L\), so altogether, \(\int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r} = L^3\).
+            <br><br>
+            If \(n_i \neq n_i'\), then we must do:
+            \begin{align}
+                \int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r}
+                &=
+                \int_0^L dx\, e^{i\frac{2\pi}{L}(n_x-n_x')x}
+                \int_0^L dy\, e^{i\frac{2\pi}{L}(n_y-n_y')y}
+                \int_0^L dz\, e^{i\frac{2\pi}{L}(n_z-n_z')z} \\
+                &=
+                \left[
+                \frac{e^{i\frac{2\pi}{L}(n_x-n_x')x}}{i\frac{2\pi}{L}(n_x-n_x')}
+                \right]_0^L
+                \left[
+                \frac{e^{i\frac{2\pi}{L}(n_y-n_y')y}}{i\frac{2\pi}{L}(n_y-n_y')}
+                \right]_0^L
+                \left[
+                \frac{e^{i\frac{2\pi}{L}(n_z-n_z')z}}{i\frac{2\pi}{L}(n_z-n_z')}
+                \right]_0^L \\
+                &=
+                \frac{
+                e^{i\frac{2\pi}{L}(n_x-n_x')L}-1
+                }{
+                i\frac{2\pi}{L}(n_x-n_x')
+                }
+                \frac{
+                e^{i\frac{2\pi}{L}(n_y-n_y')L}-1
+                }{
+                i\frac{2\pi}{L}(n_y-n_y')
+                }
+                \frac{
+                e^{i\frac{2\pi}{L}(n_z-n_z')L}-1
+                }{
+                i\frac{2\pi}{L}(n_z-n_z')
+                } \\
+                &=
+                \frac{
+                1-1
+                }{
+                i\frac{2\pi}{L}(n_x-n_x')
+                }
+                \frac{
+                1-1
+                }{
+                i\frac{2\pi}{L}(n_y-n_y')
+                }
+                \frac{
+                1-1
+                }{
+                i\frac{2\pi}{L}(n_z-n_z')
+                } \\
+                &= 0
+            \end{align}
+            So, we either get \(L^3=V\) or we get 0.
+            The only time \(n_i = n_i', \forall i\) is when \(\vec k = \vec k'\).
+            This means \(\int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r} = V\delta_{\vec k\vec k'}\).
+            Using this in (5) gives us:
+            \begin{align}
+                \int d^3 r \vec E^2_\perp 
+                &= 
+                \frac{1}{c^2}\sum_{\vec k, i}\sum_{\vec k', j} \dot A_{\vec k, i}(t) \dot A^*_{\vec k', j}(t) \hat \epsilon_{\vec k, i}\hat \epsilon^*_{\vec k', j} e^{i(\vec k -\vec k')\cdot\vec r} \\
+                &=
+                \frac{V}{c^2}\sum_{\vec k, i}\sum_j \dot A_{\vec k, i}(t) \dot A^*_{\vec k, j}(t) \hat \epsilon_{\vec k, i}\hat \epsilon^*_{\vec k, j} \\
+                &=
+                \frac{V}{c^2}\sum_{\vec k, i}\sum_j \dot A_{\vec k, i}(t) \dot A^*_{\vec k, j}(t) \hat \delta_{ij} \\
+                &= 
+                \frac{V}{c^2}\sum_{\vec k, i} \dot A_{\vec k, i}(t) \dot A^*_{\vec k, i}(t) \tag{6}
+            \end{align}
+            Now for \(\vec B\):
+            \begin{align}
+                \vec B &= \vec\nabla\times\vec A = \vec\nabla\times\left(\sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right) \\
+            \end{align}
+            Using the property that:
+            \[
+                \vec\nabla\times\vec af(\vec r) = \hat u_i\varepsilon_{ijk}\partial_j\vec a_kf(\vec r)
+                = \hat u_i\varepsilon_{ijk}(\partial_j f(\vec r)) a_k = (\vec\nabla f(\vec r))\times \vec a
+            \]
+            we can write
+            \begin{align}
+                \vec B &= \vec\nabla\times\left(\sum_{\vec k, i} A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right) \\
+                &=
+                \sum_{\vec k, i} A_{\vec k, i}\left(\vec\nabla e^{i\vec k \cdot\vec r}\right)\times\hat \epsilon_{\vec k, i} \\
+                &=
+                \sum_{\vec k, i} A_{\vec k, i}i\vec ke^{i\vec k \cdot\vec r}\times\hat \epsilon_{\vec k, i} \\
+                \vec B^2 = \vec B\cdot\vec B^*
+                &=
+                \sum_{\vec k, i} A_{\vec k, i}i\vec ke^{i\vec k \cdot\vec r}\times\hat \epsilon_{\vec k, i}
+                \sum_{\vec k', j} A^*_{\vec k', j}(-i)\vec k'e^{-i\vec k' \cdot\vec r}\times\hat \epsilon^*_{\vec k', j}
+                \\
+                &=
+                \sum_{\vec k, i, \vec k', j} A_{\vec k, i}A^*_{\vec k', j}(\vec k\times\hat \epsilon_{\vec k, i})(\vec k'\times\hat \epsilon^*_{\vec k', j})e^{i(\vec k - \vec k')\cdot\vec r} \\
+                &=
+                \sum_{\vec k, i, \vec k', j} A_{\vec k, i}A^*_{\vec k', j}(\vec k\times\hat \epsilon_{\vec k, i})(\vec k'\times\hat \epsilon^*_{\vec k', j})V\delta_{\vec k\vec k'} \\
+                \int d^3r\vec B^2 &= V\sum_{\vec k, i, j} A_{\vec k, i}A^*_{\vec k, j}(\vec k\times\hat \epsilon_{\vec k, i})(\vec k\times\hat \epsilon^*_{\vec k, j}) \\
+                \text{Using } \vec k &= k\hat k \\
+                &= V\sum_{\vec k, i, j} k^2A_{\vec k, i}A^*_{\vec k, j}(\vec k\times\hat \epsilon_{\vec k, i})(\vec k\times\hat \epsilon^*_{\vec k, j}) \\
+            \end{align}
+            We use the identities \(\vec a \cdot (\vec b\times \vec c) = \vec b\cdot(\vec c\times\vec a)\) and \(\vec a \times(\vec b\times \vec c) = \vec b (\vec a \cdot\vec c)\):
+            \begin{align}
+                (\hat k\times\hat \epsilon_{\vec k, i})(\hat k\times\hat \epsilon^*_{\vec k, j}) &= \hat k \cdot (\hat \epsilon_{\vec k, j}^*\times(\hat k \times \hat \epsilon_{\vec k, i})) \\
+                &= \hat k \cdot \hat k(\hat \epsilon^*_{\vec k, j}\cdot\hat \epsilon_{\vec k, i}) - \hat \epsilon_{\vec k, i}(\hat \epsilon^*_{\vec k, j}\cdot\hat k) \\
+                &= \hat k\cdot \hat k\delta_{ij} - 0 \\
+                &= \delta_{ij} \\
+                \int d^3r\vec B^2 
+                &= V\sum_{\vec k, i, j} k^2A_{\vec k, i}A^*_{\vec k, j}(\vec k\times\hat \epsilon_{\vec k, i})(\vec k\times\hat \epsilon^*_{\vec k, j}) \\
+                &= V\sum_{\vec k, i, j} k^2A_{\vec k, i}A^*_{\vec k, j}\delta_{ij} \\
+                &= V\sum_{\vec k, i} k^2A_{\vec k, i}A^*_{\vec k, i} \\
+                &= \frac{V}{c^2}\sum_{\vec k, i} \omega^2A_{\vec k, i}A^*_{\vec k, i} \tag{7}
+            \end{align}
+            If we plug (6) and (7) into the classical Hamiltonian, we get
+            \begin{align}
+                H &= \frac{1}{8\pi}\int d^3 r(E_\perp^2 + B^2) = \frac{1}{8\pi}\left(\frac{V}{c^2}\sum_{\vec k, i} \dot A_{\vec k, i}(t) \dot A^*_{\vec k, i}(t) + \frac{V}{c^2}\sum_{\vec k, i} \omega^2A_{\vec k, i}A^*_{\vec k, i} \right) \\
+                &=
+                \frac{V}{8\pi c^2}\sum_{\vec k, i} \dot A_{\vec k, i}(t) \dot A^*_{\vec k, i}(t) + \omega^2A_{\vec k, i}A^*_{\vec k, i}
+            \end{align}
+            and now, if we use (3):
+            \begin{align}
+                A_{\vec k, i}(t) 
+                &= C^+_{\vec k, i}(t=0) e^{i\omega t} + C^-_{\vec k, i}(t=0) e^{-i\omega t} \\
+                &= C^+_{\vec k, i}(t) + C^-_{\vec k, i}(t) \\
+                \dot A_{\vec k, i}(t)
+                &= i\omega(C^+_{\vec k, i}(t) - C^-_{\vec k, i}(t)) \\
+                \dot A_{\vec k, i}(t)\dot A^*_{\vec k, i}(t)
+                &= \omega^2\left[C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) - C^-_{\vec k, i}(t)C^{+*}_{\vec k, i}(t) - C^+_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + C^+_{\vec k, i}(t)C^{+*}_{\vec k, i}(t)\right] \\
+                A_{\vec k, i}(t) A^*_{\vec k, i}(t) &= \omega^2\left[C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + C^-_{\vec k, i}(t)C^{+*}_{\vec k, i}(t) + C^+_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + C^+_{\vec k, i}(t)C^{+*}_{\vec k, i}(t)\right] \\
+                H 
+                &= \frac{V}{8\pi c^2}\sum_{\vec k, i} 2\omega^2\left[C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + C^+_{\vec k, i}(t)C^{+*}_{\vec k, i}(t)\right] \\
+                &= \frac{V}{4\pi c^2}\left[\sum_{\vec k, i} \omega^2C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + \sum_{\vec k, i} \omega^2 C^+_{-\vec k, i}(t)C^{+*}_{-\vec k, i}(t)\right] \\
+                &= \frac{V}{4\pi c^2}\left[\sum_{\vec k, i} \omega^2C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) + \sum_{\vec k, i} \omega^2 C^{-*}_{\vec k, i}(t)C^{-}_{\vec k, i}(t)\right] \\
+                &= \frac{V}{2\pi c^2}\sum_{\vec k, i} \omega^2C^-_{\vec k, i}(t)C^{-*}_{\vec k, i}(t) 
+            \end{align}
+            Note that although it is not really clearly stated, \(\omega\) has a dependence on \(\vec k\) and thus cannot be pulled out of the summation.
+            <h2>Finding canonically conjugated variables</h2>
+            Now that we have our Hamiltonian rigorously defined, we can finally identify proper variables that are real, independent, and canonically conjugated.
+            We thus define time-dependent coefficient \(\alpha_{\vec k, i}(t)\) where:
+            \[
+                \alpha_{\vec k, i}(t) \equiv \sqrt{\frac{V\omega^2}{2\pi c^2}}C^-_{\vec k, i}(t) \in \mathbb C \tag{8}
+            \]
+            so that we can define the classical Hamiltonian as:
+            \[
+                H = \sum_{\vec k, i}\alpha_{\vec k, i}(t)\alpha^*_{\vec k, i}(t)
+            \]
+            From here, we can define:
+            \[
+                q_{\vec k, i}(t) = \frac{1}{\omega\sqrt 2}(\alpha_{\vec k, i}(t) + \alpha^*_{\vec k, i}(t)) \text{ and } p_{\vec k, i}(t) = \frac{1}{i\sqrt 2}(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t))
+            \]
+            which are real operators (and so can be associated with self-adjoint operators).
+            We can write \(\alpha_{\vec k, i}\) in terms of \(q_{\vec k, i}\) and \(p_{\vec k, i}\) if we want:
+            \[
+                \alpha_{\vec k, i}(t) = \frac{1}{\sqrt 2}(\omega q_{\vec k, i}(t) + ip_{\vec k, i}(t)) \text{ and } \alpha^*_{\vec k, i}(t) = \frac{1}{\sqrt 2}(\omega q_{\vec k, i}(t) - ip_{\vec k, i}(t))
+            \]
+            which makes it clear that \(q_{\vec k, i}\) is the real part of \(\alpha_{\vec k, i}\) and \(p_{\vec k, i}\) is the imaginary part of \(\alpha_{\vec k, i}\).
+            We can also write the Hamiltonian in terms of these variables:
+            \[
+                H = \frac{1}{2}\sum_{\vec k, i}(\omega^2 q^2_{\vec k, i}(t) + p^2_{\vec k, i}(t)) \tag{9}
+            \]
+            Let's check to see if \(q_{\vec k, i}\) and \(p_{\vec k, i}\) are actually canonically conjugated, or that \(\dot q_{\vec k, i}(t) = \frac{\partial H}{\partial p_{\vec k, i}(t)}\) and \(\dot p_{\vec k, i}(t) = -\frac{\partial H}{\partial q_{\vec k, i}(t)}\).
+            From (9) we can see that \(\partial_{p_{\vec k, i}} H \) (so, for a specific \(\vec k, i\)) is \(\frac{1}{2}2p_{\vec k, i} = p_{\vec k, i}\), and that \(\partial_{q_{\vec k, i}}H = \omega^2q_{\vec k, i}\).
+            Calculating the time-derivatives of \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\), we get:
+            \begin{align}
+                
+                
+                \dot q_{\vec k, i}(t) 
+                &= \partial_t\left(\frac{1}{\omega\sqrt 2}(\alpha_{\vec k, i}(t) + \alpha^*_{\vec k, i}(t))\right) \\
+                &= \frac{1}{\omega\sqrt 2}(\dot\alpha_{\vec k, i}(t) + \dot\alpha^*_{\vec k, i}(t)) \\
+                <!-- &= \frac{1}{\omega\sqrt 2}\left\{\partial_t \sqrt{\frac{V\omega^2}{2\pi c^2}}C^-_{\vec k, i}(t) + \partial_t\sqrt{\frac{V\omega^2}{2\pi c^2}}C^{*-}_{\vec k, i}(t)\right\} \\ -->
+                &\text{Using (3) and (8):} \\
+                &= \frac{1}{\omega\sqrt 2}\left\{\sqrt{\frac{V\omega^2}{2\pi c^2}}C^-_{\vec k, i}(0)\partial_t e^{-i\omega t} + \sqrt{\frac{V\omega^2}{2\pi c^2}}C^{*-}_{\vec k, i}(0)\partial_t e^{i\omega t}\right\} \\
+                &= \frac{1}{\omega\sqrt 2}(-i\omega)\left(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t)\right)
+                = \frac{1}{i\sqrt 2}\left(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t)\right) \\
+                &= p_{\vec k, i}(t) \checkmark \\
+                
+                \dot p_{\vec k, i}(t) 
+                &= \partial_t \left(\frac{1}{i\sqrt 2}\left(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t)\right)\right) \\
+                &= \frac{1}{i\sqrt 2}\left(\dot\alpha_{\vec k, i}(t) - \dot\alpha^*_{\vec k, i}(t)\right) \\
+                &= \frac{1}{i\sqrt 2}(-i\omega)\left(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t)\right) \\
+                &= -\frac{\omega}{\sqrt 2}\left(\alpha_{\vec k, i}(t) - \alpha^*_{\vec k, i}(t)\right)
+                = -\omega^2\frac{1}{\omega\sqrt 2}(\alpha_{\vec k, i}(t) + \alpha^*_{\vec k, i}(t)) \\
+                &= -\omega^2q_{\vec k, i}(t) \checkmark
+            \end{align}
+            Thus, \(\dot q_{\vec k, i}(t) = \frac{\partial H}{\partial p_{\vec k, i}(t)}\) and \(\dot p_{\vec k, i}(t) = -\frac{\partial H}{\partial q_{\vec k, i}(t)}\) holds true and \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are the independent, canonically conjugated variables that we've been looking for.
+
+            <h2>Quantizing the EM Field</h2>
+            Putting this all together, we now have:
+            \begin{align}
+                q_{\vec k, i}(t) \mapsto \hat q_{\vec k, i}(t) &\text{ and } p_{\vec k, i}(t) \mapsto \hat p_{\vec k, i}(t) \\
+                \hat q_{\vec k, i}(t) \mapsto \hat q^\dagger_{\vec k, i}(t) &\text{ and } \hat p_{\vec k, i}(t) \mapsto \hat p^\dagger_{\vec k, i}(t) \\
+                [\hat q_{\vec k, i}(t), \hat q_{\vec k, j}(t)] &= [\hat p_{\vec k, i}(t), \hat p_{\vec k, j}(t)] = 0 \\
+                [\hat q_{\vec k, i}(t), \hat p_{\vec k', j}(t)] &= i\hbar\delta_{\vec k\vec k'}\delta_{ij} \\
+                H \mapsto \hat H &= \frac{1}{2}\sum_{\vec k, i}(\omega^2 \hat q^2_{\vec k, i}(t) + \hat p^2_{\vec k, i}(t))
+            \end{align}
+            Like in the case of the harmonic oscillator, we can introduce \(\hat Q_{\vec k, i}(t)\) and \(\hat P_{\vec k, i}(t)\) which are dimensionless.
+            \[
+                \hat Q_{\vec k, i}(t) = \sqrt{\frac{\omega}{\hbar}}\hat q_{\vec k, i}(t) \text{ and } \hat P_{\vec k, i}(t) = \frac{1}{\sqrt{\hbar\omega}}\hat p_{\vec k, i}(t)
+            \]
+            which means that \([\hat Q_{\vec k, i}(t), \hat P_{\vec k, i}(t)] = i\delta_{\vec k, \vec k'}\delta_{ij}\) and \(\hat H = \sum_{\vec k, i}\frac{\hbar\omega}{2}(\hat Q^2_{\vec k, i}(t) + \hat P^2_{\vec k, i}(t))\).
+            We can, in turn, also define annihilation and creation operators:
+            \[
+                \hat a_{\vec k, i}(t) = \frac{1}{\sqrt 2}(\hat Q_{\vec k, i}(t) + i\hat P_{\vec k, i}(t)) \text{ and } \hat a^\dagger_{\vec k, i}(t) = \frac{1}{\sqrt 2}(\hat Q_{\vec k, i}(t) - i\hat P_{\vec k, i}(t))
+            \]
+            from which we define
+            \[
+                \hat H = \sum_{\vec k, i} \hbar\omega(\hat a^\dagger_{\vec k, i}(t)\hat a_{\vec k, i}(t) + \frac{1}{2})
+            \]
+            We can thus think of the quantized electromagnetic field as an infinite number of independent harmonic oscillators, each one corresponding to a specific mode \({\vec k, i}\) (recall that \(\vec k\) describes the direction of prpoagation and \(i\) labels the polarization), or that \(\hat H = \sum_{\vec k, i} \hat H_{\vec k, i} \otimes \hat 1 \otimes \hat 1 \cdots\) where the \(\hat 1\)'s correspond to all other modes.
+            <br>
+            We can also define the number operator:
+            \begin{align}
+                \hat n_{\vec k, i}(t) &= \hat a^\dagger_{\vec k, i}(t)\hat a_{\vec k, i}(t) \\
+                \hat n_{\vec k, i}(t)|n\rangle &= n\ket n, n\in \{0, 1, 2, \cdots\} \\
+                \hat a^\dagger_{\vec k, i}(t)\ket n = \sqrt{n+1}\ket {n+1}&, \hat a_{\vec k, i}(t)\ket n = \sqrt n\ket{n-1}
+            \end{align}
+            from which we can see that the creation and annihilation opperators for a specific mode add and remove photons in that mode.
+            We often write the total state of the field over all modes as the tensor product of the number of photons in each mode.
+            For example:
+            \[
+                \ket\psi = \ket 1 \otimes \ket 0 \otimes \ket 1 \otimes \ket 7 \otimes \cdots = \ket{1,0,1,7,\cdots}
+            \]
+            if there is one photon in the 1 mode, none in the second, 1 in the third, and 7 in the fourth, and so on.
+            We call the state where there are no photons in any more the "vacuum state", which is often written as \(\ket 0\) or as \(\ket -\).
+            As a final note, because \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are real, the state \(\ket{\psi_{\vec k, i}}\) is square-integrable and so the full Hilbert space is:
+            \[
+                V = \bigotimes_{\vec k, i}L^2(\mathbb R)
+            \]
+            with one \(L^2(\mathbb R)\) for each mode.
+            
+            <h2>Definining the Field Operators</h2>
+            Since we use vectors \(\ket n\) (over all modes) to describe the state of the field, it is more convenient to define our field operators (and everything else) in terms of \(\hat a_{\vec k, i}(t)\) and \(\hat a^\dagger_{\vec k, i}(t)\) instead of in terms of \(\hat q_{\vec k, i}(t)\) and \(\hat p_{\vec k, i}(t)\).
+            <br><br>
+            <b><i>Quantizing \(\alpha_{\vec k, i}(t)\)</i></b>
+            Notice that \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are in terms of \(\alpha_{\vec k, i}(t)\), so in quantizing those, we imply that \(\alpha_{\vec k, i}(t)\) are quantized as well:
+            \begin{align}
+                q_{\vec k, i}(t) \mapsto \hat q_{\vec k, i}(t) &= \frac{1}{\omega\sqrt 2}(\hat\alpha_{\vec k, i}(t) + \hat\alpha^*_{\vec k, i}(t)) \tag{10a} \\
+                p_{\vec k, i}(t) \mapsto p_{\vec k, i}(t) &= \frac{1}{i\sqrt 2}(\hat\alpha_{\vec k, i}(t) - \hat\alpha^*_{\vec k, i}(t)) \tag{10b}
+            \end{align}
+            and we can write \(\hat \alpha_{\vec k, i}\) in terms of the annihilation and creation operators.
+            To do this, we first write \(\hat a_{\vec k, i}(t)\) in terms of \(\hat q_{\vec k, i}\) and \(\hat p_{\vec k, i}\) using
+            \(\hat Q_{\vec k, i}(t) = \sqrt{\frac{\omega}{\hbar}}\hat q_{\vec k, i}(t)\) and \(\hat P_{\vec k, i}(t) = \frac{1}{\sqrt{\hbar\omega}}\hat p_{\vec k, i}(t)\):
+            \begin{align}
+                \hat a_{\vec k, i}(t) 
+                &= \frac{1}{\sqrt 2}(\hat Q_{\vec k, i}(t) + i\hat P_{\vec k, i}(t)) \\
+                &= \frac{1}{\sqrt 2}(\sqrt{\frac{\omega}{\hbar}}\hat q_{\vec k, i}(t) + i\frac{1}{\sqrt{\hbar\omega}}\hat p_{\vec k, i}(t)) \\
+                &= \frac{1}{\sqrt{2\hbar\omega}} (\omega \hat q_{\vec k, i}(t) + i\hat p_{\vec k, i}(t)) \\
+                \hat a^\dagger_{\vec k, i}(t) 
+                &= \frac{1}{\sqrt{2\hbar\omega}} (\omega \hat q_{\vec k, i}(t) - i\hat p_{\vec k, i}(t)) \\
+            \end{align}
+            and then plug in (10a) and (10b):
+            \begin{align}
+                \hat a_{\vec k, i}(t) 
+                &= \frac{1}{\sqrt{2\hbar\omega}} (\omega \frac{1}{\omega\sqrt 2}(\hat\alpha_{\vec k, i}(t) + \hat\alpha^*_{\vec k, i}(t)) + i\frac{1}{i\sqrt 2}(\hat\alpha_{\vec k, i}(t) - \hat\alpha^*_{\vec k, i}(t))) \\
+                &= \frac{1}{2\sqrt{\hbar\omega}}((\hat\alpha_{\vec k, i}(t) + \hat\alpha^*_{\vec k, i}(t)) + (\hat\alpha_{\vec k, i}(t) - \hat\alpha^*_{\vec k, i}(t))) \\
+                &= \frac{1}{\sqrt{\hbar\omega}}\hat\alpha_{\vec k, i}(t) \\
+                \hat\alpha_{\vec k, i}(t)
+                &= \sqrt{\hbar\omega} \hat a_{\vec k, i}(t) \\
+                \hat\alpha^*_{\vec k, i}(t)
+                &= \sqrt{\hbar\omega}\hat a^\dagger_{\vec k, i}(t) \\
+            \end{align}
+            
+            <b><i>Quantizing \(A_{\vec k, i}(t)\).</i></b>
+            Now that we have the quanitzed form of \(\alpha_{\vec k, i}(t)\) in terms of the annihilation and creation operators, we can also do the same for \(A_{\vec k, i}(t)\).
+            Starting with classical (3) and (8), we can find \(A_{\vec k, i}(t)\) in terms of \(\alpha_{\vec k, i}(t)\):
+            \begin{align}
+                \alpha_{\vec k, i}(t) 
+                &= \sqrt{\frac{V\omega^2}{2\pi c^2}}C^-_{\vec k, i}(t) \qquad \text{ From (8)} \\
+                C^-_{\vec k, i}(t)
+                &= \sqrt{\frac{2\pi c^2}{V\omega^2}}\alpha_{\vec k, i}(t) \\
+                A_{\vec k, i}(t)
+                &= C^+_{\vec k, i}(t) + C^-_{\vec k, i}(t) \qquad \text{ From (3)} \\
+                \text{Using } C^\pm_{\vec k, i}(t) &= C^{\mp*}_{-\vec k, i}(t) \\
+                &= C^{*-}_{-\vec k, i}(t) + C^-_{\vec k, i}(t) \\
+                &= \left(\sqrt{\frac{2\pi c^2}{V\omega^2}}\alpha_{-\vec k, i}(t)\right)^* + \sqrt{\frac{2\pi c^2}{V\omega^2}}\alpha_{\vec k, i}(t) \\
+                &= \sqrt\frac{2\pi c^2}{V\omega^2}(\alpha^*_{-\vec k, i}(t) + \alpha_{\vec k, i}(t))
+            \end{align}
+            Thus because
+            \begin{align}
+                \alpha_{\vec k, i}(t) \mapsto \hat\alpha_{\vec k, i}(t)
+                &= \sqrt{\hbar\omega} \hat a_{\vec k, i}(t) \\
+                \alpha^*_{\vec k, i}(t) \mapsto \hat\alpha^*_{\vec k, i}(t)
+                &= \sqrt{\hbar\omega}\hat a^\dagger_{\vec k, i}(t) \\
+            \end{align}
+            we can also say that
+            \begin{align}
+                A_{\vec k, i}(t)
+                \mapsto
+                \hat A_{\vec k, i}(t)
+                &= \sqrt\frac{2\pi c^2}{V\omega^2}(\hat\alpha^*_{-\vec k, i}(t) + \hat\alpha_{\vec k, i}(t)) \\
+                &= \sqrt\frac{2\pi c^2}{V\omega^2}
+                (\sqrt{\hbar\omega}\hat a^\dagger_{\vec k, i}(t) + \sqrt{\hbar\omega}\hat a_{-\vec k, i}(t)) \\
+                &= \sqrt\frac{h c^2}{V\omega}(\hat a^\dagger_{-\vec k, i}(t) + \hat a_{\vec k, i}(t)) \\
+                &= \sqrt\frac{h c^2}{V\omega}(\hat a^\dagger_{-\vec k, i}(t) + \hat a_{\vec k, i}(t))
+            \end{align}
+            Remember that \(A_{\vec k, i}(t)\) was our time-dependent expansion coefficient for the vector potential.
+            Using (1), we can write the vector potential in terms of the annihilation and creation operators:
+            \begin{align}
+                \vec A(\vec r, t)
+                \mapsto
+                \hat {\vec A}(\vec r, t)
+                &=
+                \sum_{\vec k, i} \hat A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  (\hat a^\dagger_{-\vec k, i}(t) + \hat a_{\vec k, i}(t)) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a^\dagger_{-\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} + \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a^\dagger_{\vec k, i}(t) \hat \epsilon_{-\vec k, i} e^{-i\vec k \cdot\vec r} + \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                \text{Using } \hat\epsilon_{-\vec k, i} &\equiv \hat\epsilon_{\vec k, i}^* \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a^\dagger_{\vec k, i}(t) \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}  \hat a_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} \left[ \hat a^\dagger_{\vec k, i} \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right] \tag{11}
+            \end{align}
+            and we can also write the electric and magnetic fields in terms of the annihilation and creation operators:
+            \begin{align}
+                \vec E_\perp 
+                &= 
+                -\frac{1}{c} \left(\sum_{\vec k, i} \dot A_{\vec k, i}(t) \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}\right) \qquad\text{ See ~(5)} \\
+                &=
+                -\frac{1}{c} \sum_{\vec k, i} (i\omega C^+_{\vec k, i} - i\omega C^-_{\vec k, i})\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                -\frac{i}{c}\sum_{\vec k, i} \omega(C^{-*}_{-\vec k, i} - C^-_{\vec k, i})\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                -\frac{i}{c}\sum_{\vec k, i} \omega(\sqrt{\frac{2\pi c^2}{V\omega^2}}\alpha^*_{-\vec k, i}(t) - \sqrt{\frac{2\pi c^2}{V\omega^2}}\alpha_{\vec k, i}(t))\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &=
+                \sum_{\vec k, i} i\sqrt{\frac{2\pi}{V}}(-\alpha^*_{-\vec k, i}(t) + \alpha_{\vec k, i}(t))\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                \hat {\vec E}_\perp
+                &= 
+                \sum_{\vec k, i} i\sqrt{\frac{2\pi}{V}}(\sqrt{\hbar\omega} \hat a_{\vec k, i}(t) - \sqrt{\hbar\omega} \hat a^\dagger_{-\vec k, i}(t))\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &= 
+                \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}}( \hat a_{\vec k, i}(t) - \hat a^\dagger_{-\vec k, i}(t))\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} \\
+                &\text{(Some summation reshuffling...)} \\
+                &=
+                \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}}\left(\hat a_{\vec k, i}\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} - \hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}\right) \tag{12} \\
+                \vec B
+                &=
+                \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}} \left(\hat a_{\vec k, i}(\hat k \times\hat \epsilon_{\vec k, i}) e^{i\vec k \cdot\vec r}- \hat a^\dagger_{\vec k, i}(\hat k \times\hat \epsilon^*_{\vec k, i}) e^{-i\vec k \cdot\vec r}\right) \tag{13}
+            \end{align}
+            
+            <h2>The Operators for Linear and Angular Momenta</h2>
+            Recall the unitary translation operator from last semester:
+            \[
+                \hat T_{\Delta\vec r} = e^{-i\Delta\vec r\cdot\hat{\vec p}/\hbar}
+            \]
+            If we find the expectation value of some (position-dependent) operator \(\hat{\vec A}(\vec r)\) at position \(\vec r\) of a state that has already been translated a distance \(\Delta \vec r\), we should get the exact same result as when we take the expectation value at position \(\vec r - \Delta\vec r\) <i>before</i> the state was translated.
+            In other words, if \(\hat T_{\Delta\vec r}|\psi\rangle = |\psi'\rangle\):
+            \[
+                \langle\hat{\vec A}(\vec r)\rangle_{\psi'} = \langle \hat{\vec A}(\vec r-\Delta\vec r)\rangle_\psi
+            \]
+            We can thus also think of applying \(\hat{\vec A}(\vec r-\Delta\vec r)\) to state \(\ket\psi\) as applying \(\hat T^\dagger_{\Delta\vec r}\hat{\vec A}(\vec r)\hat T_{\Delta\vec r}\) to \(\ket\psi\); essentially we translate the state by \(\Delta\vec r\), apply \(\hat{\vec A}(\vec r)\) instead, then translate the state back to its original position.
+            This means we align the portion of \(\ket\psi\) that <i>was</i> at \(\vec r - \Delta\vec r\) to now be at \(\vec r\), measuring at \(\vec r\), and then aligning the state to where it used to be.
+            We thus define:
+            \[
+                \hat{\vec A}(\vec r-\Delta\vec r) = \hat T^\dagger_{\Delta\vec r}\hat{\vec A}(\vec r)\hat T_{\Delta\vec r}
+            \]
+            Let's say that this operator is our quantized vector potential operator.
+            We can use infinitesimal expansion to write:
+            \begin{align}
+                \hat{\vec A}(\vec r-\Delta\vec r) 
+                &= \hat T^\dagger_{\Delta\vec r}\hat{\vec A}(\vec r)\hat T_{\Delta\vec r} \\
+                &= (\hat 1 + i\Delta\vec r\cdot\hat{\vec p}/\hbar) \hat{\vec A}(\vec r) (\hat 1 - i\Delta\vec r\cdot\hat{\vec p}/\hbar) \\
+                &= \hat{\vec A}(\vec r) + i\Delta\vec r\cdot\hat{\vec p}/\hbar\hat{\vec A}(\vec r) - i\hat{\vec A}(\vec r)\Delta\vec r\cdot\hat{\vec p}/\hbar + o((\Delta\vec r)^2) \\
+                &= \hat{\vec A}(\vec r) + \frac{i}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)] \\
+                [\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)]
+                &=
+                
+            \end{align}
+
+        </div>
+    </body>
+</html> 
