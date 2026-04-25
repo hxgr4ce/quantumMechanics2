@@ -650,6 +650,7 @@
             \end{align}
             
             <h2>The Operators for Linear and Angular Momenta</h2>
+            <b><i>Finding linear momentum.</i></b>
             Recall the unitary translation operator from last semester:
             \[
                 \hat T_{\Delta\vec r} = e^{-i\Delta\vec r\cdot\hat{\vec p}/\hbar}
@@ -673,11 +674,185 @@
                 &= (\hat 1 + i\Delta\vec r\cdot\hat{\vec p}/\hbar) \hat{\vec A}(\vec r) (\hat 1 - i\Delta\vec r\cdot\hat{\vec p}/\hbar) \\
                 &= \hat{\vec A}(\vec r) + i\Delta\vec r\cdot\hat{\vec p}/\hbar\hat{\vec A}(\vec r) - i\hat{\vec A}(\vec r)\Delta\vec r\cdot\hat{\vec p}/\hbar + o((\Delta\vec r)^2) \\
                 &= \hat{\vec A}(\vec r) + \frac{i}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)] \\
-                [\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)]
+                \frac{i}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)]
                 &=
-                
+                \hat{\vec A}(\vec r-\Delta\vec r) - \hat{\vec A}(\vec r)
             \end{align}
+            Using the definition for the vector potential as defined in (11), we can find the left hand side:
+            \begin{align}
+                [\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)]
+                &= \sum_{\vec k, i} \sqrt\frac{hc^2}{V\omega}
+                \left\{
+                    \Delta\vec r\cdot\hat{\vec p}\hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} + \Delta\vec r\cdot\hat{\vec p}\hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                    - \hat a_{\vec k, i}\Delta\vec r\cdot\hat{\vec p}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} - \hat a^\dagger_{\vec k, i} \Delta\vec r\cdot\hat{\vec p}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                \right\}
+            \end{align}
+            we can also find the right hand side also using (11), in the specific case where \(\Delta\vec r\) is very small:
+            \begin{align}
+                \hat{\vec A}(\vec r-\Delta\vec r) - \hat{\vec A}(\vec r)
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot(\vec r - \Delta\vec r)}
+                    + \hat a^\dagger_{\vec k, i}\hat\epsilon^*_{\vec k, i}e^{-i\vec k\cdot(\vec r - \Delta\vec r)}
+                    - \hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r}
+                    - \hat a^\dagger_{\vec k, i}\epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                ) \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r}e^{-i\vec k\cdot \Delta\vec r}
+                    + \hat a^\dagger_{\vec k, i}\hat\epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}e^{i\vec k\cdot\Delta\vec r}
+                    - \hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r}
+                    - \hat a^\dagger_{\vec k, i}\epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                ) \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r}(e^{-i\vec k\cdot \Delta\vec r} - 1)
+                    + \hat a^\dagger_{\vec k, i}\hat\epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}(e^{i\vec k\cdot\Delta\vec r} - 1)
+                ) \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} (1 - i\vec k\Delta\vec r - 1) + 
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r} (1 + i\vec k \cdot\Delta\vec r - 1)
+                ) \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} - 
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r}
+                ) (-i\vec k\cdot\Delta\vec r) \\
+            \end{align}
+            We now set the left hand side and the right hand side equal:
+            \begin{align}
+                \frac{i}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat{\vec A}(\vec r)]
+                &=
+                \hat{\vec A}(\vec r-\Delta\vec r) - \hat{\vec A}(\vec r)
+                \\
+                \frac{i}{\hbar}\sum_{\vec k, i} \sqrt\frac{hc^2}{V\omega}
+                \left\{
+                    \Delta\vec r\cdot\hat{\vec p}\hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} + \Delta\vec r\cdot\hat{\vec p}\hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                    - \hat a_{\vec k, i}\Delta\vec r\cdot\hat{\vec p}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} - \hat a^\dagger_{\vec k, i} \Delta\vec r\cdot\hat{\vec p}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                \right\}
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega}(
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} - 
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r}
+                ) (-i\vec k\cdot\Delta\vec r) \\
 
+                \frac{1}{\hbar}
+                \left\{
+                    \Delta\vec r\cdot\hat{\vec p}\hat a_{\vec k, i}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} + \Delta\vec r\cdot\hat{\vec p}\hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                    - \hat a_{\vec k, i}\Delta\vec r\cdot\hat{\vec p}\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} - \hat a^\dagger_{\vec k, i} \Delta\vec r\cdot\hat{\vec p}\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                \right\}
+                &=
+                (
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} - 
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r}
+                ) (-\vec k\cdot\Delta\vec r) \\
+                
+                \frac{1}{\hbar}
+                \left\{
+                    [\Delta\vec r\cdot\hat{\vec p}, \hat a_{\vec k, i}]\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} 
+                    + 
+                    [\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                \right\}
+                &=
+                (
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} - 
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r}
+                ) (-\vec k\Delta\cdot\vec r) \\
+            \end{align}
+            Matching up term by term, we get:
+            \begin{align}
+                    \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a_{\vec k, i}]\hat\epsilon_{\vec k, i}e^{i\vec k\cdot\vec r} 
+                    &= 
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k\cdot\vec r} (-\vec k\cdot\Delta\vec r) \\
+                    \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a_{\vec k, i}]
+                    &= 
+                    \hat a_{\vec k, i} (-\vec k\cdot\Delta\vec r) \\
+                    [\Delta\vec r\cdot\hat{\vec p}, \hat a_{\vec k, i}]
+                    &=
+                    -\hbar \hat a_{\vec k, i} (\vec k\cdot\Delta\vec r) \\
+                    \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                    &=
+                    \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r} (-\vec k\Delta\cdot\vec r) \\
+                    
+                    \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]
+                    &=
+                    \hat a^\dagger_{\vec k, i} (-\vec k\Delta\cdot\vec r) \\
+                    [\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]
+                    &=
+                    -\hbar \hat a^\dagger_{\vec k, i} (\vec k\Delta\cdot\vec r)
+            \end{align}
+            Since this is true for all \(\Delta\vec r\),
+            \[
+                [\hat{\vec p}, \hat a_{\vec k, i}] = -\hbar\hat a_{\vec k, i}\vec k
+                \qquad
+                \text{  and  }
+                \qquad
+                [\hat{\vec p}, \hat a^\dagger_{\vec k, i}] = -\hbar\hat a^\dagger_{\vec k, i}\vec k
+            \]
+            We can use this to find the linear momentum \(\vec p\) in terms of the creation and annihilation operators.
+            We already found that
+            \[
+                [\hat a_{\vec k, i}, \hat a^\dagger_{\vec k, i}] = \delta_{\vec k, \vec k'}\delta_{ij}
+                \qquad
+                \text{and}
+                \qquad
+                [\hat a^\dagger_{\vec k, i}, \hat a^\dagger_{\vec k', j}] = [\hat a_{\vec k, i}, \hat a_{\vec k', j}] = 0
+            \]
+            This apparently means that \(\hat{\vec p}\) must contain a product of a creation and annihilation operators for each mode:
+            \[
+                \hat{\vec p} = \sum_{\vec k, i}\hbar\vec k \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i} = \sum_{\vec k, i}\hat n_{\vec k, i} \cdot \hbar\vec k
+            \]
+            essentially, the sum over all modes of the number of photons in each mode times the momentum of a single photon.
+            <br><br>
+            <b><i>Finding angular momentum.</i></b>
+            The classical expression is
+            \[
+                \vec J = \frac{1}{4\pi c}\int d^3 r \quad \vec r\times(\vec E_\perp \times \vec B)
+            \]
+            which we shuffle around using \((\vec a\times\vec b)_i = \varepsilon_{ijk}a_j b_k\):
+            \begin{align}
+                \vec r \times (\vec E_\perp\times \vec B) 
+                &= \hat u_i\varepsilon_{ijk}\vec r_j(\vec E_\perp \times \vec B)_k \text{ (summation over }i\text{ implied)} \\
+                &= \hat u_i\varepsilon_{ijk}r_j(\varepsilon_{klm}E_l B_m) \\
+                &= \hat u_i\varepsilon_{ijk} r_j\varepsilon_{klm}E_l\varepsilon_{mno}\partial_n A_o
+            \end{align}
+            where the last line is a result of \(\vec B = \vec\nabla\times\vec A\), which means that \(B_m\) specifically must be \(\varepsilon_{mno}\partial_n A_o\).
+            We can now collapse some of the \(\varepsilon\) using the fact that \(\varepsilon_{klm}\varepsilon_{mno} = \delta_{kn}\delta_{lo} - \delta_{ko}\delta_{ln}\):
+            \begin{align}
+                \vec r \times (\vec E_\perp\times \vec B) 
+                &= \hat u_i\varepsilon_{ijk} r_jE_l\varepsilon_{klm}\varepsilon_{mno}\partial_n A_o \\
+                &= \hat u_i\varepsilon_{ijk} r_jE_l \partial_n A_o (\delta_{kn}\delta_{lo} - \delta_{ko}\delta_{ln}) \\
+                &= \hat u_i\varepsilon_{ijk} r_jE_l \partial_n A_o \delta_{kn}\delta_{lo} 
+                - \hat u_i\varepsilon_{ijk} r_jE_l \partial_n A_o \delta_{ko}\delta_{ln} \\
+                &= \hat u_i\varepsilon_{ijk} r_jE_l \partial_k A_o \delta_{lo} 
+                - \hat u_i\varepsilon_{ijk} r_jE_l \partial_n A_k \delta_{ln} \\
+                &= \hat u_i\varepsilon_{ijk} r_jE_l \partial_k A_l 
+                - \hat u_i\varepsilon_{ijk} r_j\textcolor{red}{E_l \partial_l} A_k \\
+                &= E_l[\hat u_i\varepsilon_{ijk} r_j \partial_k] A_l 
+                -  \hat u_i\varepsilon_{ijk} r_j\textcolor{red}{(\vec E_\perp\cdot\vec\nabla)} A_k\\
+                &= E_l(\vec r \times \vec\nabla) A_l 
+                -  \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k
+            \end{align}
+            This means that classical angular momentum is
+            \begin{align}
+                \vec J 
+                &= \frac{1}{4\pi c}\int d^3 r \quad \textcolor{red}{(E_l(\vec r \times \vec\nabla) A_l 
+                -  \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k)} \\
+                &= \frac{1}{4\pi c}\int d^3 r \quad E_l(\vec r \times \vec\nabla) A_l 
+                - \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k \\
+            \end{align}
+            The first term, \(\frac{1}{4\pi c}\int d^3 r \quad E_l(\vec r \times \vec\nabla) A_l \), is the <i>orbital angular momentum</i>, which makes sense as it depends on \(\vec r\), or the distance from the origin.
+            The second term can be manipulated as such:
+            \begin{align}
+                \vec\nabla\cdot(\vec E_\perp A_k) &= \vec\nabla\cdot\vec E_\perp A_k + \vec E_\perp\cdot\vec\nabla A_k \\
+                &= 0 + (\vec E_\perp\cdot\vec\nabla) A_k \\
+                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k 
+                &=
+                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
+                &=
+                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
+            \end{align}
         </div>
     </body>
 </html> 
