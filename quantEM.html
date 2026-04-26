@@ -668,7 +668,7 @@
                 \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}} \left(\hat a_{\vec k, i}(\hat k \times\hat \epsilon_{\vec k, i}) e^{i\vec k \cdot\vec r}- \hat a^\dagger_{\vec k, i}(\hat k \times\hat \epsilon^*_{\vec k, i}) e^{-i\vec k \cdot\vec r}\right) \tag{13}
             \end{align}
             
-            <h2>The Operators for Linear and Angular Momenta</h2>
+            <h2 id="mom">The Operators for Linear and Angular Momenta</h2>
             <b><i>Finding linear momentum.</i></b>
             Recall the unitary translation operator from last semester:
             \[
@@ -1332,7 +1332,7 @@
             Note that there is no \(\mu=0\), or a longitudinally polarized photon, which is fundamentally different from massive particles.
             Since photons are massless and move at the speed of light, \(c\), there is no frame in which they would be at rest... in a way, this demonstration also demonstrates that photons are massless. I guess.
             
-            <h2>Coherent States</h2>
+            <h2 id="coherent">Coherent States</h2>
             We can see that the expectation values of \(\hat {\vec A}, \hat {\vec E}, \hat {\vec B}\) are all 0 if there is a defined number of photons in the field, even if they have non-zero total energy \(n\hbar\omega\) and non-zero total momentum \(n\hbar\vec k\).
             This is beacuse all three of these operators have both creation and annihilation terms, each for a specific mode.
             Thus the expectation value has terms that look like the following:
@@ -1570,13 +1570,19 @@
             \end{align}  
             This is, of course, the transition amplitude from intial to final state where the final state's emitted photon has a very specific, single mode.
             We can, in reality, transition from the initial to final state and have the emitted photon be in any mode.
-            The total transition rate can thus be calculated as follows:
+            The single transition rate can be calculated as follows:
             \begin{align}
                 W^{(1)}_{\vec k, \lambda\leftarrow i} 
                 &= \left(\frac{2\pi}{\hbar}\right)^2\frac{h\omega}{V} |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \frac{T}{2\pi}\frac{1}{T} \\
                 &= \frac{1}{2\pi}\left(\frac{2\pi}{\hbar}\right)^2\frac{2\pi\hbar\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
                 &= \frac{(2\pi)^2}{\hbar}\frac{\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar)
             \end{align}
+            From the single transition rate, we can find the total transition rate by doing:
+            \[
+                \sum_{\vec k, i} W^{(1)}_{\vec k, \lambda\leftarrow i} 
+                = \sum_{\vec k, i} \frac{(2\pi)^2}{\hbar}\frac{\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar)
+            \]
+            and use the identity that \(\sum_{\vec k} = \frac{V}{(2\pi)^3}\int d^3k\).
             <br><br>
             <div class="mainContent">
                 Remember that \(V = L^3\) is the volume of our box with periodic boundary conditions that we used to discretize momentum space.
@@ -1584,9 +1590,74 @@
                 \[
                     \vec k = \frac{2\pi}{L} n_x \hat x + \frac{2\pi}{L} n_y \hat y + \frac{2\pi}{L} n_z \hat z,
                 \]
-                As we make the box larger and larger, the distance between the allowed, discrete \(\vec k\)'s gets very small.
-                This means that sum over all \(\vec k\) can be written as \(\frac{V}{(2\pi)^3}\int d^3k\).
+                Our \(\vec k\)'s are not continuous; each component of \(\vec k\) can only change by intervals of \(\frac{2\pi}{L}\).
+                This means that an entire cubic area of \(\left(\frac{2\pi}{L}\right)^3\) corresponds to a single \(\vec k\).
+                <br><br>
+                We can estimate the number of valid \(\vec k\)'s in a given volume \(d^3 k\) by doing
+                \[
+                    \frac{d^3k}{(2\pi/L)^3} = \frac{L^3}{(2\pi)^3}d^3k = \frac{V}{(2\pi)^3}d^3k
+                \]
+                <hr>
+                A summation over all \(\vec k\), or \(\sum_{\vec k} 1\), counts the total number of discrete \(\vec k\)'s that exist.
+                We can equivalently produce this count by computing \(\frac{V}{(2\pi)^3}d^3k\).
+                <br><br>
+                If we make the volume of our box larger and larger and count the number of \(\vec k\)'s that exist in the entire volume, we add up the number of \(\vec k\)'s that exist in every tiny piece of volume in the total volume.
+                Thus we do \(\int\frac{V}{(2\pi)^3} d^3k\).
+                So we see that:
+                \[
+                    \sum_{\vec k} = \int\frac{V}{(2\pi)^3} d^3k = \frac{V}{(2\pi)^3}\int d^3k
+                \]
             </div>
+            <br><br>
+            So, we find the total transition rate by doing the following:
+            \begin{align}
+                \sum_{\vec k, i} W^{(1)}_{\vec k, \lambda\leftarrow i} 
+                &= \sum_{\vec k, i} \frac{(2\pi)^2}{\hbar}\frac{\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \sum_{i} \frac{V}{(2\pi)^3} \int d^3k \frac{(2\pi)^2}{\hbar}\frac{\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \frac{1}{2\pi\hbar} \sum_{i} \int d^3k \omega|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \frac{1}{2\pi\hbar} \sum_{i} \int dk k^2 \int d\theta\sin\theta \int d\phi \omega|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                \text{Using } \omega = ck &\implies d\omega = c dk \implies dk = \frac{1}{c} d\omega \\
+                &= \frac{1}{2\pi\hbar} \sum_{i} \int \left(\frac{1}{c}d\omega\right) \left(\frac{\omega}{c}\right)^2 \int d\theta\sin\theta \int d\phi \omega|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \frac{1}{2\pi\hbar c^3} \sum_{i} \int d\omega \int d\theta\sin\theta \int d\phi \omega^3 |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar)
+            \end{align}
+            At this point, the \(\delta(\omega_{\vec k} - \Delta E/\hbar)\) term collapses the integral over \(d\omega\) and sets \(\omega = \Delta E/\hbar\).
+            \begin{align}
+                \sum_{\vec k, i} W^{(1)}_{\vec k, \lambda\leftarrow i} 
+                &= \frac{1}{2\pi\hbar c^3} \sum_{i} \int d\omega \int d\theta\sin\theta \int d\phi \omega^3 |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \frac{1}{2\pi\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 \sum_{i} \int d\theta\sin\theta \int d\phi |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2 \\
+                &= \frac{1}{2\pi\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 \int d\theta\sin\theta \int d\phi \sum_{i} |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2 \\
+            \end{align}
+            We can write any vector \(\vec \mu\) as a sum of components along the \(\vec k\), \(\hat\epsilon^*_{\vec k, 1}\), and \(\hat\epsilon^*_{\vec k, 2}\), since all three of these are orthogonal.
+            We can write the dot product between these vectors and \(\vec \mu\) as:
+            \(\vec \mu\cdot\vec k = \vec\mu_k\),
+            \(\vec \mu\cdot\hat\epsilon^*_{\vec k, 1} = \vec\mu_1\),
+            and
+            \(\vec \mu\cdot\hat\epsilon^*_{\vec k, 2} = \vec\mu_2\), given that
+            \[
+                \vec\mu = \vec\mu_k\hat k + \vec\mu_1\hat\epsilon^*_{\vec k, 1} + \vec\mu_2\hat\epsilon^*_{\vec k, 2}
+            \]
+            we can also easily see that
+            \[
+                |\vec\mu|^2 = |\vec\mu_k|^2 + |\vec\mu_1|^2 + |\vec\mu_2|^2
+            \]
+            which means that if we want \(\sum_i\vec\mu\cdot\hat\epsilon^*_{\vec k, i}\), we can equivalently do \(|\vec \mu|^2 - |\vec\mu\cdot\vec k|^2\).
+            <br><br>
+            Furthermore, if we chose \(\vec k\) to align with the z-axis:
+            \[
+                |\vec \mu|^2 - |\vec\mu\cdot\vec k|^2 = |\vec \mu|^2 - |\vec\mu|^2\cos^2\theta = |\vec\mu|^2\sin^2\theta
+            \]
+            since \(\theta\) is defined as the angle between \(\vec k\) (or whatever the vector of interest is) and the z-axis.
+            Now our transition rate is:
+            \begin{align}
+                \sum_{\vec k, i} W^{(1)}_{\vec k, \lambda\leftarrow i} 
+                &= \frac{1}{2\pi\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 \int d\theta\sin\theta \int d\phi \sum_{i} |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2 \\
+                &= \frac{1}{2\pi\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 \int d\theta\sin\theta \int d\phi |\vec\mu_{ge}|^2\sin^2\theta \\
+                &= \frac{1}{\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 |\vec\mu_{ge}|^2 \int d\theta \sin^3\theta \\
+                &= \frac{1}{\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 |\vec\mu_{ge}|^2 \left[\frac{1}{3}\cos\theta-\cos\theta\right]_0^\pi \\
+                &= \frac{1}{\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 |\vec\mu_{ge}|^2 \left[-\frac{1}{3}+1 - \frac{1}{3} + 1\right] \\
+                &= \frac{4}{3\hbar c^3} \left(\frac{\Delta E}{\hbar}\right)^3 |\vec\mu_{ge}|^2\\
+            \end{align}
+            or, if you prefer, \(\frac{4\omega^3}{3\hbar c^3}|\vec\mu_{ge}|^2\).
         </div>
     </body>
 </html> 
