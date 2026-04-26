@@ -6,6 +6,7 @@
         <title>Quantization of the Electromagnetic Field</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=dc64ee9b5edd4d44806cad8089409cab"></script>
     </head>
     <body>
         <div class="mainContent">
@@ -82,7 +83,7 @@
             \[
                 \vec A(\vec r, t) = \sum_{\vec k} \vec A_{\vec k}(t) e^{i\vec k \cdot\vec r}
                 \text{ for }
-                k = \frac{2\pi}{L} n_x \hat x + \frac{2\pi}{L} n_y \hat y + \frac{2\pi}{L} n_z \hat z,
+                \vec k = \frac{2\pi}{L} n_x \hat x + \frac{2\pi}{L} n_y \hat y + \frac{2\pi}{L} n_z \hat z,
                 n_i \in \mathbb Z
             \]
             This is apparently a Fourier series. 
@@ -494,7 +495,7 @@
             \end{align}
             Thus, \(\dot q_{\vec k, i}(t) = \frac{\partial H}{\partial p_{\vec k, i}(t)}\) and \(\dot p_{\vec k, i}(t) = -\frac{\partial H}{\partial q_{\vec k, i}(t)}\) holds true and \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are the independent, canonically conjugated variables that we've been looking for.
 
-            <h2>Quantizing the EM Field</h2>
+            <h2 id="quantem">Quantizing the EM Field</h2>
             Putting this all together, we now have:
             \begin{align}
                 q_{\vec k, i}(t) \mapsto \hat q_{\vec k, i}(t) &\text{ and } p_{\vec k, i}(t) \mapsto \hat p_{\vec k, i}(t) \\
@@ -516,29 +517,47 @@
             \[
                 \hat H = \sum_{\vec k, i} \hbar\omega(\hat a^\dagger_{\vec k, i}(t)\hat a_{\vec k, i}(t) + \frac{1}{2})
             \]
-            We can thus think of the quantized electromagnetic field as an infinite number of independent harmonic oscillators, each one corresponding to a specific mode \({\vec k, i}\) (recall that \(\vec k\) describes the direction of prpoagation and \(i\) labels the polarization), or that \(\hat H = \sum_{\vec k, i} \hat H_{\vec k, i} \otimes \hat 1 \otimes \hat 1 \cdots\) where the \(\hat 1\)'s correspond to all other modes.
-            <br>
             We can also define the number operator:
             \begin{align}
                 \hat n_{\vec k, i}(t) &= \hat a^\dagger_{\vec k, i}(t)\hat a_{\vec k, i}(t) \\
                 \hat n_{\vec k, i}(t)|n\rangle &= n\ket n, n\in \{0, 1, 2, \cdots\} \\
                 \hat a^\dagger_{\vec k, i}(t)\ket n = \sqrt{n+1}\ket {n+1}&, \hat a_{\vec k, i}(t)\ket n = \sqrt n\ket{n-1}
             \end{align}
-            from which we can see that the creation and annihilation opperators for a specific mode add and remove photons in that mode.
-            We often write the total state of the field over all modes as the tensor product of the number of photons in each mode.
-            For example:
+            from which we can see that the creation and annihilation opperators for a specific mode add and remove photons in that mode and using the number operator, the total Hamiltonian is:
             \[
-                \ket\psi = \ket 1 \otimes \ket 0 \otimes \ket 1 \otimes \ket 7 \otimes \cdots = \ket{1,0,1,7,\cdots}
+                \hat H = \sum_{\vec k, i} \hbar\omega(\hat n_{\vec k, i}(t) + \frac{1}{2})
             \]
-            if there is one photon in the 1 mode, none in the second, 1 in the third, and 7 in the fourth, and so on.
-            We call the state where there are no photons in any more the "vacuum state", which is often written as \(\ket 0\) or as \(\ket -\).
-            As a final note, because \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are real, the state \(\ket{\psi_{\vec k, i}}\) is square-integrable and so the full Hilbert space is:
+            We can thus think of the quantized electromagnetic field as an infinite number of independent harmonic oscillators, each one corresponding to a specific mode \({\vec k, i}\) (recall that \(\vec k\) describes the direction of prpoagation and \(i\) labels the polarization), or that \(\hat H = \sum_{\vec k, i} \hat H_{\vec k, i} \otimes \hat 1 \otimes \hat 1 \cdots\) where the \(\hat 1\)'s correspond to all other modes.
+            <br>
+            Each individual field mode has the same Hilbert space as the 1-dimensional harmonic oscillator:
+            \[
+                \mathcal E_{\vec k, i} = \text{span}\{\ket 0, \ket 1, \ket 2, \cdots\} = \{\sum_{n=0}^\infty \ket n c_n, \sum_{n=0}^\infty |c_n|^2 \lt \infty\}
+            \]
+            and the basis for the total Hilbert space is the tensor product of basis states for each of these inividiual modes:
+            \[
+                \ket n = |n_{\vec k_1, 1}\rangle \otimes |n_{\vec k_1, 2}\rangle \otimes |n_{\vec k_2, 1}\rangle \otimes |n_{\vec k_2, 2}\rangle \otimes \cdots
+            \]
+            Because \(q_{\vec k, i}(t)\) and \(p_{\vec k, i}(t)\) are real, the state \(\ket{\psi_{\vec k, i}}\) for a single mode is square-integrable and the full Hilbert space is:
             \[
                 V = \bigotimes_{\vec k, i}L^2(\mathbb R)
             \]
             with one \(L^2(\mathbb R)\) for each mode.
+            <br><br>
+            We often write the total state of the field over all modes as the tensor product of the <i>number</i> of photons in each mode.
+            For example:
+            \[
+                \ket\psi = \ket 1 \otimes \ket 0 \otimes \ket 1 \otimes \ket 7 \otimes \cdots = \ket{1,0,1,7,\cdots}
+            \]
+            if there is 1 photon in the first mode, none in the second, 1 in the third, and 7 in the fourth, and so on.
+            We call the state where there are no photons in any mode the "vacuum state", which is often written as \(\ket {0, 0, 0,\cdots} = \ket 0\) or as \(\ket -\).
+            <br><br>
+            We can also write any state as a series of annihilation and creation operators acting on the vacuum state.
+            For example, if we have a state with two photons in mode \(\vec k, i\) and five photons in mode \(\vec k', j\), we would write:
+            \[
+                |\psi\rangle = \frac{1}{\sqrt{2!}}(\hat a^\dagger_{\vec k, i})^2 \cdot \frac{1}{\sqrt{5!}}(\hat a^\dagger_{\vec k', j})^5 \ket -
+            \]
             
-            <h2>Definining the Field Operators</h2>
+            <h2>Defining the Field Operators</h2>
             Since we use vectors \(\ket n\) (over all modes) to describe the state of the field, it is more convenient to define our field operators (and everything else) in terms of \(\hat a_{\vec k, i}(t)\) and \(\hat a^\dagger_{\vec k, i}(t)\) instead of in terms of \(\hat q_{\vec k, i}(t)\) and \(\hat p_{\vec k, i}(t)\).
             <br><br>
             <b><i>Quantizing \(\alpha_{\vec k, i}(t)\)</i></b>
@@ -791,7 +810,8 @@
                 [\hat{\vec p}, \hat a^\dagger_{\vec k, i}] = -\hbar\hat a^\dagger_{\vec k, i}\vec k
             \]
             We can use this to find the linear momentum \(\vec p\) in terms of the creation and annihilation operators.
-            We already found that
+            <br>
+            As an extension of what we already know from the quantum harmonic oscillators, we can say that:
             \[
                 [\hat a_{\vec k, i}, \hat a^\dagger_{\vec k, i}] = \delta_{\vec k, \vec k'}\delta_{ij}
                 \qquad
@@ -799,11 +819,20 @@
                 \qquad
                 [\hat a^\dagger_{\vec k, i}, \hat a^\dagger_{\vec k', j}] = [\hat a_{\vec k, i}, \hat a_{\vec k', j}] = 0
             \]
+            that is:
+            <ul> 
+                <li>
+                    A creation operator and an annihilation operator commute if they correspond to different modes, but otherwise have a commutator of 1: this is because it DOES matter if you have already added/removed a photon to/from a specific mode, if you intend to add/remove a photon in that mode now.
+                </li>
+                <li>    
+                    Two creation operators or two annihilation operators always commute-- either they correspond to the same mode, in which case they are the same operator and commute, or they correspond to different modes, in which case they mind their own business and commute anyway.
+                </li>
+            </ul>
             This apparently means that \(\hat{\vec p}\) must contain a product of a creation and annihilation operators for each mode:
             \[
                 \hat{\vec p} = \sum_{\vec k, i}\hbar\vec k \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i} = \sum_{\vec k, i}\hat n_{\vec k, i} \cdot \hbar\vec k
             \]
-            essentially, the sum over all modes of the number of photons in each mode times the momentum of a single photon.
+            essentially, the sum over all modes of the number of photons in each mode times the momentum of a single photon, \(\hbar\vec k\).
             <br><br>
             <b><i>Finding angular momentum.</i></b>
             The classical expression is
@@ -845,14 +874,777 @@
             The first term, \(\frac{1}{4\pi c}\int d^3 r \quad E_l(\vec r \times \vec\nabla) A_l \), is the <i>orbital angular momentum</i>, which makes sense as it depends on \(\vec r\), or the distance from the origin.
             The second term can be manipulated as such:
             \begin{align}
-                \vec\nabla\cdot(\vec E_\perp A_k) &= \vec\nabla\cdot\vec E_\perp A_k + \vec E_\perp\cdot\vec\nabla A_k \\
+                \vec\nabla\cdot(\vec E_\perp A_k) 
+                &= \vec\nabla\cdot\vec E_\perp A_k + \vec E_\perp\cdot\vec\nabla A_k \\
                 &= 0 + (\vec E_\perp\cdot\vec\nabla) A_k \\
-                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k 
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k 
                 &=
-                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
                 &=
-                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j\vec\nabla\cdot(\vec E_\perp A_k) \\
+                \vec\nabla\cdot(r_j\vec E A_k)
+                &=
+                (\vec\nabla r_j)\vec E A_k + r_j\vec\nabla\cdot(\vec E A_k) \\
+                r_j\vec\nabla\cdot(\vec E A_k)
+                &=
+                \vec\nabla\cdot(r_j\vec E A_k) - (\vec\nabla r_j)\vec E A_k \\
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} r_j(\vec E_\perp\cdot\vec\nabla) A_k 
+                &=
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} \left(\vec\nabla\cdot(r_j\vec E_\perp A_k) - (\vec\nabla r_j)\vec E_\perp A_k \right) \\
             \end{align}
+            We can expand \(\vec\nabla r_j\) into:
+            \[
+                \vec\nabla r_j = \sum_i \hat u_i \frac{\partial r_j}{\partial r_i} = \sum_i \hat u_i\delta_{ij} = \hat u_j \text{ and } \hat u_j \vec E_\perp = E_j
+            \]
+            so we get:
+            \begin{align}
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} \left(\vec\nabla\cdot(r_j\vec E A_k) - (\vec\nabla r_j)\vec E A_k \right)
+                &=
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} \left(\vec\nabla\cdot(r_j\vec E A_k) - \vec E_j A_k \right)
+            \end{align}
+            If the fields vanish at large distances, then, using Gauss's theorem (\(\int_V d^3 r \vec\nabla \cdot \vec F = \int_{\partial V} d\vec a \cdot \vec F\)), we see:
+            \[
+                \int_V d^3 r\vec\nabla\cdot(r_j\vec E_\perp A_k) = \int_{\partial V} d\vec a \cdot (r_j\vec E_\perp A_k) = 0
+            \]
+            Thus our second term in angular momentum \(\vec J\) is:
+            \[
+                -\frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} \left(0 - \vec E_j A_k \right)
+                =
+                \frac{1}{4\pi c}\int d^3 r \quad \hat u_i\varepsilon_{ijk} \vec E_j A_k
+                =
+                \frac{1}{4\pi c}\int d^3 r \vec E_\perp \times \vec A
+            \]
+            notice that this does not depend on the location of the origin, or \(\vec r\), and so it must be angular momentum that is intrinsic to the particle itself... like spin.
+            We call this \(\vec J_s\).
+            Now let's find \(\hat{\vec J_s}\), using (11) and (12):
+            \begin{align}
+                \frac{1}{4\pi c}\int d^3 r \vec E_\perp \times \vec A &\mapsto \frac{1}{4\pi c}\int d^3 r \hat{\vec E_\perp} \times \hat{\vec A} \\
+                &=
+                \frac{1}{4\pi c}\int d^3 r 
+                \left(\sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}}\left(\hat a_{\vec k, i}\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} - \hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}\right)\right) 
+                \times 
+                \left(\sum_{\vec k', j} \sqrt\frac{h c^2}{V\omega'} \left( \hat a^\dagger_{\vec k', j} \hat \epsilon^*_{\vec k', j} e^{-i\vec k' \cdot\vec r} + \hat a_{\vec k', j} \hat \epsilon_{\vec k', j} e^{i\vec k' \cdot\vec r}\right)\right)
+                \\
+                &=
+                \frac{ihc}{V4\pi c} \sum_{\vec k, \vec k', i, j} \sqrt\frac{\omega}{\omega'} \int d^3 r
+                \Bigg\{
+                    \left(
+                        \hat a_{\vec k, i}\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                    \right)
+                    \times
+                    \left(
+                        \hat a^\dagger_{\vec k', j} \hat \epsilon^*_{\vec k', j} e^{-i\vec k' \cdot\vec r}
+                    \right)
+                    +
+                    \left(
+                        \hat a_{\vec k, i}\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                    \right)
+                    \times
+                    \left(
+                        \hat a_{\vec k', j} \hat \epsilon_{\vec k', j} e^{i\vec k' \cdot\vec r}    
+                    \right)
+                    \\
+                    &\qquad\qquad\qquad\qquad\qquad\qquad
+                    -
+                    \left(
+                        \hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}    
+                    \right)
+                    \times
+                    \left(
+                        \hat a^\dagger_{\vec k', j} \hat \epsilon^*_{\vec k', j} e^{-i\vec k' \cdot\vec r}
+                    \right)
+                    -
+                    \left(
+                        \hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}    
+                    \right)
+                    \times
+                    \left(
+                        \hat a_{\vec k', j} \hat \epsilon_{\vec k', j} e^{i\vec k' \cdot\vec r}    
+                    \right)
+                \Bigg\}
+                \\
+                &=
+                \frac{ih}{V4\pi} \sum_{\vec k, \vec k', i, j} \sqrt\frac{\omega}{\omega'} \int d^3 r
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k', j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k', j}
+                    \right)
+                    e^{i(\vec k-\vec k') \cdot\vec r}
+                    +
+                    \hat a_{\vec k, i}\hat a_{\vec k', j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon_{\vec k', j}
+                    \right)
+                    e^{i(\vec k+\vec k') \cdot\vec r}    
+                    \\
+                    &\qquad\qquad\qquad\qquad\qquad\qquad
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a^\dagger_{\vec k', j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon^*_{\vec k', j}
+                    \right)
+                          e^{-i(\vec k - \vec k') \cdot\vec r}
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k', j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k', j}
+                    \right)
+                    e^{i(-\vec k + \vec k') \cdot\vec r}    
+                \Bigg\}
+                \\
+                &=
+                \frac{ih}{V4\pi} \sum_{\vec k, \vec k', i, j} \sqrt\frac{\omega}{\omega'}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k', j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k', j}
+                    \right)
+                    \int d^3 re^{i(\vec k-\vec k') \cdot\vec r}
+                    +
+                    \hat a_{\vec k, i}\hat a_{\vec k', j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon_{\vec k', j}
+                    \right)
+                    \int d^3 re^{i(\vec k+\vec k') \cdot\vec r}    
+                    \\
+                    &\qquad\qquad\qquad\qquad\qquad\qquad
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a^\dagger_{\vec k', j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon^*_{\vec k', j}
+                    \right)
+                    \int d^3 re^{-i(\vec k - \vec k') \cdot\vec r}
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k', j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k', j}
+                    \right)
+                    \int d^3 re^{i(-\vec k + \vec k') \cdot\vec r}    
+                \Bigg\}
+
+            \end{align}
+            Recall that to obtain (6), we used 
+            \[
+                \int_V d^3r\, e^{i(\vec k-\vec k')\cdot \vec r}
+                =
+                V\,\delta_{\vec k\vec k'}
+            \]
+            which also means that 
+            \(
+                \int_V d^3r\, e^{i(\vec k+\vec k')\cdot \vec r}
+                =
+                V\,\delta_{\vec k, -\vec k'}    
+            \)
+            and
+            \(
+                \int_V d^3r\, e^{-i(\vec k-\vec k')\cdot \vec r}
+                =
+                V\,\delta_{-\vec k, \vec k'}    
+            \)
+            .
+            We use it again here:
+            \begin{align}
+                \hat {\vec J}_s
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i, j} \sqrt\frac{\omega}{\omega}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                    +
+                    \hat a_{\vec k, i}\hat a_{-\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon_{-\vec k, j}
+                    \right)
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a^\dagger_{-\vec k, j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon^*_{-\vec k, j}
+                    \right)
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k, j}
+                    \right)
+                \Bigg\}
+                \\
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i, j}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                    +
+                    \hat a_{\vec k, i}\hat a_{-\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a^\dagger_{-\vec k, j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k, j}
+                    \right)
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k, j}
+                    \right)
+                \Bigg\}
+            \end{align}
+            The \(\hat a \hat a\) and \(\hat a^\dagger \hat a^\dagger\) terms turn out to be 0.
+            For example:
+            \begin{align}
+                \sum_{\vec k, i, j}
+                \hat a_{\vec k, i}\hat a_{-\vec k, j}
+                \left(
+                    \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                \right)
+                &=
+                \sum_{\vec k, i, j}
+                \hat a_{-\vec k, i}\hat a_{\vec k, j}
+                \left(
+                    \hat \epsilon_{-\vec k, i} \times \hat \epsilon^*_{-\vec k, j} 
+                \right) \qquad \text{ (swap } \vec k \text{ and } \vec k' \text{ )}
+                \\
+                &=
+                \sum_{\vec k, i, j}
+                \hat a_{-\vec k, i}\hat a_{\vec k, j}
+                \left(
+                    \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k, j} 
+                \right)
+                \\
+                &=
+                \sum_{\vec k, i, j}
+                \hat a_{-\vec k, j}\hat a_{\vec k, i}
+                \left(
+                    \hat \epsilon^*_{\vec k, j} \times \hat \epsilon_{\vec k, i} 
+                \right) \qquad \text{(swap i and j)}
+                \\
+                &=
+                \sum_{\vec k, i, j}
+                \hat a_{\vec k, i}\hat a_{-\vec k, j}
+                \left(
+                    \hat \epsilon^*_{\vec k, j} \times \hat \epsilon_{\vec k, i} 
+                \right) \qquad \text{(annihilation operators for different modes commute)}
+                \\
+                &=
+                -\sum_{\vec k, i, j}
+                \hat a_{\vec k, i}\hat a_{-\vec k, j}
+                \left(
+                    \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                \right) \qquad \text{(cross product is anti-symmetric)}
+                \\
+            \end{align}
+            If a quantity \(S\) equals \(-S\), then \(S=0\).
+            Thus \(\hat{\vec J}_s\) is:
+            \[
+                \hat{\vec J}_s
+                =
+                \frac{ih}{4\pi} \sum_{\vec k, i, j}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                    -
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, j}
+                    \left(
+                        \hat \epsilon^*_{\vec k, i} \times \hat \epsilon_{\vec k, j}
+                    \right)
+                \Bigg\}
+            \]
+            Or, if we swap \(i\) and \(j\) and use the anti-symmetry of the cross product in the second term only:
+            \[
+                \hat{\vec J}_s
+                =
+                \frac{ih}{4\pi} \sum_{\vec k, i, j}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                    +
+                    \hat a^\dagger_{\vec k, j}\hat a_{\vec k, i}
+                    \left(
+                        \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                    \right)
+                \Bigg\}
+                =
+                \frac{ih}{4\pi} \sum_{\vec k, i, j}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    +
+                    \hat a^\dagger_{\vec k, j}\hat a_{\vec k, i}
+                \Bigg\}
+                \left(
+                    \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                \right)
+            \]
+            <h2>Circular Polarization</h2>
+            It is convenient to express this result for a specific type of polarization.
+            Say that the two unit vectors orthogonal to \(\vec k\) are \(\hat u_{\vec k, 1}\) and \(\hat u_{\vec k, 2}\). 
+            We define the following:
+            \[
+                \hat \epsilon_{\vec k, \pm} \equiv \frac{1}{\sqrt 2}(\hat u_{\vec k, 1} \pm i\hat u_{\vec k, 2})
+            \]
+            this is called a <i>helicity basis</i>. 
+            It describes a polarization vector with two components, one along \(\hat u_{\vec k, 1}\) and one along \(\hat u_{\vec k, 2}\), which are equal in magnitude.
+            <br><br>
+            <div class="mainContent" style="border: 1px solid black;">
+                If we, for example, plug this into an arbitrary field \(\vec E = E_0\hat \epsilon_\pm e^{i(\vec k\cdot\vec r - \omega t)}\), we still need to find the <i>real</i> component (since the electric field is real and observable).
+                Doing this, we get:
+                \begin{align}
+                    \vec E_{actual} 
+                    &= \text{Re}(E_0 \frac{1}{\sqrt 2}(\hat u_{\vec k, 1} \pm i\hat u_{\vec k, 2}) e^{i(\vec k\cdot\vec r - \omega t)} ) \\
+                    &= \frac{E_0}{\sqrt 2} \text{Re}(\hat u_{\vec k, 1}e^{i(\vec k\cdot\vec r - \omega t)} \pm i\hat u_{\vec k, 2}e^{i(\vec k\cdot\vec r - \omega t)} ) \\
+                    &= \frac{E_0}{\sqrt 2} \text{Re}(\hat u_{\vec k, 1}(\cos(\vec k\cdot\vec r - \omega t) + i\sin(\vec k\cdot\vec r - \omega t)) \pm i\hat u_{\vec k, 2}(\cos(\vec k\cdot\vec r - \omega t) + i\sin(\vec k\cdot\vec r - \omega t))) \\
+                    &= \frac{E_0}{\sqrt 2} (\hat u_{\vec k, 1}\cos(\vec k\cdot\vec r - \omega t) \mp \hat u_{\vec k, 2}\sin(\vec k\cdot\vec r - \omega t)) \\
+                \end{align}
+                which clearly results in sinusoildal oscillation of the polarization being purely in \(\hat u_{\vec k, 1}\) when \(\vec k\cdot\vec r - \omega t = n\pi, n \in \mathbb Z\), and purely in \(\hat u_{\vec k, 2}\) when it is equal to \(\pi/2, 3\pi/2,\) etc.
+                <br><br>
+                <div style="text-align: center; padding: 5px; color: #696969;">
+                    A plot of \(\left(\frac{E_0}{\sqrt{2}}\cos(t),-\frac{E_0}{\sqrt{2}}\sin(t)\right)\) (red) and \(\left(\frac{E_0}{\sqrt{2}}\cos(t),\frac{E_0}{\sqrt{2}}\sin(t)\right)\) (blue) over time interval \(t \in [0, 2\pi]\),
+                    <br>
+                    which describe the direction and magnitude of the electric field for polarization along \(\hat \epsilon_{\vec k, +} \) and \(\hat \epsilon_{\vec k, -} \) respectively.
+                    <br><br>
+                    <div id="calculator" style="width: 600px; height: 600px; margin: 0 auto;"></div>
+                </div>
+            </div>
+            <br><br>
+            We further define the following properties:
+            \begin{align}
+                \hat \epsilon^*_{\vec k, \pm} &= \hat\epsilon_{\vec k, \mp} \\
+                \hat \epsilon_{\vec k, \pm} \times \hat \epsilon^*_{\vec k, \pm} &= \mp i\hat k \\
+                \hat \epsilon_{\vec k, \pm} \times \hat \epsilon^*_{\vec k, \mp} &= 0
+            \end{align}
+            In this case, the angular momentum operator becomes:
+            \begin{align}
+                \hat{\vec J}_s
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i, j}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, j}
+                    +
+                    \hat a^\dagger_{\vec k, j}\hat a_{\vec k, i}
+                \Bigg\}
+                \left(
+                    \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
+                \right) \\
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, i}
+                    +
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i}
+                \Bigg\}
+                \left(
+                    \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, i}
+                \right) 
+                \qquad \text{(Because } \hat \epsilon_{\vec k, \pm} \times \hat \epsilon^*_{\vec k, \mp} = 0 \text{)}\\
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, i}
+                    +
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i}
+                \Bigg\}
+                \left(
+                    \mp i\hat k
+                \right) 
+                \qquad \text{(Because } \hat \epsilon_{\vec k, \pm} \times \hat \epsilon^*_{\vec k, \pm} = \mp i\hat k \text{)}
+            \end{align}
+            In this case, \(i\) can only be \(+\) or \(-\), and we have a factor of \(-i\hat k\) if it is \(+\) and a factor of \(+i\hat k\) if it is \(i\).
+            Thus if we expand over \(i\), we get:
+            \begin{align}
+                \hat{\vec J}_s
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, i}
+                \Bigg\{
+                    \hat a_{\vec k, i}\hat a^\dagger_{\vec k, i}
+                    +
+                    \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i}
+                \Bigg\}
+                \left(
+                    \mp i\hat k
+                \right) 
+                \\
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k}
+                \Bigg\{
+                    \hat a_{\vec k, +}\hat a^\dagger_{\vec k, +}
+                    +
+                    \hat a^\dagger_{\vec k, +}\hat a_{\vec k, +}
+                \Bigg\}
+                \left(
+                    - i\hat k
+                \right) 
+                +
+                \Bigg\{
+                    \hat a_{\vec k, -}\hat a^\dagger_{\vec k, -}
+                    +
+                    \hat a^\dagger_{\vec k, -}\hat a_{\vec k, -}
+                \Bigg\}
+                \left(
+                     i\hat k
+                \right) \\
+            \end{align}
+            Recall from our overview of the quantum harmonic oscillator last semester and our previous discussion on linear momentum that within one single mode, \([\hat a, \hat a^\dagger] = \hat a \hat a^\dagger - \hat a^\dagger\hat a = 1\). 
+            This means that \(\hat a \hat a^\dagger = \hat a^\dagger\hat a + 1\):
+            \begin{align}
+                \hat{\vec J}_s
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k}
+                \Bigg\{
+                    2\hat a^\dagger_{\vec k, +}\hat a_{\vec k, +} + 1
+                \Bigg\}
+                \left(
+                    - i\hat k
+                \right) 
+                +
+                \Bigg\{
+                    2\hat a^\dagger_{\vec k, -}\hat a_{\vec k, -} + 1
+                \Bigg\}
+                \left(
+                     i\hat k
+                \right) \\
+                &=
+                \frac{ih}{4\pi} \sum_{\vec k, \mu} 2\hat a^\dagger_{\vec k, \mu}\hat a_{\vec k, \mu} (-i\mu\hat k) \\
+                &=
+                \frac{i\hbar}{2} \sum_{\vec k, \mu} 2\hat a^\dagger_{\vec k, \mu}\hat a_{\vec k, \mu} (-i\mu\hat k) \text{ (Using } h = 2\pi\hbar \text{)} \\
+                &=
+                \sum_{\vec k, \mu} \hat a^\dagger_{\vec k, \mu}\hat a_{\vec k, \mu} (\hbar\mu\hat k)
+                =
+                \sum_{\vec k, \mu} \hbar\hat k \mu \hat n_{\vec k, \mu} \\
+                &=
+                \sum_{\vec k} \hbar\hat k \hat n_{\vec k, +} - \hat k\hbar \hat n_{\vec k, -}
+                =
+                \sum_{\vec k} \hbar\hat k (\hat n_{\vec k, +} - \hat n_{\vec k, -})
+            \end{align}
+            where we re-introduce polarization label \(i\) as \(\mu\) to avoid confusion with the imaginary \(i\).
+            <br><br>
+            We saw earlier that the linear momentum of a single photon is \(\hbar \vec k\), which has a magnitude of \(\hbar |\vec k|\).
+            We see now that the intrinsic angular momentum of a single photon is \(\hbar \hat k\), which has a magnitude of \(\hbar\).
+            Because the intrinsic angular momentum strictly has a magnitude of \(\hbar\), we say that photons are <i>spin-1</i> particles.
+            <br><br>
+            Note that there is no \(\mu=0\), or a longitudinally polarized photon, which is fundamentally different from massive particles.
+            Since photons are massless and move at the speed of light, \(c\), there is no frame in which they would be at rest... in a way, this demonstration also demonstrates that photons are massless. I guess.
+            
+            <h2>Coherent States</h2>
+            We can see that the expectation values of \(\hat {\vec A}, \hat {\vec E}, \hat {\vec B}\) are all 0 if there is a defined number of photons in the field, even if they have non-zero total energy \(n\hbar\omega\) and non-zero total momentum \(n\hbar\vec k\).
+            This is beacuse all three of these operators have both creation and annihilation terms, each for a specific mode.
+            Thus the expectation value has terms that look like the following:
+            \begin{align}
+                \langle n_{\vec k, i} | \hat a_{\vec k, i} | n_{\vec k, i}\rangle \text{ and } \langle n_{\vec k, i} | \hat a^\dagger_{\vec k, i} | n_{\vec k, i}\rangle
+            \end{align}
+            for every single mode.
+            These, of course, all result in 0's:
+            \begin{align}
+                \langle n_{\vec k, i} | \hat a_{\vec k, i} | n_{\vec k, i}\rangle 
+                &= \sqrt n \langle n_{\vec k, i} | (n-1)_{\vec k, i}\rangle \\
+                &= 0 \\
+                \langle n_{\vec k, i} | \hat a^\dagger_{\vec k, i} | n_{\vec k, i}\rangle
+                &= \sqrt{n + 1} \langle n_{\vec k, i} | (n+1)_{\vec k, i}\rangle \\
+                &= 0
+            \end{align}
+            since the basis vectors in each mode are orthogonal to each other.
+            Clearly, fields that have an expectation value of 0 even with definite total energy and momentum, are non-classical.
+            We now have the possibility of entangled states as well; recall that we can define a total state as follows:
+            \[
+                |\psi\rangle = \frac{1}{\sqrt{2!}}(\hat a^\dagger_{\vec k, i})^2 \cdot \frac{1}{\sqrt{5!}}(\hat a^\dagger_{\vec k', j})^5 \ket -
+            \]
+            see <a href="#quantem">above</a> where the state contains two photons in mode \(\vec k, i\) AND five photons in mode \(\vec k', j\).
+            We can just as well define a state like this:
+            \[
+                |\psi\rangle = \frac{1}{\sqrt{2!}}(\hat a^\dagger_{\vec k, i})^2 + \frac{1}{\sqrt{5!}}(\hat a^\dagger_{\vec k', j})^5 \ket -
+            \]
+            where the state either contains two photons in mode \(\vec k, i\), OR five photons in mode \(\vec k', j\).
+            <br><br>
+            There is, however, a class of states that DO correspond to classical fields.
+            One such type of state is the <i>coherent state</i>, which are eigenstates of the annihilation operator:
+            \begin{align}
+                \hat a |\alpha\rangle = \alpha|\alpha\rangle, &\quad |\alpha\rangle = e^{-\alpha^2/2}\sum_{n=0}^\infty \frac{\alpha^n}{\sqrt{n!}} |n\rangle, \quad \alpha\in\mathbb C \\
+                \langle \alpha | \hat a | \alpha\rangle = \alpha, &\quad \langle \alpha | \hat a^\dagger | \alpha\rangle = \alpha^*, \quad \langle \alpha_{\vec k, i} | \hat a_{\vec k', j} | \alpha_{\vec k, i} \rangle = \delta_{\vec k, \vec k'}\delta_{ij}\alpha_{\vec k, i}
+            \end{align}
+            note that these are not obervable states, as these are complex.
+            Over time, the eigenvalues for these states rotate clockwise in the complex plane:
+            \[
+                |\psi(t=0)\rangle = |\alpha\rangle, \quad |\psi(t)\rangle = e^{-i\hat H t/\hbar}|\alpha\rangle = |\alpha e^{-i\omega t}\rangle = |\alpha(t)\rangle
+            \]
+            and they do not always have an expectation value of 0:
+            \begin{align}
+                \langle \hat{\vec A}(\vec r)\rangle_{\alpha(t)}
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} 
+                \langle\alpha(t)|\left[ 
+                    \hat a^\dagger_{\vec k, i} \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + 
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \right]|\alpha(t)\rangle \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} 
+                \langle\alpha e^{-i\omega t}|\left[ 
+                    \hat a^\dagger_{\vec k, i} \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + 
+                    \hat a_{\vec k, i} \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \right]|\alpha e^{-i\omega t}\rangle \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \langle\alpha e^{-i\omega t}|\hat a^\dagger_{\vec k, i}|\alpha e^{-i\omega t}\rangle 
+                    \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + 
+                    \langle\alpha e^{-i\omega t}|\hat a_{\vec k, i}|\alpha e^{-i\omega t}\rangle
+                    \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \right] \\
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \alpha^* e^{i\omega t}
+                    \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + 
+                    \alpha e^{-i\omega t}
+                    \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \right] \\
+            \end{align}
+            Let us arbitrarily say that \(\vec k\) is aligned with the z-axis, and say that \(\hat z\cdot\vec r = \vec r_z = z\):
+            \begin{align}
+                \langle \hat{\vec A}(\vec r)\rangle_{\alpha(t)}
+                &=
+                \sum_{\vec k, i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \alpha^* e^{i\omega t}
+                    \hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r} + 
+                    \alpha e^{-i\omega t}
+                    \hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r}
+                \right] \\
+                &=
+                \sum_{i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \alpha^* e^{i\omega t}
+                    \hat \epsilon^*_{k\cdot\hat z, i} e^{-ik\cdot\hat z \cdot\vec r} + 
+                    \alpha e^{-i\omega t}
+                    \hat \epsilon_{k\cdot\hat z, i} e^{ik\cdot\hat z \cdot\vec r}
+                \right] \\
+                &=
+                \sum_{i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \alpha^* e^{i\omega t}
+                    \hat \epsilon^*_{k\cdot\hat z, i} e^{-ikz} + 
+                    \alpha e^{-i\omega t}
+                    \hat \epsilon_{k\cdot\hat z, i} e^{ikz}
+                \right] \\
+            \end{align}
+            we can thus say that the two options for \(\epsilon_{k\cdot\hat z, i}\) are \(\hat x\) and \(\hat y\), since those form an orthonormal basis with our \(\hat k\).
+            Let's say that we're polarized along \(\hat x\) (though the result is identical for \(\hat y\)).
+            It's complex conjugate is just \(\hat x\); thus we get:
+            \begin{align}
+                \langle \hat{\vec A}(\vec r)\rangle_{\alpha(t)}
+                &=
+                \sum_{i} \sqrt\frac{h c^2}{V\omega} 
+                \left[ 
+                    \alpha^* e^{i\omega t}
+                    \hat \epsilon^*_{k\cdot\hat z, i} e^{-ikz} + 
+                    \alpha e^{-i\omega t}
+                    \hat \epsilon_{k\cdot\hat z, i} e^{ikz}
+                \right] \\
+                &=
+                \sqrt\frac{h c^2}{V\omega}
+                \hat x \left[ 
+                    \alpha^* e^{i\omega t}
+                    e^{-ikz} + 
+                    \alpha e^{-i\omega t}
+                    e^{ikz}
+                \right]
+                \\
+                &=
+                \sqrt\frac{h c^2}{V\omega}
+                \hat x \left[ 
+                    |\alpha| e^{-i\phi}
+                    e^{i\omega t}
+                    e^{-ikz} + 
+                    |\alpha| e^{i\phi} 
+                    e^{-i\omega t}
+                    e^{ikz}
+                \right]
+                \quad \text{Since } \alpha \in \mathbb C, \alpha = |\alpha| e^{i\phi} \\
+                &=
+                \sqrt\frac{h c^2}{V\omega}
+                \hat x \left[ 
+                    |\alpha| e^{-i\phi + i\omega t - ikz} + 
+                    |\alpha| e^{i\phi - i\omega t + ikz}
+                \right]
+                \\
+                &=
+                \sqrt\frac{h c^2}{V\omega}
+                \hat x \left[ 
+                    |\alpha| e^{-i(\phi - \omega t + kz)} + 
+                    |\alpha| e^{i(\phi - \omega t + kz)}
+                \right]
+                \\
+                &=
+                \sqrt\frac{h c^2}{V\omega}
+                2 \hat x |\alpha| \cos(\phi - \omega t + kz)
+                \\
+                &=
+                A_0 \hat x \cos(\phi - \omega t + kz)
+            \end{align}
+            which is clearly not 0 for all \(t\), and thus replicates a classical state.
+            This is similar for both the electric and magnetic fields.
+            In fact, one can reproduce any classical state for all three fields by combining coherent states.
+
+            <h2>The Total Hamiltonian for Radiation and Matter</h2>
+            So far we have only looked at the system that contains only the electromagnetic field, or the radiation.
+            What if we also consider a system of charged particles which interact with the field? The total Hamiltonian would then be:
+            \[
+                \hat H = \hat H_{rad} + \hat H_{matter} + \hat H'
+            \]
+            where \(\hat H'\) is some time-independent interaction related to the kinetic energy of each charge particle \(i\):
+            \[
+                \hat H' = -\sum_i \frac{q_i}{m_i c} \cdot \hat{\vec A}(\hat{\vec r}_i)\cdot\hat{\vec p_i} + \sum_i\frac{q_i^2}{2m_i c^2} \hat{\vec A}^2(\hat{\vec r}_i)
+            \]
+            Under the dipole approximation, we set \(\vec r_i\) to 0 and if the wavelength of all modes are much larger than the size of the matter system, the spatial dependence of the field can be neglected, so the second term becomes a global constant that can be often removed (with a unitary transformation):
+            \[
+                \hat H' \approx -\sum_i \frac{q_i}{m_i c} \cdot \hat{\vec A}(\vec 0)\cdot\hat{\vec p_i} 
+            \]
+            Since this interaction/perturbation is time-independent, we can apply the TDPT <a href="tdpt.html#gen">generalization</a> where the perturbation does not change with time:
+            \[
+                \mathcal A_{f\leftarrow i}^{(n)} = \frac{2\pi}{i\hbar}\langle f | \hat O \left[\hat G_0^+(E_i)\hat O\right]^{n-1} | i\rangle \delta_T(\omega_{fi})
+            \]
+            thus the energy of the inital and final state must be the same (39:00).
+            For example, let's say that our initial state is:
+            \[
+                |i\rangle = |1s\rangle \otimes \frac{(\hat a^\dagger_{\vec k, \lambda})^n}{\sqrt{n!}} |-\rangle = |1s\rangle \otimes |n_{\vec k, \lambda}\rangle
+            \]
+            and our final state is:
+            \[
+                |f\rangle = |2p\rangle \otimes |(n-1)_{\vec k, \lambda}\rangle
+            \]
+            so we are working with electrons, where \(q_i = -e\) and \(m_i = m_e\).
+            The first-order transition amplitude is thus:
+            \begin{align}
+                \mathcal A^{(1)}_{f\leftarrow i}
+                &=
+                \frac{2\pi}{i\hbar}\delta_T(0) \langle f | \hat H' | i\rangle \\
+                &=
+                \frac{e}{m_e c}\frac{2\pi}{i\hbar} \langle 2p | \langle n-1 | \hat{\vec A}(\vec 0) |n\rangle \cdot \hat{\vec p}_i|1s\rangle \\
+            \end{align}
+            only the destructor term, \(\sqrt\frac{hc^2}{V\omega}\hat a_{\vec k, \lambda}\hat\epsilon_{\vec k, \lambda}e^{i\vec k\cdot\vec 0}\), in the vector potential operator does anything, so:
+            \[
+                \langle n-1 | \hat{\vec A}(\vec 0) |n\rangle 
+                = \langle n-1 | \sqrt\frac{hc^2}{V\omega}\hat a_{\vec k, \lambda}\hat\epsilon_{\vec k, \lambda}e^{i\vec k\cdot\vec 0} |n\rangle
+                = \sqrt\frac{hc^2}{V\omega} \hat\epsilon_{\vec k, \lambda} \sqrt n
+            \]
+            which means that the entire transition amplitude is:
+            \[
+                \frac{e}{m_e c}\frac{2\pi}{i\hbar}\sqrt\frac{hnc^2}{V\omega} \langle 2p|\hat{\vec p}_i\cdot\hat\epsilon_{\vec k, \lambda} | 1s\rangle
+            \]
+
+            <h2>Spontaneous Emission</h2>
+            In perturbation theory previously, only stimulated emission allowed a system to emit photons, implying that in the absence of radiation, the state would be infinitely stable. 
+            For example, \(\ket i = \ket e \otimes \ket -\) would never decay.
+            <br><br>
+            However, now that we have quantized the electric field, we see <i>spontaneous emission/decay</i>:
+            \[
+                A^*_{(b)} \to A_{(a)} + \gamma_{\vec k, \lambda}
+            \]
+            Say we define the initial and final states of the system as \(\ket i = \ket e \otimes \ket -\) and \(\ket f = \ket g \otimes \ket 1_{\vec k, \lambda}\), for an excited state \(\ket e\) and a ground state \(\ket g\).
+            There is no interaction between the system and an external field that causes this decay, hence we don't use the interaction Hamiltonian \(\hat H'\) to calculate the transition amplitude, like we did previously.
+            <br><br>
+            Instead, we say that simply the quantized field of the vacuum, \(\hat{\vec {\mathcal E}}\), causes the decay, and just as in a typical TDPT problem, we use \(-\hat{\vec {\mathcal E}} \cdot \hat{\vec\mu}\) as the perturbation.
+            We can now calculate the transition amplitude:
+            \begin{align}
+                \mathcal A^{(1)}_{fi} 
+                &= \frac{2\pi}{i\hbar}\langle f | -\hat{\vec {\mathcal E}} \cdot \hat{\vec\mu} | i\rangle \delta_T(\omega_{fi}) \\
+                &= -\frac{2\pi}{i\hbar}\langle g | \langle 1 | \hat{\vec {\mathcal E}} |-\rangle \cdot \hat{\vec\mu} | e \rangle \delta_T(\omega_{fi}) \\
+                &= -\frac{2\pi}{i\hbar}\langle g | \langle 1 | -i\sqrt\frac{h\omega}{V}\hat a^\dagger_{\vec k, \lambda} \hat \epsilon^*_{\vec k, \lambda} e^{-i\vec k\cdot\vec 0} |-\rangle \cdot \hat{\vec\mu} | e \rangle \delta_T(\omega_{fi}) \\
+                &= i\sqrt\frac{h\omega}{V}\frac{2\pi}{i\hbar}\langle g | \langle 1 | \hat a^\dagger_{\vec k, \lambda} |-\rangle  \hat \epsilon^*_{\vec k, \lambda} \cdot \hat{\vec\mu} | e \rangle \delta_T(\omega_{fi}) \\
+                &= i\sqrt\frac{h\omega}{V}\frac{2\pi}{i\hbar}\langle g | \hat \epsilon^*_{\vec k, \lambda} \cdot \hat{\vec\mu} | e \rangle \delta_T(\omega_{fi}) \\
+                &= i\sqrt\frac{h\omega}{V}\frac{2\pi}{i\hbar}\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda} \delta_T(\omega_{fi}) \\
+            \end{align}
+            The initial energy of the system is the energy of the excited state, \(E_e\).
+            The final energy of the system is teh energy of the ground state <i>plus</i> the energy of the emitted photon, \(E_g + \hbar\omega_{\vec k}\).
+            This means that \(\omega_{fi} = (E_g + \hbar\omega_{\vec k} - E_e)/\hbar\), which we call \(\omega_{\vec k} - \Delta E/\hbar\).
+            So we have:
+            \begin{align}
+                \mathcal A^{(1)}_{fi} 
+                &= \sqrt\frac{h\omega}{V}\frac{2\pi}{\hbar}\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda} \delta_T(\omega_{\vec k} - \Delta E/\hbar) \\
+            \end{align}  
+            This is, of course, the transition amplitude from intial to final state where the final state's emitted photon has a very specific, single mode.
+            We can, in reality, transition from the initial to final state and have the emitted photon be in any mode.
+            The total transition rate can thus be calculated as follows:
+            \begin{align}
+                W^{(1)}_{\vec k, \lambda\leftarrow i} 
+                &= \left(\frac{2\pi}{\hbar}\right)^2\frac{h\omega}{V} |\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \frac{T}{2\pi}\frac{1}{T} \\
+                &= \frac{1}{2\pi}\left(\frac{2\pi}{\hbar}\right)^2\frac{2\pi\hbar\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar) \\
+                &= \frac{(2\pi)^2}{\hbar}\frac{\omega}{V}|\vec \mu_{ge} \cdot \hat \epsilon^*_{\vec k, \lambda}|^2\delta(\omega_{\vec k} - \Delta E/\hbar)
+            \end{align}
+            <br><br>
+            <div class="mainContent">
+                Remember that \(V = L^3\) is the volume of our box with periodic boundary conditions that we used to discretize momentum space.
+                We have also constrained \(\vec k\) to be:
+                \[
+                    \vec k = \frac{2\pi}{L} n_x \hat x + \frac{2\pi}{L} n_y \hat y + \frac{2\pi}{L} n_z \hat z,
+                \]
+                As we make the box larger and larger, the distance between the allowed, discrete \(\vec k\)'s gets very small.
+                This means that sum over all \(\vec k\) can be written as \(\frac{V}{(2\pi)^3}\int d^3k\).
+            </div>
         </div>
     </body>
 </html> 
+
+<script>
+    const elt = document.getElementById("calculator");
+    const calculator = Desmos.GraphingCalculator(elt, {
+      expressions: false,
+      settingsMenu: true,
+      zoomButtons: true,
+      showGrid: true
+    });
+    // Set the viewing window
+    calculator.setMathBounds({
+      left: -1.2,
+      right: 1.2,
+      bottom: -1.2,
+      top: 1.2
+    });
+    // Amplitude
+    calculator.setExpression({
+      id: "E0",
+      latex: 'E_0=1'
+    });
+
+    // Slider parameter for the moving point
+    calculator.setExpression({
+      id: "t",
+      latex: "t=0",
+      sliderBounds: {
+        min: "0",
+        max: "2\\pi",
+        step: "0.01"
+      },
+      playing: true
+    });
+    
+    calculator.setExpression({
+      id: "plus_curve",
+      latex: "\\left(\\frac{E_0}{\\sqrt{2}}\\cos(t),-\\frac{E_0}{\\sqrt{2}}\\sin(t)\\right)",
+      label: "+",
+      showLabel: true,
+      parametricDomain: {
+        min: "0",
+        max: "2\\pi"
+    },
+      color: Desmos.Colors.RED
+    });
+
+    calculator.setExpression({
+      id: "minus_curve",
+      latex: "\\left(\\frac{E_0}{\\sqrt{2}}\\cos(t),\\frac{E_0}{\\sqrt{2}}\\sin(t)\\right)",
+      label: "-",
+      showLabel: true,
+      parametricDomain: {
+        min: "0",
+        max: "2\\pi"
+      },
+      color: Desmos.Colors.BLUE,
+    });
+  </script>
