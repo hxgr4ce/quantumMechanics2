@@ -499,7 +499,7 @@
             Putting this all together, we now have:
             \begin{align}
                 q_{\vec k, i}(t) \mapsto \hat q_{\vec k, i}(t) &\text{ and } p_{\vec k, i}(t) \mapsto \hat p_{\vec k, i}(t) \\
-                \hat q_{\vec k, i}(t) \mapsto \hat q^\dagger_{\vec k, i}(t) &\text{ and } \hat p_{\vec k, i}(t) \mapsto \hat p^\dagger_{\vec k, i}(t) \\
+                q^\dagger_{\vec k, i}(t) \mapsto \hat q^\dagger_{\vec k, i}(t) &\text{ and } p^\dagger_{\vec k, i}(t) \mapsto \hat p^\dagger_{\vec k, i}(t) \\
                 [\hat q_{\vec k, i}(t), \hat q_{\vec k, j}(t)] &= [\hat p_{\vec k, i}(t), \hat p_{\vec k, j}(t)] = 0 \\
                 [\hat q_{\vec k, i}(t), \hat p_{\vec k', j}(t)] &= i\hbar\delta_{\vec k\vec k'}\delta_{ij} \\
                 H \mapsto \hat H &= \frac{1}{2}\sum_{\vec k, i}(\omega^2 \hat q^2_{\vec k, i}(t) + \hat p^2_{\vec k, i}(t))
@@ -663,7 +663,7 @@
                 &\text{(Some summation reshuffling...)} \\
                 &=
                 \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}}\left(\hat a_{\vec k, i}\hat \epsilon_{\vec k, i} e^{i\vec k \cdot\vec r} - \hat a^\dagger_{\vec k, i}\hat \epsilon^*_{\vec k, i} e^{-i\vec k \cdot\vec r}\right) \tag{12} \\
-                \vec B
+                \hat \vec B
                 &=
                 \sum_{\vec k, i} i\sqrt{\frac{h\omega}{V}} \left(\hat a_{\vec k, i}(\hat k \times\hat \epsilon_{\vec k, i}) e^{i\vec k \cdot\vec r}- \hat a^\dagger_{\vec k, i}(\hat k \times\hat \epsilon^*_{\vec k, i}) e^{-i\vec k \cdot\vec r}\right) \tag{13}
             \end{align}
@@ -790,7 +790,7 @@
                     [\Delta\vec r\cdot\hat{\vec p}, \hat a_{\vec k, i}]
                     &=
                     -\hbar \hat a_{\vec k, i} (\vec k\cdot\Delta\vec r) \\
-                    \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
+                    <!-- \frac{1}{\hbar}[\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]\hat \epsilon^*_{\vec k, i}e^{-i\vec k\cdot\vec r}
                     &=
                     \hat a^\dagger_{\vec k, i} \hat\epsilon^*_{\vec k, i} e^{-i\vec k\cdot\vec r} (-\vec k\Delta\cdot\vec r) \\
                     
@@ -799,15 +799,15 @@
                     \hat a^\dagger_{\vec k, i} (-\vec k\Delta\cdot\vec r) \\
                     [\Delta\vec r\cdot\hat{\vec p}, \hat a^\dagger_{\vec k, i}]
                     &=
-                    -\hbar \hat a^\dagger_{\vec k, i} (\vec k\Delta\cdot\vec r)
+                    -\hbar \hat a^\dagger_{\vec k, i} (\vec k\Delta\cdot\vec r) -->
             \end{align}
             Since this is true for all \(\Delta\vec r\),
             \[
                 [\hat{\vec p}, \hat a_{\vec k, i}] = -\hbar\hat a_{\vec k, i}\vec k
-                \qquad
+                <!-- \qquad
                 \text{  and  }
                 \qquad
-                [\hat{\vec p}, \hat a^\dagger_{\vec k, i}] = -\hbar\hat a^\dagger_{\vec k, i}\vec k
+                [\hat{\vec p}, \hat a^\dagger_{\vec k, i}] = -\hbar\hat a^\dagger_{\vec k, i}\vec k -->
             \]
             We can use this to find the linear momentum \(\vec p\) in terms of the creation and annihilation operators.
             <br>
@@ -828,7 +828,25 @@
                     Two creation operators or two annihilation operators always commute-- either they correspond to the same mode, in which case they are the same operator and commute, or they correspond to different modes, in which case they mind their own business and commute anyway.
                 </li>
             </ul>
-            This apparently means that \(\hat{\vec p}\) must contain a product of a creation and annihilation operators for each mode:
+            If we take the commutator between some string of annilation and creation operators for a single mode that is \(n\) operators long, and the annihilation operator for that same mode, we end up with a string of \(n-1\) annihilation operators that.
+            The cases that are the most of interest to us are:
+            \begin{align}
+                [\hat a, \hat a^\dagger] &= 1 \\
+                \hat a\hat a^\dagger - \hat a^\dagger\hat a &= 1 \\
+                \hat a\hat a^\dagger &= \hat a^\dagger\hat a + 1 \\
+                [\hat a^\dagger\hat a, \hat a]
+                &= \hat a^\dagger\hat a\hat a - \hat a\hat a^\dagger\hat a \\
+                &= \hat a^\dagger\hat a\hat a - (\hat a^\dagger\hat a + 1)\hat a \\
+                &= \hat a^\dagger\hat a\hat a - \hat a^\dagger\hat a\hat a - \hat a \\
+                &= - \hat a \\
+                <!-- [\hat a^\dagger\hat a, \hat a^\dagger]
+                &= \hat a^\dagger\hat a\hat a^\dagger - \hat a^\dagger\hat a^\dagger\hat a \\
+                &= \hat a^\dagger(\hat a^\dagger\hat a + 1) - \hat a^\dagger\hat a^\dagger\hat a \\
+                &= \hat a^\dagger\hat a^\dagger\hat a + \hat a^\dagger - \hat a^\dagger\hat a^\dagger\hat a \\
+                &= \hat a^\dagger \\ -->
+            \end{align}
+            Because \([\hat{\vec p}, \hat a_{\vec k, i}]\)
+            contains a single \(-\hat a_{\vec k, i}\) for all modes, we know that \(\hat{\vec p}\) must contain a \(\hat a^\dagger\hat a\) for each mode:
             \[
                 \hat{\vec p} = \sum_{\vec k, i}\hbar\vec k \hat a^\dagger_{\vec k, i}\hat a_{\vec k, i} = \sum_{\vec k, i}\hat n_{\vec k, i} \cdot \hbar\vec k
             \]
@@ -1183,7 +1201,7 @@
                     \hat \epsilon_{\vec k, i} \times \hat \epsilon^*_{\vec k, j}
                 \right)
             \]
-            <h2>Circular Polarization</h2>
+            <h2 id="circ">Circular Polarization</h2>
             It is convenient to express this result for a specific type of polarization.
             Say that the two unit vectors orthogonal to \(\vec k\) are \(\hat u_{\vec k, 1}\) and \(\hat u_{\vec k, 2}\). 
             We define the following:
@@ -1330,7 +1348,7 @@
             Because the intrinsic angular momentum strictly has a magnitude of \(\hbar\), we say that photons are <i>spin-1</i> particles.
             <br><br>
             Note that there is no \(\mu=0\), or a longitudinally polarized photon, which is fundamentally different from massive particles.
-            Since photons are massless and move at the speed of light, \(c\), there is no frame in which they would be at rest... in a way, this demonstration also demonstrates that photons are massless. I guess.
+            Since photons are massless and move at the speed of light, \(c\), there is no frame in which they would be at rest... in a way, this demonstration also shows that photons are massless. I guess.
             
             <h2 id="coherent">Coherent States</h2>
             We can see that the expectation values of \(\hat {\vec A}, \hat {\vec E}, \hat {\vec B}\) are all 0 if there is a defined number of photons in the field, even if they have non-zero total energy \(n\hbar\omega\) and non-zero total momentum \(n\hbar\vec k\).
@@ -1491,7 +1509,7 @@
             This is similar for both the electric and magnetic fields.
             In fact, one can reproduce any classical state for all three fields by combining coherent states.
 
-            <h2>The Total Hamiltonian for Radiation and Matter</h2>
+            <h2 id="total">The Total Hamiltonian for Radiation and Matter</h2>
             So far we have only looked at the system that contains only the electromagnetic field, or the radiation.
             What if we also consider a system of charged particles which interact with the field? The total Hamiltonian would then be:
             \[
@@ -1538,7 +1556,7 @@
                 \frac{e}{m_e c}\frac{2\pi}{i\hbar}\sqrt\frac{hnc^2}{V\omega} \langle 2p|\hat{\vec p}_i\cdot\hat\epsilon_{\vec k, \lambda} | 1s\rangle
             \]
 
-            <h2>Spontaneous Emission</h2>
+            <h2 id="spont">Spontaneous Emission</h2>
             In perturbation theory previously, only stimulated emission allowed a system to emit photons, implying that in the absence of radiation, the state would be infinitely stable. 
             For example, \(\ket i = \ket e \otimes \ket -\) would never decay.
             <br><br>
