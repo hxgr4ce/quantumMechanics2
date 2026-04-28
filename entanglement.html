@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Entanglement</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Entanglement</h1>
+            We saw last semester that linearity constriants mean that the combination of two separate Hilbert spaces requires the tensor product, which them naturally introduces entanglement.
+            For space \(\mathcal E_1\) with basis \(\{|u_i\rangle\}_{i=1\cdots N}\) and space \(\mathcal E_2\) with basis \(\{|w_j\rangle\}_{j=1\cdots M}\):
+            \[
+                \mathcal E = \mathcal E_1 \otimes \mathcal E_2, \quad \text{basis}=\{|u_i\rangle\otimes|w_j\rangle\}, \quad\text{dim}=NM
+            \]
+            Which means that a state in \(\mathcal E\) must be represented as:
+            \[
+                \sum_{ij} |u_i\rangle\otimes|w_j\rangle c_{ij}, \quad c_{ij}\in \mathbb C
+            \]
+            so, a lot of times, there is no way to describe the degrees of freedom of the system independently from each other, you must describe all of them at the same time.
+            <br><br>
+            A common example of this is the spin-singlet state: \(\frac{1}{\sqrt 2}(\alpha\beta - \beta\alpha)\). 
+            If we measure particle 1 to have spin up, then particle 2 must have spin down when you measure it-- the spins are always anti-parallel, even if we spatially separate the two particles.
+            <br><br>
+            It is possible that each particle has a hidden local variable, some sort of secret flag, that predetermines its spin, which we just can't see.
+            This would be like if we knew that we were putting a black ball in one box, and a white ball in the other-- no matter how much we randomly swap the boxes, if we open one and see that the ball is white, we know the black ball is in the other box.
+            <br><br>
+            How can we determine if there is a hidden local variable?
+            Just measuring the two particles obviously isn't enough to tell us whether the states are truly emtangled, or if we just have the colored balls in a box scenario.
+            <br><br>
+            What if we instead measured particles 1 and 2 along different axes?
+            Say that we measure  the spin along the z and x directions for both particles.
+            Measuring spin up in the z-direction for particle 1 would mean that you have a 50-50 chance of measuring spin up or down along the x-direction.
+            We would obtain something like:
+            <br><br>
+            <table style="border-collapse: collapse; width: 100%;">
+                <tr style="background-color: lightpink;">
+                    <th style="border: 1px solid black; padding: 8px;">Particle 1</th>
+                    <th style="border: 1px solid black; padding: 8px;">Particle 2</th>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \uparrow, \hat x: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \downarrow, \hat x: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \uparrow, \hat x: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \downarrow, \hat x: \uparrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \downarrow, \hat x: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \uparrow, \hat x: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \downarrow, \hat x: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat z: \uparrow, \hat x: \uparrow\)</td>
+                </tr>
+            </table>
+            <br><br>
+            where the chance of a system of particles yielding a single row's measurements are 25%.
+            However, this is just like the previous case where getting all of these measurements still doesn't distinguish between whether the states are really entangled or if we just have four balls in four boxes.
+            <br><br>
+            What we actually do is this: we measure two entangled particles' spin along three arbitrary axes, that are not necessarily orthogonal to each other.
+            Call these axes \(\hat a, \hat b, \hat c\).
+            We would get something like this:
+            <br><br>
+            <table style="border-collapse: collapse; width: 100%;">
+                <tr style="background-color: lightpink;">
+                    <th style="border: 1px solid black; padding: 8px;">Particle 1</th>
+                    <th style="border: 1px solid black; padding: 8px;">Particle 2</th>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \uparrow, \hat c: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \downarrow, \hat c: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \uparrow, \hat c: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \downarrow, \hat c: \uparrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \downarrow, \hat c: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \uparrow, \hat c: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \downarrow, \hat c: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \uparrow, \hat c: \uparrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \uparrow, \hat c: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \downarrow, \hat c: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \uparrow, \hat c: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \downarrow, \hat c: \uparrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \downarrow, \hat c: \uparrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \uparrow, \hat c: \downarrow\)</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \downarrow, \hat b: \downarrow, \hat c: \downarrow\)</td>
+                    <td style="border: 1px solid black; padding: 8px;">\(\hat a: \uparrow, \hat b: \uparrow, \hat c: \uparrow\)</td>
+                </tr>
+            </table>
+            <br><br>
+            Say that we take many measurements of the spin on all three axes of both particles, and that the number of times that we obtained measurements corresponding to row 1 is \(N1\), the number of times we obtained measurements corresponding to row 2 is \(N2\), and so on.
+            <br><br>
+            The probability of obtianing the measurements that correspond to row 1, which I call \(P(1)\) is:
+            \[
+                P(1) = \frac{N1}{\sum_i N_i} = \frac{N1}{N_{tot}}
+            \]
+            The probability of measuring spin up along axis \(\hat a\) for particle 1 and spin up along axis \(\hat c\) for particle 2 is:
+            \[
+                P(\hat a_1\uparrow, \hat c_2\uparrow) = \frac{N2 + N4}{N_{tot}}
+            \]
+            The probability of measuring spin up along axis \(\hat c\) for particle 1 and spin up along axis \(\hat b\) for particle 2 is:
+            \[
+                P(\hat c_1\uparrow, \hat b_2\uparrow) = \frac{N3 + N7}{N_{tot}}
+            \]
+            the probability of measuring spin up along axis \(\hat a\) for particle 1 and spin up along \(\hat b\) for particle 2 is:
+            \[
+                P(\hat a_1\uparrow, \hat b_2\uparrow) = \frac{N3 + N4}{N_{tot}}
+            \]
+            And notice that \(P(\hat a_1\uparrow, \hat b_2\uparrow)\) must be less than or equal to \(P(\hat a_1\uparrow, \hat c_2\uparrow) + P(\hat c_1\uparrow, \hat b_2\uparrow)\), simply because:
+            \[
+                P(\hat a_1\uparrow, \hat c_2\uparrow) + P(\hat c_1\uparrow, \hat b_2\uparrow) = \frac{N2 + N4 + N3 + N7}{N_{tot}} = P(\hat a_1\uparrow, \hat b_2\uparrow) + \frac{N2 + N7}{N_{tot}}
+            \]
+            So, if there is some hidden local variable, we would expect:
+            \[
+                P(\hat a_1\uparrow, \hat b_2\uparrow) \le P(\hat a_1\uparrow, \hat c_2\uparrow) + P(\hat c_1\uparrow, \hat b_2\uparrow)
+            \]
+            Now let's verify if this actually happens with the quantum mechanics that we've learned so far.
+            Our two particles are entangled in the spin-singlet state, so:
+            \begin{align}
+                |\psi\rangle = \frac{1}{\sqrt 2}(|\hat a\uparrow\rangle\otimes|\hat a\downarrow\rangle - |\hat a\downarrow\rangle\otimes|\hat a\uparrow\rangle)
+            \end{align}
+            and there is a 50-50 chance of measuring \(\frac{\hbar}{2}\) for particle 1 along \(\hat a\).
+            Once we do obtain this measurement, the state becomes:
+            \[
+                |\psi'\rangle = |\hat a\uparrow\rangle\otimes|\hat a\downarrow\rangle
+            \]
+            which means that we know that the spin aling \(\hat a\) for particle 2 is spin down.
+            We can write \(P(\hat a_1\uparrow, \hat b_2\uparrow)\) as a conditional probability:
+            \[
+                P(\hat a_1\uparrow, \hat b_2\uparrow) 
+                = P(\hat a_1\uparrow)P(\hat b_2\uparrow | \hat a_1\uparrow)
+                = \frac{1}{2}P(\hat b_2\uparrow | \hat a_1\uparrow)
+            \]
+            because we know that \(\hat a_1\uparrow \implies \hat a_2\downarrow\), the conditional \(P(\hat b_2\uparrow | \hat a_1\uparrow)\) is really the same as the square modulus of the probability amplitude from projection \(|\hat a\downarrow\rangle\) to \(|\hat b\uparrow\rangle\), or:
+            \[
+                P(\hat b_2\uparrow | \hat a_1\uparrow) = |\langle \hat b\uparrow | \hat a\downarrow\rangle|^2
+            \]
+            Now say that axes \(\hat a\) and \(\hat b\) are separated by an angle \(\theta_{ab}\), and that these are perpendicular to the \(\hat y\)-axis:
+            <br><br>
+            <svg width="420" height="300" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+            </marker>
+            </defs>
+
+            <style>
+            .axis {
+                stroke: black;
+                stroke-width: 2.5;
+                fill: none;
+                marker-end: url(#arrow);
+            }
+            .guide {
+                stroke: black;
+                stroke-width: 1.6;
+                fill: none;
+            }
+            .label {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 22px;
+            }
+            .smalllabel {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 20px;
+            }
+            </style>
+
+            <!-- Origin -->
+            <!-- <circle cx="250" cy="220" r="3.5" fill="black"/> -->
+
+            <!-- Geometry:
+                a-hat  = 20 degrees above +x
+                b-hat  = 65 degrees above +x
+                so theta_ab = 45 degrees
+                -a-hat = opposite of a-hat
+            -->
+
+            <!-- a-hat -->
+            <line class="axis" x1="250" y1="220" x2="391" y2="169"/>
+            <text class="label" x="401" y="167">â</text>
+
+            <!-- b-hat -->
+            <line class="axis" x1="250" y1="220" x2="317" y2="77"/>
+            <text class="label" x="323" y="72">b̂</text>
+
+            <!-- -a-hat -->
+            <line class="axis" x1="250" y1="220" x2="109" y2="271"/>
+            <text class="label" x="72" y="286">-â</text>
+
+            <!-- y-hat (into/out of page symbol drawn as circle with cross) -->
+            <circle cx="250" cy="220" r="10" fill="white" stroke="black" stroke-width="1.6"/>
+            <circle cx="250" cy="220" r="5" fill="black" stroke="black" stroke-width="1.6"/>
+            <!-- <line x1="243" y1="213" x2="257" y2="227" class="guide"/>
+            <line x1="243" y1="227" x2="257" y2="213" class="guide"/> -->
+            <text class="label" x="270" y="250">ŷ</text>
+
+            <!-- Small angle arc: theta_ab between b-hat and a-hat -->
+            <path class="guide"
+                d="M 273.5 169.2
+                    A 56 56 0 0 1 305 199"/>
+            <text class="smalllabel" x="292" y="170">
+            θ<tspan baseline-shift="sub" font-size="14">ab</tspan>
+            </text>
+
+            <path class="guide"
+                d="M 288.9 136.6
+                    A 92 92 0 0 0 163.6 251.5"/>
+            <text class="smalllabel" x="100" y="170">
+            π - θ<tspan baseline-shift="sub" font-size="14">ab</tspan>
+            </text>
+            </svg>
+            <br><br>
+            where we can define \(\hat y = \frac{\hat a\times \hat b}{|\hat a\times\hat b|}\) (for the y-axis going out of the page).
+            Spin down in the \(\hat a\) direction means spin along \(-\hat a\), which is a rotation of \(\pi-\theta_{ab}\) from the \(\hat b\) axis, counterclockwise around \(\hat y\).
+            In other words:
+            \[
+                |\hat a\downarrow\rangle = R_y(\pi-\theta_{ab})|\hat b\uparrow\rangle = R_y(\pi-\theta_{ab})|j=\frac{1}{2};m=\frac{1}{2}\rangle_b
+            \]
+            This means that our probability becomes:
+            \[
+                P(\hat b_2\uparrow | \hat a_1\uparrow) 
+                = |\langle \hat b\uparrow | \hat a\downarrow\rangle|^2
+                = |\langle j=\frac{1}{2}; m=\frac{1}{2} |R_y(\pi-\theta_{ab})|j=\frac{1}{2};m=\frac{1}{2}\rangle_b|^2
+                = |d_{\frac{1}{2}, \frac{1}{2}}^\frac{1}{2}(\pi-\theta_{ab})|^2
+            \] 
+            for reduced Wigner D-matrix element \(d_{\frac{1}{2}, \frac{1}{2}}^\frac{1}{2}(\pi-\theta_{ab})\) (we use \(j=\frac{1}{2})\) because we're considering a single spin-\(\frac{1}{2}\) particle, and we use \(m' = m = \frac{1}{2}\) because that's what's on the left and right hand side of the scalar product.
+            This is \(\cos\frac{\pi-\theta_{ab}}{2}\).
+            So our overall probability is:
+            \[
+                P(\hat a_1\uparrow, \hat b_2\uparrow) 
+                = \frac{1}{2}P(\hat b_2\uparrow | \hat a_1\uparrow)
+                = \frac{1}{2}\cos^2(\frac{\pi-\theta_{ab}}{2})
+                = \frac{1}{2}\sin^2(\frac{\theta_{ab}}{2})
+            \]
+            we can do this for our other pairs, which tell us that:
+            \[
+                P(\hat a_1\uparrow, \hat c_2\uparrow) = \frac{1}{2}\sin^2(\frac{\theta_{ac}}{2}),
+                \quad
+                P(\hat c_1\uparrow, \hat b_2\uparrow) = \frac{1}{2}\sin^2(\frac{\theta_{cb}}{2})
+            \]
+            Then our inequality that should hold <i>if there is a hidden local variable</i> is:
+            \[
+                \frac{1}{2}\sin^2(\frac{\theta_{ab}}{2}) \le \frac{1}{2}\sin^2(\frac{\theta_{ac}}{2}) + \frac{1}{2}\sin^2(\frac{\theta_{cb}}{2})
+            \]
+            This does hold if any two of our axes are parallel, but if one axis <i>bisects the other two</i>:
+            \begin{align}
+                \sin^2(\theta) &\le 2\sin^2(\frac{\theta}{2}) \\
+                1 - \cos^2(\theta) &\le 2(\frac{1}{2})(1-\cos\theta) \\
+                -\cos^2(\theta) &\le -\cos(\theta) \\
+                \cos^2\theta &\gt \cos\theta \\
+                \cos\theta &\gt 1
+            \end{align}
+            which is never true.
+            So our inequality is violated.
+            this means that there is no local hidden variable theory, and experimentally, we find that our result from theoretical quantum mechanics is always right.
+            <br><br>
+            There is another way to see this...
+            Say that we have 3 entangled particles that are spatially separated.
+            A measurement of spin for particle \(i\) along an axis a is written as: \(\hat\sigma_a^i\).
+            Note that we are now using \(\hat\sigma\), so the result of measurement is \(\pm 1\).
+            <br><br>
+            <svg width="500" height="320" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <style>
+                .star-line {
+                stroke: black;
+                stroke-width: 3;
+                fill: none;
+                stroke-linejoin: round;
+                stroke-linecap: round;
+                }
+                .dot {
+                fill: black;
+                }
+            </style>
+
+            <!-- Shift everything right by 40 -->
+            <g transform="translate(40,30)">
+
+                <!-- Pentagram lines -->
+                <path
+                class="star-line"
+                d="M 180 20
+                    L 255 250
+                    L 60 110
+                    L 300 110
+                    L 105 250
+                    Z" />
+
+                <!-- Dots at the 5 outer corners -->
+                <circle class="dot" cx="180" cy="20"  r="5"/>
+                <circle class="dot" cx="255" cy="250" r="5"/>
+                <circle class="dot" cx="60"  cy="110" r="5"/>
+                <circle class="dot" cx="300" cy="110" r="5"/>
+                <circle class="dot" cx="105" cy="250" r="5"/>
+
+                <!-- Dots at the 5 inner intersections -->
+                <circle class="dot" cx="150" cy="110" r="5"/>
+                <circle class="dot" cx="210" cy="110" r="5"/>
+                <circle class="dot" cx="133.5" cy="162.5" r="5"/>
+                <circle class="dot" cx="225.5" cy="162.5" r="5"/>
+                <circle class="dot" cx="180" cy="196" r="5"/>
+            </g>
+                <!-- labels -->
+                <text x="0" y="140" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="100" y="120" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="250" y="120" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="355" y="140" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="200" y="30" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                </text>
+
+                <text x="130" y="210" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="280" y="210" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">3</tspan>
+                </text>
+
+                <text x="210" y="260" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">1</tspan>
+                </text>
+
+                <text x="100" y="300" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">y</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                </text>
+
+                <text x="310" y="300" font-family="serif" font-size="20">
+                σ<tspan baseline-shift="sub" font-size="14">x</tspan><tspan baseline-shift="super" font-size="14">2</tspan>
+                </text>
+            
+            </svg>
+            <br><br>
+            in this diagram, the set of four observables on each of the straight lines mutually commute. 
+            For example, \(\hat\sigma_y^1, \hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3, \hat\sigma_x^3,\) and \(\hat\sigma_y^2\) all commute with each other.
+            <br><br>
+            Also note that along each straight line, each observable appears twice.
+            For example, along the horizontal line, \(\hat\sigma_x^1\) appears twice, \(\hat\sigma_x^2\) appears twice, \(\hat\sigma_x^3\) appears twice, etc.
+            <br><br>
+            Using commutation and anti-commutation properties alone (also the fact that observables for different particles commute), we can determine the result of measuring each of the straight lines.
+            For example:
+            \begin{align}
+                (\hat\sigma_y^1) (\hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3) (\hat\sigma_x^3) (\hat\sigma_y^2)
+                &=
+                \hat\sigma_y^1\hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3\hat\sigma_x^3\hat\sigma_y^2 \\
+                &=
+                \hat\sigma_y^1\hat\sigma_y^1\hat\sigma_y^2\hat\sigma_y^2\hat\sigma_x^3\hat\sigma_x^3 \\
+                &= 1
+            \end{align}
+            since measuring \(\hat\sigma_y^1\) right after already measuring \(\hat\sigma_y^1\) will give the same result, and \((\pm)^2 = 1\).
+            All of the non-horizontal lines have a result of 1.
+            The horizontal line gives:
+            \begin{align}
+                (\hat\sigma_x^1\hat\sigma_x^2\hat\sigma_x^3) 
+                (\hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3) 
+                (\hat\sigma_y^1\hat\sigma_x^2\hat\sigma_y^3) 
+                (\hat\sigma_x^1\hat\sigma_y^2\hat\sigma_y^3)
+                &=
+                \hat\sigma_x^1\hat\sigma_x^2\hat\sigma_x^3 
+                \hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3 
+                \hat\sigma_y^1\hat\sigma_x^2\hat\sigma_y^3
+                \hat\sigma_x^1\hat\sigma_y^2\hat\sigma_y^3
+                \\
+                &=
+                \hat\sigma_x^1\hat\sigma_y^1
+                \hat\sigma_x^2\hat\sigma_y^2
+                \hat\sigma_x^3\hat\sigma_x^3 
+                \hat\sigma_y^1\hat\sigma_x^1
+                \hat\sigma_x^2\hat\sigma_y^2
+                \hat\sigma_y^3\hat\sigma_y^3
+
+            \end{align}
+        </div>
+    </body>
+</html> 
