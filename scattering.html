@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Scattering Theory</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="mainContent">
+            <h1>Scattering Theory</h1>
+            <h2 id="intro">Introduction</h2>
+            In undergrad we often formulate the solution to the delta-potential well  in terms of reflection, transmission, and incoming waves.
+            <div style="width: 100%;">
+            <svg
+                viewBox="0 0 1200 670"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+            >
+                <defs>
+                <!-- Arrowhead -->
+                <<marker id="arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5"
+                        orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L5,2.5 L0,5 Z" fill="black"/>
+                </marker>
+
+                <!-- Text style -->
+                <style>
+                    .label {
+                    font-family: "Times New Roman", serif;
+                    font-size: 34px;
+                    fill: black;
+                    }
+                    .small {
+                    font-family: "Times New Roman", serif;
+                    font-size: 26px;
+                    fill: black;
+                    }
+                    .axis {
+                    stroke: black;
+                    stroke-width: 3;
+                    }
+                    .wave {
+                    fill: none;
+                    stroke: rgb(241, 133, 133);
+                    stroke-width: 3.5;
+                    }
+                    .arrowline {
+                    stroke: black;
+                    stroke-width: 3;
+                    fill: none;
+                    marker-end: url(#arrow);
+                    }
+                </style>
+                </defs>
+
+                <!-- Main x-axis -->
+                <line x1="40" y1="650" x2="1150" y2="650" class="axis" marker-end="url(#arrow)" />
+                <text x="1138" y="620" class="label" font-style="italic">x</text>
+
+                <!-- Delta potential at x=0 -->
+                <line x1="600" y1="650" x2="600" y2="30" class="axis" marker-end="url(#arrow)" />
+
+                <!-- Incoming label -->
+                <text x="165" y="105" class="label">Reflected</text>
+                <text x="355" y="105" class="label" font-style="italic">
+                Re<tspan baseline-shift="super" font-size="60%">−ikx</tspan>
+                </text>
+
+                <!-- Incoming arrow -->
+                <line x1="385" y1="145" x2="190" y2="145" class="arrowline" />
+
+                <!-- Incoming wave -->
+                <path class="wave"
+                d="
+                    M 70 235
+                    Q 95 195 120 235
+                    T 170 235
+                    T 220 235
+                    T 270 235
+                    T 320 235
+                    T 370 235
+                    T 420 235
+                    T 470 235
+                " />
+
+                <!-- Reflected label -->
+                <text x="155" y="415" class="label">Incoming</text>
+                <text x="355" y="415" class="label" font-style="italic">
+                e<tspan baseline-shift="super" font-size="60%">ikx</tspan>
+                </text>
+
+                <!-- Reflected arrow (leftward) -->
+                <line x1="190" y1="455" x2="385" y2="455"
+                    stroke="black" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+                <!-- Reflected wave -->
+                <path class="wave"
+                d="
+                    M 60 555
+                    Q 85 515 110 555
+                    T 160 555
+                    T 210 555
+                    T 260 555
+                    T 310 555
+                    T 360 555
+                    T 410 555
+                " />
+
+                <!-- Transmitted label -->
+                <text x="855" y="135" class="label">Transmitted</text>
+                <text x="1050" y="135" class="label" font-style="italic">
+                Te<tspan baseline-shift="super" font-size="60%">ikx</tspan>
+                </text>
+
+                <!-- Transmitted arrow -->
+                <line x1="880" y1="175" x2="1085" y2="175" class="arrowline" />
+
+                <!-- Transmitted wave -->
+                <path class="wave"
+                d="
+                    M 780 255
+                    Q 805 215 830 255
+                    T 880 255
+                    T 930 255
+                    T 980 255
+                    T 1030 255
+                    T 1080 255
+                    T 1130 255
+                " />
+            </svg>
+            </div>
+            <br><br>
+            In this case, the Hamiltonian is:
+            \[
+                \hat H = \frac{\hat p^2}{2m} + \lambda\delta(x)
+            \]
+            and the continuum states with \(E\gt 0\) are doubly degenerate and have either even or odd parity.
+            <br><br>
+            This formulation of the solution requires us to restrict the scenario to only one incoming beam, and to additionaly pick a single direction for the incoming beam.
+            In the example visualized above, we have an incoming beam moving from the left to the right.
+            We can write this state, with a single incoming beam from the left, as:
+            \[
+                \psi_k^{(+)}(x) = \phi_{\alpha, k}(x) + \sum_\beta \phi_{out, \beta}
+            \]
+            Here, the positive subscript \(k\) indicates that the incoming beam is travelling to the right and the \((+)\) superscript indicates that there is only <i>one</i> incoming beam.
+            We also say that \(\phi(x)\) is some sort of plane wave.
+            <br><br>
+            The first term on the righthand side thus describes the incoming wave alone, while the second term, a summation, describes the outgoing waves.
+            We can have outgoing waves in two channels-- the rightwards-moving channel and the leftwards-moving channel, which is represented in the variable of summation, \(\beta\).
+            <br><br>
+            The state with a single incoming beam travelling from right to left is similar:
+            \[
+                \psi_{-k}^{(+)}(x) = \phi_{\alpha, -k}(x) + \sum_\beta \phi_{out, \beta}
+            \]
+            In both these cases, we have essentially prepared a single clean, incoming beam with well-defined momentum and fired it at the delta potential.
+            It is also possible to build a wave packet which does not have one single momentum:
+            \[
+                \psi(x) = \int_0^\infty dk\quad c(k-k_0)\psi^{(+)}_k(x), \quad \int dk |c(k-k_0)|^2\lt \infty
+            \]
+            where we write the state as a linear combination of \(\psi_k^{(+)}\)'s, which each have a single momentum, with expansion coefficient \(c(k-k_0)\) which is a square-integrable function of \(k\) that causes the wave packet to be strongly peaked around a certain momentum \(k_0\).
+            We can even add a time-dependence:
+            \[
+                \psi(x, t) = \int_0^\infty dk\quad c(k-k_0)\psi^{(+)}_k(x)e^{-iE_kt/\hbar}
+            \]
+            In these cases, we have a well-defined input; no matter how messy the result upon collision with the delta potential, once we rewind time enough, we should recover the clean, well-defined incoming plane wave or wave packet.
+            It is also possible, however, to have many, messy incoming beams and only one well-defined <i>outgoing</i> beam.
+            A classical analog is light travelling through mediums with different indexes of refraction:
+            <br><br>
+            <div style="width: 100%;">
+            <svg
+                viewBox="0 0 1200 400"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+            >
+                <!-- y-axis 1 -->
+                <line x1="200" y1="0" x2="200" y2="400" stroke="gray" />
+                <text x="100" y="390" class="label" font-style="italic">n=1</text>
+                <text x="240" y="390" class="label" font-style="italic">n=2</text>
+
+                <line x1="0" y1="200" x2="390" y2="200" stroke="gray" stroke-width="3" stroke-dasharray="10 6" />
+
+                <!-- y-axis 2 -->
+                <line x1="600" y1="0" x2="600" y2="400" stroke="gray" />
+                <text x="500" y="390" class="label" font-style="italic">n=1</text>
+                <text x="640" y="390" class="label" font-style="italic">n=2</text>
+
+                <line x1="410" y1="200" x2="790" y2="200" stroke="gray" stroke-width="3" stroke-dasharray="10 6" />
+
+                <!-- y-axis 3 -->
+                <line x1="1000" y1="0" x2="1000" y2="400" stroke="gray" />
+                <text x="900" y="390" class="label" font-style="italic">n=1</text>
+                <text x="1040" y="390" class="label" font-style="italic">n=2</text>
+
+                <line x1="810" y1="200" x2="1200" y2="200" stroke="gray" stroke-width="3" stroke-dasharray="10 6" />
+
+                <!-- incoming 1 -->
+                <line x1="0" y1="300" x2="195" y2="205" class="axis" marker-end="url(#arrow)" />
+                <!-- outgoing 1 -->
+                <line x1="200" y1="200" x2="395" y2="150" class="axis" marker-end="url(#arrow)" />
+                <line x1="200" y1="200" x2="10" y2="10" class="axis" marker-end="url(#arrow)" />
+
+                <!-- incoming 2 -->
+                <line x1="795" y1="250" x2="605" y2="205" class="axis" marker-end="url(#arrow)" />
+                <!-- outgoing 2 -->
+                <line x1="600" y1="200" x2="400" y2="10" class="axis" marker-end="url(#arrow)" />
+                <line x1="600" y1="200" x2="800" y2="150" class="axis" marker-end="url(#arrow)" />
+
+                <!-- incoming 3 -->
+                <line x1="810" y1="300" x2="995" y2="205" class="axis" marker-end="url(#arrow)" />
+                <line x1="1195" y1="250" x2="1005" y2="205" class="axis" marker-end="url(#arrow)" />
+                <!-- outgoing 3 -->
+                <line x1="1000" y1="200" x2="1195" y2="150" class="axis" marker-end="url(#arrow)" />
+                <line x1="1000" y1="200" x2="1150" y2="162" class="axis" marker-end="url(#arrow)" />
+
+                <line x1="1000" y1="200" x2="800" y2="10" class="axis" marker-end="url(#arrow)" />
+                <line x1="1000" y1="200" x2="845" y2="52" class="axis" marker-end="url(#arrow)" />
+            </svg>
+            </div>
+            <br><br>
+            On the left and in the center, we see the case where there is a single incoming beam.
+            These reflect and transmit to result in two outgoing beams.
+            On the right, we see the case where there are <i>two</i> incoming beams, carefully angled so that their outgoing reflected and transmitted beams are in exactly the same direction.
+            <br><br>
+            It is possible to adjust the phases of each of these incoming beams so that two of the coninciding outgoing beams <i>destructively interfere</i> and the other two coinciding outgoing beams <i>constructively interfere</i>.
+            In this case, it seems as if there are two incoming beams and one single outgoing beam.
+            In the case of the delta potential, we would see something like:
+            <br><br>
+            <div style="width: 100%;">
+            <svg
+                viewBox="0 0 1200 670"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+            >
+                <!-- Main x-axis -->
+                <line x1="40" y1="650" x2="1150" y2="650" class="axis" marker-end="url(#arrow)" />
+                <text x="1138" y="620" class="label" font-style="italic">x</text>
+
+                <!-- Delta potential at x=0 -->
+                <line x1="600" y1="650" x2="600" y2="30" class="axis" marker-end="url(#arrow)" />
+
+                <!-- Incoming label -->
+                <text x="165" y="105" class="label">Incoming</text>
+                <text x="355" y="105" class="label" font-style="italic">
+                R*e<tspan baseline-shift="super" font-size="60%">ikx</tspan>
+                </text>
+
+                <!-- Incoming arrow -->
+                <line x1="190" y1="145" x2="385" y2="145" class="arrowline" />
+
+                <!-- Incoming wave -->
+                <path class="wave"
+                d="
+                    M 70 235
+                    Q 95 195 120 235
+                    T 170 235
+                    T 220 235
+                    T 270 235
+                    T 320 235
+                    T 370 235
+                    T 420 235
+                    T 470 235
+                " />
+
+                <!-- Reflected label -->
+                <text x="155" y="415" class="label">Outgoing</text>
+                <text x="355" y="415" class="label" font-style="italic">
+                e<tspan baseline-shift="super" font-size="60%">-ikx</tspan>
+                </text>
+
+                <!-- Reflected arrow (leftward) -->
+                <line x1="385" y1="455" x2="190" y2="455"
+                    stroke="black" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+                <!-- Reflected wave -->
+                <path class="wave"
+                d="
+                    M 60 555
+                    Q 85 515 110 555
+                    T 160 555
+                    T 210 555
+                    T 260 555
+                    T 310 555
+                    T 360 555
+                    T 410 555
+                " />
+
+                <!-- Transmitted label -->
+                <text x="855" y="135" class="label">Incoming</text>
+                <text x="1050" y="135" class="label" font-style="italic">
+                T*e<tspan baseline-shift="super" font-size="60%">-ikx</tspan>
+                </text>
+
+                <!-- Transmitted arrow -->
+                <line x1="1085" y1="175" x2="880" y2="175" class="arrowline" />
+
+                <!-- Transmitted wave -->
+                <path class="wave"
+                d="
+                    M 780 255
+                    Q 805 215 830 255
+                    T 880 255
+                    T 930 255
+                    T 980 255
+                    T 1030 255
+                    T 1080 255
+                    T 1130 255
+                " />
+            </svg>
+            </div>
+            <br><br>
+            This is the "reverse" of \(\psi^{(+)}_k(x)\) (see the first figure on this page), which we call \(\psi^{(-)}_{-k}(x)\).
+            The \((-)\) superscript indicates that instead of one clean incoming beam, we have one clean <i>outgoing</i> beam, and the \(-k\) superscript indicates that the outgoing beam is moving from right to left.
+            We can also have the following setup:
+            <br><br>
+            <div style="width: 100%;">
+            <svg
+                viewBox="0 0 1200 670"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+            >
+                <!-- Main x-axis -->
+                <line x1="40" y1="650" x2="1150" y2="650" class="axis" marker-end="url(#arrow)" />
+                <text x="1138" y="620" class="label" font-style="italic">x</text>
+
+                <!-- Delta potential at x=0 -->
+                <line x1="600" y1="650" x2="600" y2="30" class="axis" marker-end="url(#arrow)" />
+
+                <!-- Incoming label -->
+                <text x="165" y="105" class="label">Incoming</text>
+                <text x="355" y="105" class="label" font-style="italic">
+                T*e<tspan baseline-shift="super" font-size="60%">ikx</tspan>
+                </text>
+
+                <!-- Incoming arrow -->
+                <line x1="190" y1="145" x2="385" y2="145" class="arrowline" />
+
+                <!-- Incoming wave -->
+                <path class="wave"
+                d="
+                    M 70 235
+                    Q 95 195 120 235
+                    T 170 235
+                    T 220 235
+                    T 270 235
+                    T 320 235
+                    T 370 235
+                    T 420 235
+                    T 470 235
+                " />
+
+                <!-- Reflected label -->
+                <text x="855" y="415" class="label">Outgoing</text>
+                <text x="1050" y="415" class="label" font-style="italic">
+                e<tspan baseline-shift="super" font-size="60%">-ikx</tspan>
+                </text>
+
+                <!-- Reflected arrow (leftward) -->
+                <line x1="880" y1="455" x2="1085" y2="455"
+                    stroke="black" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+                <!-- Reflected wave -->
+                <path class="wave"
+                d="
+                    M 780 555
+                    Q 805 515 830 555
+                    T 880 555
+                    T 930 555
+                    T 980 555
+                    T 1030 555
+                    T 1080 555
+                    T 1130 555
+                " />
+
+                <!-- Transmitted label -->
+                <text x="855" y="135" class="label">Incoming</text>
+                <text x="1050" y="135" class="label" font-style="italic">
+                R*e<tspan baseline-shift="super" font-size="60%">-ikx</tspan>
+                </text>
+
+                <!-- Transmitted arrow -->
+                <line x1="1085" y1="175" x2="880" y2="175" class="arrowline" />
+
+                <!-- Transmitted wave -->
+                <path class="wave"
+                d="
+                    M 780 255
+                    Q 805 215 830 255
+                    T 880 255
+                    T 930 255
+                    T 980 255
+                    T 1030 255
+                    T 1080 255
+                    T 1130 255
+                " />
+            </svg>
+            </div>
+            <br><br>
+            which is the "reverse" of \(\psi^{(+)}_{-k}(x)\), which we call \(\psi^{(-)}_k(x)\) which has a positive \(k\) in the superscript because the outgoing wave is moving from left to right.
+            <br><br>
+            We can also once again build a wave packet which, instead of having a clean outgoing beam with a single momentum, has a pure outgoing wave packet over a distribution of momentums peaked around \(k_0\):
+            \[
+                \psi(x, t) = \int_0^\infty dk \quad c(k-k_0)\psi^{(-)}_k(x) e^{-iE_k t/\hbar}
+            \]
+            We say that the states \(\psi^{(+)}_{\pm k}\) are controlled in the past, while the states \(\psi^{(-)}_{\pm k}\) are controlled in the future-- that is, they have incoming and outgoing boundary conditions, respectively.
+            <br><br>
+            <b><i id="amplintro">Transition amplitudes.</i></b>
+            Say that we have a state \(|\psi^{(+)}_{\vec k, i}\rangle = |\psi^{(+)}_{\alpha E}\rangle\) which has incoming beam \(e^{i \vec k_0\cdot\vec r}\) that interacts with a potential and scatters.
+            In preparing the incoming beam and making it interact with the potential, we have prepared the state \(|\psi^{(+)}_{\alpha E}\rangle\).
+            <br><br>
+            After scattering, we have an outgoing result over a scattering angle \(d\Omega\).
+            We can place a detector so that it catches the outgoing result, and have the detector select for a plane wave with well-defined momentum, \(e^{i\vec k_f\cdot\vec r}\).
+            <br><br>
+            <svg
+                viewBox="0 0 1200 500"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto;"
+                >
+                <defs>
+                    <!-- Arrowhead -->
+                    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4"
+                            orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L8,4 L0,8 Z" fill="black"/>
+                    </marker>
+
+                    <style>
+                    .label {
+                        font-family: "Times New Roman", serif;
+                        font-size: 30px;
+                        fill: black;
+                    }
+                    .small-label {
+                        font-family: "Times New Roman", serif;
+                        font-size: 24px;
+                        fill: black;
+                    }
+                    .wave {
+                        fill: none;
+                        stroke: rgb(40, 90, 220);
+                        stroke-width: 3.5;
+                    }
+                    .ray {
+                        fill: none;
+                        stroke: black;
+                        stroke-width: 2.5;
+                        marker-end: url(#arrow);
+                    }
+                    .dashed {
+                        fill: none;
+                        stroke: black;
+                        stroke-width: 2.5;
+                        stroke-dasharray: 10 8;
+                    }
+                    .detector {
+                        fill: rgb(240,240,240);
+                        stroke: black;
+                        stroke-width: 2.5;
+                    }
+                    </style>
+                </defs>
+
+                <!-- Background -->
+                <rect x="0" y="0" width="1200" height="700" fill="white"/>
+
+                <!-- Center of scattering -->
+                <!-- Outer dashed circle -->
+                <circle cx="600" cy="350" r="95" class="dashed"/>
+
+                <!-- Inner shaded potential -->
+                <circle cx="600" cy="350" r="28" fill="gray" opacity="0.75" stroke="black" stroke-width="2.5"/>
+
+                <!-- Potential label -->
+                <text x="560" y="490" class="label" font-style="italic">V(r)</text>
+
+                <!-- Incoming direction arrow -->
+                <line x1="110" y1="270" x2="410" y2="270" class="ray"/>
+
+                <!-- Incoming label -->
+                <text x="80" y="225" class="label">Incoming</text>
+                <text x="240" y="225" class="label" font-style="italic">
+                    e<tspan baseline-shift="super" font-size="65%">i k_0·r</tspan>
+                </text>
+
+                <!-- Incoming plane wave -->
+                <path class="wave"
+                        d="M 70 350
+                        Q 95 310 120 350
+                        T 170 350
+                        T 220 350
+                        T 270 350
+                        T 320 350
+                        T 370 350
+                        T 420 350
+                        T 470 350
+                        T 520 350" />
+
+                <!-- Outgoing scattered wave group -->
+                <!-- Angle chosen: -30 degrees (upward to the right) -->
+                <g transform="translate(600 350) rotate(-30)">
+                    <!-- outgoing direction arrow -->
+                    <line x1="30" y1="-80" x2="355" y2="-80" class="ray"/>
+
+                    <!-- outgoing plane wave -->
+                    <path class="wave"
+                        d="M 25 0
+                            Q 50 -40 75 0
+                            T 125 0
+                            T 175 0
+                            T 225 0
+                            T 275 0
+                            T 325 0
+                            T 375 0" />
+
+                    <!-- detector -->
+                    <rect x="360" y="-45" width="24" height="90" rx="3" ry="3" class="detector"/>
+                </g>
+
+                <!-- Detector label -->
+                <text x="950" y="160" class="label">Detector</text>
+
+                <!-- Outgoing label -->
+                <text x="600" y="150" class="label">Scattered</text>
+                <text x="600" y="200" class="label" font-style="italic">
+                    e<tspan baseline-shift="super" font-size="65%">i k_f·r</tspan>
+                </text>
+
+                <!-- Optional scattering angle arc -->
+                <path d="M 700 350 A 100 100 0 0 0 686.6 300"
+                        fill="none" stroke="black" stroke-width="10"/>
+                <text x="710" y="330" class="small-label" font-style="italic">dΩ</text>
+            </svg>
+            <br><br>
+            The probability amplitude of this ever happening and measuring \(e^{i\vec k_f\cdot\vec r}\) in the detector when the input was \(e^{i\vec k_0\cdot\vec r}\) is exactly:
+            \[
+                \mathcal A_{\vec k_f\leftarrow \vec k_0} = \langle \psi^{(-)}_{\vec k_f} | \psi^{(+)}_{\vec k_0} \rangle
+            \]
+            since if we have a final \(e^{i\vec k_f\cdot\vec r}\) with a well-defined \(\vec k_f\), we really have the eigenstate \(\psi^{(-)}_{\vec k_f}\) as seen in the far future, which we assume is where the detector is.
+            <br><br>
+            If we have a well-defined initial energy in the distance past \(E\) and a well-defined final energy in the distant future \(E'\), then \(E\) must be equal to \(E'\) under conservation of energy.
+            Thus we say that 
+            \[
+                \mathcal A_{\vec k_f\leftarrow \vec k_0} \propto \delta(E' - E) \mathcal S_{\beta\alpha}(E)
+            \]
+            where \(\mathcal S_{\beta\alpha}(E)\) is the <i>scattering matrix</i>, which we cover in more depth later.
+            <br><br>
+            <b><i>Defining the eigenstates.</i></b>
+            We know that \(|\psi_{\alpha E}\rangle\) is a eigenstate of \(\hat H = \hat H_0 + \hat V\) where \(\hat V\) is local, meaning that it dies off as the particle gets further and further from the interaction center.
+            Define:
+            \[
+                \hat H | \psi_E\rangle = E |\psi_E\rangle, \quad \hat H_0|\phi_E\rangle = E|\phi_E\rangle
+            \]
+            Then 
+            \begin{align}
+                \hat H | \psi_E\rangle &= (\hat H_0 + \hat V)|\psi_E\rangle = E|\psi_E\rangle \\
+                (E - \hat H_0)|\psi_E\rangle &= \hat V|\psi_E\rangle = |\chi\rangle
+            \end{align}
+            The naive solution to this is \(|\psi_E\rangle = \frac{1}{E-\hat H_0}|\chi\rangle\) plus a solution to the associated homogeneous equation (i.e. the case where \(|\chi\rangle = 0\)), so \(|\phi_E\rangle\), and indeed this is typically how the solution to an inhomogeneous equation is built.
+            If we use \(|\psi_E\rangle = \frac{1}{E-\hat H_0}|\chi\rangle + |\phi_E\rangle\), we get:
+            \[
+                (E - \hat H_0)|\psi_E\rangle 
+                = (E - \hat H_0)(\frac{1}{E-\hat H_0}|\chi\rangle + |\phi_E\rangle)
+                = |\chi\rangle + (E-\hat H_0)|\phi_E\rangle
+                = |\chi\rangle
+            \]
+            or, it \(|\chi\rangle\) is somehow 0:
+            \[
+                (E - \hat H_0)|\psi_E\rangle
+                = (E-\hat H_0)|\phi_E\rangle
+                = 0
+                = |\chi\rangle
+            \]
+            which still holds without our solution for \(|\psi_E\rangle\) being 0 itself.
+            However, \(E\) is in the spectrum of \(\hat H_0\), so this solution can diverge.
+            We instead make \(E\) complex-- say it now obtains an imaginary component \(E'\), so that the total energy is \(E + iE'\).
+            We take the limit as \(E'\to\pm 0^+\) and obtain two solutions for \(|\psi_E\rangle\):
+            \begin{align}
+                |\psi_E^\pm\rangle &= \frac{1}{E - \hat H_0 \pm i0^+}|\chi\rangle + |\phi_E\rangle \\
+                &= \frac{1}{E - \hat H_0 \pm i0^+}\hat V|\psi^\pm_E\rangle + |\phi_E\rangle \\
+                &= \hat G_0^\pm(E)\hat V|\psi^\pm_E\rangle + |\phi_E\rangle \tag{1}
+            \end{align}
+            This is called the <i>Lipmann-Schwinger equation</i>.
+            We will see later that these states \(|\psi_E^\pm\rangle\) correspond to the states we were introduced to earlier which are controlled in the past and future.
+            <br><br>
+            However for now, notice that this definition for \(|\psi^\pm_E\rangle\) is recursive-- the right hand side itself contains \(|\psi^\pm_E\rangle\).
+            We can expand this:
+            \begin{align}
+                |\psi_{\alpha E}^\pm\rangle
+                &= |\phi_{\alpha E}\rangle + \hat G_0^\pm(E)\hat V|\psi^\pm_E\rangle \\
+                &= \sum_{n=0}^\infty \left[\hat G_0^\pm(E)\hat V\right]^n|\phi_{\alpha E}\rangle
+            \end{align}
+            We will later see that we can define what is called the <i>T-Matrix</i>, where:
+            \[
+                T_{\beta\alpha}(E) 
+                = \langle\phi_{\beta E} | \hat V | \psi^+_{\alpha E}\rangle 
+                = \langle\phi_{\beta E} | \hat V \left[\hat G_0^+(E)\hat V\right]^n | \phi_{\alpha E}\rangle 
+            \]
+            where the last expression is a transition amplitude in perturbation series, or what is known as the <i>Born series</i>.
+
+            <h2 id="moll">M&#246;ller Operators</h2>
+            Say that at time \(t_f\), we have an incoming wavepacket \(|\phi_{in}(t_f)\rangle\) in a system that has no perturbation, so that \(\hat H = \hat H_0\).
+            This wavepacket has not interacted with the perturbation at all and has simply been propagating freely.
+            <br><br>
+            What if we want to know what the wavepacket looked like <i>if it HAD interacted with a perturbation \(\hat V\) at an earlier time</i> \(t_1\)?
+            Let's say that time \(t_f\) occurs in the far future compared to \(t_1\), so that \(t_f = \infty\) by comparison.
+            <br><br>
+            No matter what the wavepacket is, we can "rewind" it back in time using the unitary time-evolution operator:
+            \[
+                e^{-i\hat H_0 t/\hbar}|\phi_{in}(t_f)\rangle, \quad t \lt 0
+            \]
+            Notice that here, we use the unperturbed Hamiltonian, and thus using this operator to "rewind" time is rewinding time <i>where no perturbation ever interacted with the wavepacket</i>.
+            <br><br>
+            Say that we rewind back into a time in the far past, way before \(t_1\), to \(t_0 = -\infty\), so that we have \(|\phi_{in}(t_0)\rangle\).
+            In the figure below, we have followed the line straight from the rightmost point, \(t_f\) to the leftmost point, \(t_0\).
+            <div style="width: 100%;">
+            <svg width="800" height="260" viewBox="0 0 800 260" 
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+                xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Main horizontal time line -->
+            <line x1="60" y1="150" x2="740" y2="150"
+                    stroke="black"
+                    stroke-width="3"
+                    marker-end="url(#arrow)" />
+
+            <!-- Left vertical cap -->
+            <line x1="60" y1="130" x2="60" y2="170"
+                    stroke="black"
+                    stroke-width="3" />
+
+            <!-- Points on the line -->
+            <circle cx="150" cy="150" r="5" fill="black"/>
+            <circle cx="400" cy="150" r="5" fill="black"/>
+            <circle cx="630" cy="150" r="5" fill="black"/>
+
+            <!-- Labels under points -->
+            <text x="150" y="190"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">0</tspan>
+            </text>
+
+            <!-- t1 label -->
+            <text x="400" y="75"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                Not perturbed
+            </text>
+            <!-- Arrow pointing to t1 -->
+            <line x1="400" y1="85" x2="400" y2="135"
+                    stroke="black"
+                    stroke-width="2.5"
+                    marker-end="url(#arrow)" />
+            <text x="400" y="190"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">1</tspan>
+            </text>
+
+            <text x="630" y="190"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">f</tspan>
+            </text>
+
+            <!-- Incoming-state label -->
+            <text x="630" y="75"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                |φ<tspan baseline-shift="sub" font-size="70%">in</tspan>⟩
+            </text>
+
+            <!-- Arrow pointing to tf -->
+            <line x1="630" y1="85" x2="630" y2="135"
+                    stroke="black"
+                    stroke-width="2.5"
+                    marker-end="url(#arrow)" />
+
+            </svg>
+            </div>
+            Now, we propagate the wavepacket way forward in time <i>using \(\hat H = \hat H_0 + \hat V\)</i>, until the perturbation has come and gone:
+            \[
+                e^{i\hat H t/\hbar}|\phi_{in}(t_0)\rangle, \quad t \lt 0
+            \]
+            so in the figure below, we have followed the line from the leftmost point, \(t_0\) to the rightmost point, \(t_f\).
+            <div style="width: 100%;">
+            <svg width="900" height="320" viewBox="0 0 900 320"
+                style="width: 100%; height: auto; display: block; margin: 0 auto;"
+                xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+                <!-- Arrowhead -->
+                <marker id="arrowhead"
+                        markerWidth="10"
+                        markerHeight="10"
+                        refX="9"
+                        refY="5"
+                        orient="auto"
+                        markerUnits="strokeWidth">
+                <path d="M 0 0 L 10 5 L 0 10 Z" fill="black"/>
+                </marker>
+            </defs>
+
+            <!-- Left vertical cap -->
+            <line x1="70" y1="150" x2="70" y2="190"
+                    stroke="black" stroke-width="3"/>
+
+            <!-- One continuous line with a real loop in it -->
+            <path d="
+                M 70 170
+                L 260 170
+                C 310 170, 330 170, 350 170
+                C 390 170, 410 140, 410 110
+                C 410 70, 360 65, 340 100
+                C 320 140, 360 215, 425 205
+                C 500 195, 500 115, 455 110
+                C 430 107, 420 125, 425 145
+                C 435 180, 480 185, 525 175
+                L 760 260"
+                fill="none"
+                stroke="black"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                marker-end="url(#arrow)"/>
+
+            <!-- Points on the line -->
+            <circle cx="160" cy="170" r="5" fill="black"/>
+            <circle cx="410" cy="110" r="5" fill="black"/>
+            <circle cx="660" cy="224" r="5" fill="black"/>
+
+            <!-- Labels -->
+            <text x="160" y="210"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">0</tspan>
+            </text>
+
+            <text x="410" y="80"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">1</tspan>
+            </text>
+
+            <text x="660" y="260"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                t<tspan baseline-shift="sub" font-size="70%">f</tspan>
+            </text>
+
+            <!-- Label pointing to tf -->
+            <text x="660" y="70"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                |φ<tspan baseline-shift="sub" font-size="70%">in</tspan>⟩
+            </text>
+
+            <line x1="660" y1="82" x2="660" y2="205"
+                    stroke="black" stroke-width="2.5"
+                    marker-end="url(#arrow)"/>
+
+            <!-- Label pointing to t1 -->
+            <text x="550" y="70"
+                    text-anchor="middle"
+                    font-size="24"
+                    font-family="serif">
+                Perturbed
+            </text>
+
+            <line x1="490" y1="65" x2="430" y2="100"
+                    stroke="black" stroke-width="2.5"
+                    marker-end="url(#arrow)"/>
+            </svg>
+            </div>
+            We have essentially taken an incoming wavepacket at time \(t_0\) and allowed it to interact with a perturbation, which means we have obtained \(|\psi^{(+)}\rangle\), the scattering state which is controlled in the past:
+            \[
+                |\psi^{(+)}\rangle = \lim_{t\to-\infty}e^{i\hat Ht/\hbar}e^{-i\hat H_0t/\hbar} | \phi_{in}\rangle
+            \]
+            We can think of it like branching universes; at time \(t_0\) we have a single state, \(|\phi_{in}(t_0)\rangle\). 
+            We then branch off into two different possbilities-- either we reach time \(t_f\) having never seen a perturbation, in which case we are in state \(|\phi_{in}(t_f)\rangle\), or we did experience a perturbation before arriving at time \(t_f\), in which case we are in state \(|\psi^{(+)}\rangle\).
+            <br><br>
+            To map from one possible future which is unperturbed, \(|\phi_{in}(t_f)\rangle\), to another possible future which esperienced the full Hamiltonian, \(|\psi^{(+)}\rangle\), we have applied the M&#246;ller operator \(\hat\Omega_+\):
+            \[
+                \hat\Omega_+ = \lim_{t\to-\infty}e^{i\hat Ht/\hbar}e^{-i\hat H_0t/\hbar}
+            \]
+            so that \(|\psi^{(+)}\rangle = \hat\Omega_+|\phi_{in}(t_f)\rangle\).
+            <br><br>
+            This operator has a few properties that we don't have time to get into; it is unitary for a finite time and an isometry in its complete form above. 
+            It, as we have discussed, propagates a state freely (so without perturbation) far back into time, and then propagates it forward using the full propagator (so with perturbation).
+            <br><br>
+            We apply this operator when we want there to be a boundary condition in the <i>past</i>, in this case that \(|\phi_{in}(t_f)\rangle\) and \(|\psi^{(+)}\rangle\) coincide at \(t_0=-\infty\).
+            <br><br>
+            There is also a M&#246;ller operator for the case where there is a boundary condition in the future:
+            \[
+                \hat\Omega_- = \lim_{t\to+\infty}e^{i\hat Ht/\hbar}e^{-i\hat H_0t/\hbar}
+            \]
+            which matches some \(|\phi_{out}(t_0)\rangle\) and a \(|\psi^{(-)}\rangle\) in the far future so that \(|\psi^{(-)}\rangle = \hat\Omega_-|\phi_{out}(t_0)\rangle\).
+            <br><br>
+            In other words, the M&#246;ller operators give us the ability to map from the unperturbed Hilbert space, e.g. plane waves, to the continuum Hilbert space of the full Hamiltonian, which are the scattering states of the full Hamiltonian.
+            <br><br>
+            <b><i>Intertwining relations.</i></b>
+            We can now demonstrate the spectrum of the unperturbed Hamiltonian and the continuum eigenstates of the full Hamiltonian coincide; since we map from the first to the second using the M&#246;ller operators.
+            The demonstration proceeds as follows:
+            <br><br>
+            We introduce time propagator \(e^{i\hat H\tau/\hbar}\), and then later make \(\tau = 0\).
+            \begin{align}
+                e^{i\hat H\tau/\hbar}\hat\Omega_\pm 
+                &= \textcolor{blue}{e^{i\hat H\tau/\hbar}} \lim_{t\to\mp\infty} e^{i\hat H t/\hbar}e^{-i\hat H_0 t/\hbar} \\
+                &= \lim_{t\to\mp\infty} \textcolor{blue}{e^{i\hat H\tau/\hbar}}e^{i\hat H t/\hbar}e^{-i\hat H_0 t/\hbar}\textcolor{red}{e^{-i\hat H_0\tau/\hbar}e^{i\hat H_0\tau/\hbar}} \\
+                &= \lim_{t\to\mp\infty} e^{i\hat H(t + \tau)/\hbar} e^{-i\hat H_0(t + \tau)/\hbar}e^{i\hat H_0\tau/\hbar} \\
+                &= \hat\Omega_\pm e^{i\hat H_0\tau/\hbar}
+            \end{align}
+            since we take the limit as \(t\to\mp\infty\), the extra time shift \(tau\) doesn't change the fact that we have recovered the M&#246;ller operators.
+            We now take the time derivative with respect to \(\tau\) (not \(t\)) on both sides:
+            \begin{align}
+                e^{i\hat H\tau/\hbar}\hat\Omega_\pm 
+                &= \hat\Omega_\pm e^{i\hat H_0\tau/\hbar} \\
+                \frac{i\hat H}{\hbar}e^{i\hat H\tau/\hbar}\hat\Omega_\pm
+                &=
+                \hat\Omega_\pm e^{i\hat H_0\tau/\hbar}\frac{i\hat H_0}{\hbar} \\
+                \text{For } \tau &= 0 \text{:}\\
+                \hat H \hat\Omega_\pm &= \hat\Omega_\pm\hat H_0
+            \end{align}
+            this final statement is called <i>intertwining relations</i>.
+            Now, if we have unperturbed eigentates \(|\phi_E\rangle\) so that \(\hat H_0|\phi_E\rangle = E|\phi_E\rangle\):
+             \begin{align}
+                \hat H \hat\Omega_\pm|\phi_E\rangle &= \hat\Omega_\pm\hat H_0|\phi_E\rangle \\
+                \hat H |\psi^{(\pm)}\rangle &= E|\psi^{(\pm)}\rangle
+            \end{align}
+            Notice how a single unperturbed eigenstate with energy \(E\), \(|\phi_E\rangle\), yields both scattering states \(|\psi^{(+)}\rangle\) and \(|\psi^{(-)}\rangle\) using the M&#246;ller operators, and that it has the same energy as both of them.
+            These scattering states are the continuum states of the full Hamiltonian.
+            <br><br>
+            In other words, the range of allowed energies for \(|\phi_E\rangle\) are exactly the same as the range of allowed energies for the continuum states of the full Hamiltonian.
+            Thus their spectrums are the same, or:
+            \[
+                \sigma_C(\hat H_0) = \sigma_C(\hat H).
+            \]
+            <!-- We can actually show intertwining relations another way now that we know this:
+            \begin{align}
+                \hat H_0|\phi_{in}\rangle = E|\phi_{in}\rangle, 
+                \quad\hat H_0|\phi_{out}\rangle&= E|\phi_{out}\rangle,
+                \quad\hat H |\psi^{(+)}\rangle = E|\psi^{(+)}\rangle \\
+                E|\psi^{(+)}\rangle &= E(\hat\Omega_+|\phi_{in}\rangle) \\
+                &= \hat\Omega_+\hat H_0|\phi_{in}\rangle \\
+            \end{align} -->
+            <b><i id="lse">The Lipmann-Schwinger equations.</i></b>
+            In order to actually compute the M&#246;ller operators, we need the Lipmann-Schwinger equation, which has many forms.
+            We find the time-dependent form here, then re-do the demonstration of (1) more rigorously.
+            <br><br>
+            We now know that \(|\psi^{(+)}(t)\rangle = \hat\Omega_+|\phi_{in}(t)\rangle\) for a \(|\psi^{(+)}(t)\rangle\) and a \(|\phi_{in}(t)\rangle\) which coincide in the distance past, \(t = -\infty\).
+            We start by rewriting \(\hat\Omega_+\) like so:
+            \begin{align}
+                \hat\Omega_+ &= \lim_{t_0\to-\infty}e^{i\hat Ht_0/\hbar}e^{-i\hat H_0t_0/\hbar} \\
+                &= \hat 1 - \lim_{t_0\to-\infty}\int_{t_0}^0\frac{d}{dt'}\left\{e^{i\hat H t'/\hbar}e^{-i\hat H_0t'/\hbar}\right\}dt'
+            \end{align}
+            We can show that this is an equivalent way to write it:
+            \begin{align}
+                \hat 1 - \lim_{t_0\to-\infty}\int_{t_0}^0\frac{d}{dt'}\left\{e^{i\hat H t'/\hbar}e^{-i\hat H_0t'/\hbar}\right\}dt'
+                &= \hat 1 - \lim_{t_0\to-\infty}\left[e^{i\hat H t'/\hbar}e^{-i\hat H_0t'/\hbar}\right]_{t_0}^0 \\
+                &= \hat 1 - \lim_{t_0\to-\infty} \left[e^0e^0 - e^{i\hat H t_0/\hbar}e^{-i\hat H_0t_0/\hbar}\right] \\
+                &= \hat 1 - \lim_{t_0\to-\infty} \left[\hat 1 - e^{i\hat H t_0/\hbar}e^{-i\hat H_0t_0/\hbar}\right] \\
+                &= \lim_{t_0\to-\infty}e^{i\hat H t_0/\hbar}e^{-i\hat H_0t_0/\hbar} \\
+                &= \hat\Omega_+
+            \end{align}
+            Anyway, from this version, we can continue by actualy expanding the integrand:
+            \begin{align}
+                \hat\Omega_+
+                &= \hat 1 - \lim_{t_0\to-\infty}\int_{t_0}^0\frac{d}{dt'}\left\{e^{i\hat H t'/\hbar}e^{-i\hat H_0t'/\hbar}\right\}dt' \\
+                &= 
+                \hat 1 - \lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}\left(-\frac{i\hat H_0}{\hbar}\right)e^{-i\hat H_0t'/\hbar}
+                    +
+                    \left(\frac{i\hat H}{\hbar}\right)e^{i\hat H t'/\hbar}e^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+                &= 
+                \hat 1 - \lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}\left(-\frac{i\hat H_0}{\hbar}\right)e^{-i\hat H_0t'/\hbar}
+                    +
+                    e^{i\hat H t'/\hbar}\left(\frac{i\hat H}{\hbar}\right)e^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+                &= 
+                \hat 1 - \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    -e^{i\hat H t'/\hbar}\hat H_0 e^{-i\hat H_0t'/\hbar}
+                    +
+                    e^{i\hat H t'/\hbar}\hat He^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+                &= 
+                \hat 1 - \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}\hat He^{-i\hat H_0t'/\hbar}
+                    -
+                    e^{i\hat H t'/\hbar}\hat H_0 e^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+                &= 
+                \hat 1 - \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}
+                    \left[
+                        \hat H-\hat H_0
+                    \right]
+                    e^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+                &= 
+                \hat 1 - \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}
+                    \hat V
+                    e^{-i\hat H_0t'/\hbar}
+                \right\}dt' \\
+            \end{align}
+            We see that the integrand propogates a state back by time \(t'\), applies the perturbation \(\hat V\), then propagates the perturbed state forward by time \(t'\).
+            The integral here clearly takes the sum of all states that result from this procedure, over all different "time trajectories" through varying \(t'\)'s.
+            <br><br>
+            We now plug in our result above to \(|\psi^{(+)}\rangle = \hat\Omega_+|\phi_{in}\rangle\):
+            \begin{align}
+                |\psi^{(+)}(t)\rangle &= \hat\Omega_+|\phi_{in}(t)\rangle \\
+                &= 
+                \left(
+                    \hat 1 - \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                    \int_{t_0}^0
+                    \left\{
+                        e^{i\hat H t'/\hbar}
+                        \hat V
+                        e^{-i\hat H_0t'/\hbar}
+                    \right\}dt'
+                \right)
+                |\phi_{in}(t)\rangle \\
+                &=
+                |\phi_{in}(t)\rangle 
+                - 
+                \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}
+                    \hat V
+                    e^{-i\hat H_0t'/\hbar}
+                \right\}|\phi_{in}(t)\rangle dt' \\
+                &=
+                |\phi_{in}(t)\rangle 
+                - 
+                \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}
+                    \hat V
+                \right\}|\phi_{in}(t+t')\rangle dt' \\
+            \end{align}
+            We rename \(t + t'\) to \(t''\), so that \(t' = t''-t\) and \(dt''=dt'\)-- remember that \(t'\) is negative, so \(t''\) is an earlier time that \(t\).
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                - 
+                \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t_0}^0
+                \left\{
+                    e^{i\hat H t'/\hbar}
+                    \hat V
+                \right\}|\phi_{in}(t+t')\rangle dt' \\
+                &=
+                |\phi_{in}(t)\rangle 
+                - 
+                \frac{i}{\hbar}\lim_{t_0\to-\infty}
+                \int_{t+t_0}^{t+0}
+                \left\{
+                    e^{i\hat H (t''-t)/\hbar}
+                    \hat V
+                \right\}|\phi_{in}(t'')\rangle dt'' \\
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \int_{-\infty}^t
+                e^{-i\hat H (t-t'')/\hbar}
+                \hat V
+                |\phi_{in}(t'')\rangle dt'' \\
+            \end{align}
+            Renaming \(t''\) as \(t'\):
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \int_{-\infty}^t
+                e^{-i\hat H (t-t')/\hbar}
+                \hat V
+                |\phi_{in}(t')\rangle dt' \\
+            \end{align}
+            This is the second version of the time-dependent Lipmann-Schwinger equation.
+            <br><br>
+            The integrand here is a state that freely propagates up until a time \(t'\) (recall that the perturbation is local and hence does not reach the state in the far past), then has the perturbation \(\hat V\) applied at time \(t'\).
+            We then have driven propagation (so propagation with the full Hamiltonian) from time \(t'\) to a final time \(t\).
+            Once again, the integral is over all of these "intermediate" times, \(t'\).
+            <br><br>
+            The following is the first version of the Lipmann-Schwinger equation:
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \int_{-\infty}^t
+                e^{-i\hat H_0 (t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}(t')\rangle dt' \\
+            \end{align}
+            where we swap the roles of \(\hat H\) and \(\hat H_0\) and rearrange some terms.
+            In this case, driven propagation occus until interaction at time \(t'\), then free propagation until time \(t\).
+            <br><br>
+            <b><i>A discrepancy.</i></b>
+            Notice that so far, in our discussion of M&#246;ller operators, we have been working generally with <i>wavepackets</i> \(|\phi\rangle\) and \(|\psi^{(\pm)}\rangle\) which are well defined linear combinations of the continuum eigenstates. 
+            (except in the intertwining relations section, where we explicitly say that \(|\phi\rangle\) is an unperturbed eigenstate).
+            Wavepackets eventually move on and disperse, hence they "get out of the way" of the perturbation as time passes.
+            Generalized eigenstates, on the other hand, <i>do not change with time</i> (save for a phase factor).
+            They are dependent on the <i>distance from the interaction center</i>, so they do still have asymptotic behaviors that look like plane waves, however they do not die off with time.
+            <br><br>
+            Because the M&#246;ller operators basically map two different "universes" to each other, this generalization is not a huge deal, and we can still use M&#246;ller operators with generalized eigenstates.
+            <br><br>
+            The time-dependent Lipmann-Schwinger equations as we have them defined right now <i>do not work for generalized eigenstates of \(\hat H\) or \(\hat H_0\)</i>, because  taking the integral starting from \(-\infty\) of a state that never dies off results in an infinite solution.
+            <br><br>
+            To use the time-dependent Lipmann-Schwinger equations with generalized eigenstates, we therefore have to add a regularization term. 
+            For example, the first version of the time-dependent Lipmann-Schwinger equation becomes:
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H_0 (t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}(t')\rangle dt' \\
+            \end{align}
+            and the second version becomes:
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H (t-t')/\hbar}
+                \hat V
+                |\phi_{in}(t')\rangle dt' \\
+            \end{align}
+            so that the integral doesn't blow up.
+            This is like having a wavepacket that mimicks the generalized eigenstates, since for \(\varepsilon\to0\), we converge on the stationary eigenstates.
+            <br><br>
+            <b><i>The time-independent Lipmann-Schwinger equation.</i></b>
+            We now more rigorously demonstrate (1):
+            \begin{align}
+                |\psi^{(+)}(t)\rangle 
+                &=
+                |\phi_{in}(t)\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H_0 (t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}(t')\rangle dt' 
+                \\
+                |\psi^{(+)}\rangle e^{-iEt/\hbar}
+                &=
+                |\phi_{in}\rangle e^{-iEt/\hbar}
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H_0 (t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}\rangle e^{-iEt'/\hbar} dt' \\
+                |\psi^{(+)}\rangle
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H_0 (t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}\rangle e^{-iEt'/\hbar}e^{iEt/\hbar} dt' \\
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-\varepsilon (t-t')/\hbar}
+                e^{-i\hat H_0 (t-t')/\hbar}
+                e^{iE(t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}\rangle dt' \\
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-i(-i\varepsilon + \hat H_0 - E)(t-t')/\hbar}
+                \hat V
+                |\psi^{(+)}\rangle dt' \\
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \int_{-\infty}^t
+                e^{-i(i\varepsilon - \hat H_0 + E)(t'-t)/\hbar}
+                \hat V
+                |\psi^{(+)}\rangle dt' \\
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \frac{1}{-i(i\varepsilon - \hat H_0 + E)/\hbar}
+                \left[e^{-i(i\varepsilon - \hat H_0 + E)(t'-t)/\hbar}\right]_{-\infty}^t \hat V
+                |\psi^{(+)}\rangle \\
+                &=
+                |\phi_{in}\rangle 
+                + 
+                \frac{1}{i\hbar}
+                \lim_{\varepsilon\to0^+}
+                \frac{1}{-i(i\varepsilon - \hat H_0 + E)/\hbar}
+                \left[e^0-0\right]
+                \hat V
+                |\psi^{(+)}\rangle \\
+                &=
+                |\phi_{in}\rangle 
+                +
+                \lim_{\varepsilon\to0^+}
+                \frac{1}{i\varepsilon - \hat H_0 + E}
+                \hat V
+                |\psi^{(+)}\rangle \\
+                &=
+                |\phi_{in}\rangle 
+                +
+                \hat G_0^+(E)
+                \hat V
+                |\psi^{(+)}\rangle \\
+            \end{align}
+            which is (1) exactly.
+
+            <h2 id="ex">An Example: Scattering of a Massive Particle off a Potential in 3D</h2>
+            Say that we have a particle of mass \(m\) and a potential that only depends on the particle's position relative to the origin, or \(\vec r\).
+            \[
+                \hat H_0 = \frac{\hat p^2}{2m}, \quad \langle\vec r | \hat V | \vec r'\rangle = V(r)\delta^{(3)}(\vec r - \vec r') \iff \hat V|\vec r\rangle = V(\vec r)|\vec r\rangle
+            \]
+            the eigenstates of \(\hat H_0\) are \(|\vec k\rangle = |k, \hat k\rangle\) with energy \(\frac{\hbar^2k^2}{2m}\), where \(\langle\vec r | \vec k\rangle = \frac{1}{(2\pi)^{3/2}}e^{i\vec k\cdot\vec r}\) (plane waves) and \(\langle \vec k|\vec k'\rangle = \delta^{(3)}(\vec k - \vec k')\).
+            We now know that:
+            \[
+                |\psi^+_{\alpha E}\rangle = |\phi_{\alpha E}\rangle  + \hat G^+_0(E)\hat V|\psi^+_{\alpha E}\rangle
+            \]
+            but because energy \(E\) is in terms of \(k\):
+            \[
+                \delta(E-E') = \frac{\delta(k-k')}{dE/dk} = \delta(E-E') = \frac{\delta(k-k')}{\hbar^2k/m}
+            \]
+            we can identify our states by \(\vec k\) instead of \(E\), it would just have different normalization.
+            So the relationship
+            \[
+                |\psi^+_{\vec k}\rangle = |\vec k\rangle  + \hat G^+_0(E)\hat V|\psi^+_{\vec k}\rangle
+            \]
+            works just fine.
+            Now we begin to solve this for \(|\psi^+_{\vec k}\rangle\).
+            \begin{align}
+                    |\psi^+_{\vec k}\rangle
+                    &= |\vec k\rangle  + \hat G^+_0(E)\hat V|\psi^+_{\vec k}\rangle \\
+                    &= |\vec k\rangle  + \int d^3 k'|\vec k'\rangle\langle\vec k'|\frac{1}{E - \hat H_0 + i0^+}\hat V|\psi^+_{\vec k}\rangle \\
+                    &= |\vec k\rangle  + \int d^3 k'|\vec k'\rangle\frac{1}{E - \frac{\hbar^2k'^2}{2m} + i0^+}\langle\vec k'|\hat V|\psi^+_{\vec k}\rangle \\
+            \end{align}
+            This matrix element \(\langle\vec k'|\hat V|\psi^+_{\vec k}\rangle\) is sometimes called \(T^{(+)}_{\vec k', \vec k}\), or the off-shell T-matrix element, where off-shel indicates that the ket and the bra states have different energies.
+            Remember that we saw this at the end of the <a href="#intro">introduction</a> section.
+            <br><br>
+            Continue solving, using \(E - \frac{\hbar^2k'^2}{2m} = \frac{\hbar^2}{2m}(k^2 - k'^2)\):
+            \begin{align}
+                    |\psi^+_{\vec k}\rangle
+                    &= |\vec k\rangle  + \int d^3 k'|\vec k'\rangle\frac{1}{E - \frac{\hbar^2k'^2}{2m} + i0^+}\langle\vec k'|\hat V|\psi^+_{\vec k}\rangle \\
+                    &= |\vec k\rangle  + \int d^3 k'|\vec k'\rangle\frac{1}{\frac{\hbar^2}{2m}(k^2 - k'^2) + i0^+}\langle\vec k'|\hat V|\psi^+_{\vec k}\rangle \\
+                    &= |\vec k\rangle  + \frac{2m}{\hbar^2}\int d^3 k'|\vec k'\rangle\frac{1}{k^2 - k'^2 + i0^+}\langle\vec k'|\hat V|\psi^+_{\vec k}\rangle \\
+                    \text{Using } \hat 1 &= \int d^3r'|\vec r'\rangle\langle\vec r'| \\
+                    &= 
+                    |\vec k\rangle  + 
+                    \frac{2m}{\hbar^2}\int d^3 k'
+                        |\vec k'\rangle
+                        \frac{1}{k^2 - k'^2 + i0^+}
+                        \int d^3r'
+                        \langle\vec k'|\vec r'\rangle\langle\vec r'|\hat V|\psi^+_{\vec k}\rangle 
+                    \\
+                    &= 
+                    |\vec k\rangle  + 
+                    \frac{2m}{\hbar^2}\int d^3 k'
+                        |\vec k'\rangle
+                        \frac{1}{k^2 - k'^2 + i0^+}
+                        \int d^3r'
+                        \langle\vec k'|\vec r'\rangle V(\vec r')\langle\vec r'|\psi^+_{\vec k}\rangle 
+                    \\
+                    \langle\vec r|\psi^+_{\vec k}\rangle
+                    &=
+                    \langle\vec r|\vec k\rangle  + 
+                    \frac{2m}{\hbar^2}\int d^3 k'
+                        \langle\vec r|\vec k'\rangle
+                        \frac{1}{k^2 - k'^2 + i0^+}
+                        \int d^3r'
+                        \langle\vec k'|\vec r'\rangle V(\vec r')\langle\vec r'|\psi^+_{\vec k}\rangle 
+                    \\
+                    &=
+                    \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}  + 
+                    \frac{2m}{\hbar^2}\int d^3 k'
+                        \frac{e^{i\vec k'\cdot\vec r}}{(2\pi)^{3/2}}
+                        \frac{1}{k^2 - k'^2 + i0^+}
+                        \int d^3r'
+                        \frac{e^{-i\vec k'\cdot\vec r'}}{(2\pi)^{3/2}} 
+                        V(\vec r')\langle\vec r'|\psi^+_{\vec k}\rangle 
+                    \\
+                    &=
+                    \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}  + 
+                    \frac{2m}{(2\pi)^3\hbar^2}\int d^3 k'
+                        e^{i\vec k'\cdot\vec r}
+                        \frac{1}{k^2 - k'^2 + i0^+}
+                        \int d^3r'
+                        e^{-i\vec k'\cdot\vec r'}
+                        V(\vec r')\psi^+_{\vec k}(\vec r')
+                    \\
+                    &=
+                    \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}  + 
+                    \frac{2m}{(2\pi)^3\hbar^2}
+                        \int d^3r'
+                        V(\vec r')\psi^+_{\vec k}(\vec r')
+                        \int d^3 k'
+                        \frac{e^{i\vec k'\cdot(\vec r-\vec r')}}{k^2 - k'^2 + i0^+}
+            \end{align}
+            We need to use Cauchy integration to evaluate the integral with respect to \(d^3k'\) and I'm not doing that.
+            We essentially find that:
+            \[
+                \int d^3 k'
+                \frac{e^{i\vec k'\cdot(\vec r-\vec r')}}{k^2 - k'^2 + i0^+}
+                =
+                -\frac{2\pi^2}{|\vec r-\vec r'|}e^{ik|\vec r - \vec r'|}
+            \]
+            This result is quite important because we see the \(\vec k'\) term vanish.
+            Which means that we get:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{2m \cdot 2\pi^2}{(2\pi)^3\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik|\vec r - \vec r'|}}{|\vec r-\vec r'|} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik|\vec r - \vec r'|}}{|\vec r-\vec r'|}
+            \end{align}
+            The first term in this expression for \(\psi^+_{\vec k}(\vec r)\) is a single, clean, incoming plane wave.
+            <br>
+            The second term contains \(\frac{e^{ik|\vec r - \vec r'|}}{|\vec r-\vec r'|}\), which is a spherical wave.
+            The full integral thus represents a linear combination of outgoing spherical waves, with one spherical wave emitted from each point \(\vec r'\) where \(V(\vec r')\psi^+_{\vec k}(\vec r')\) is non-zero.
+            <br><br>
+            Each of these spherical waves has momentum \(\hbar k\) and wavelength \(\frac{2\pi}{k}\), which is the same as the incoming plane wave.
+            Note that this is a result of the \(\vec k'\) vanishing after Cauchy integration, and means that the possible outgoing spherical waves have the same energy as the incoming wave, which makes sense since energy must be conserved.
+            <br><br>
+            As this is a superposition, the particle could be in any of these states after scattering, but for large \(\vec r\), we very roughly get:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &\approx
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ikr}}{r} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{e^{ikr}}{r}
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+            \end{align}
+            from which we see that the outgoing component at large distances is one large spherical wave with amplitude \(\frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+            \).
+            Essentially, we see all the smaller, individual possible outgoing spherical waves compound together into one large spherical wave at large distances.
+            Again, this is a very rough approximation; we will be more careful with it when we find the scattering cross section later.
+            <br><br>
+            Looking at the region close to the interaction center, we see something like this:
+            <div style="width: 100%;">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    width="1000" height="500" viewBox="0 0 1000 450"
+                    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+                >
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="black"/>
+                    </marker>
+
+                    <style>
+                    .plane { stroke: #1f4fa3; stroke-width: 2.4; fill: none; }
+                    .scatter { stroke: #b22222; stroke-width: 2.2; fill: none; }
+                    .perturb { stroke: #222; stroke-width: 2.5; fill: #f2f2f2; }
+                    .arrowline { stroke: #111; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+                    .label { font-family: "Times New Roman", serif; font-size: 24px; fill: #111; }
+                    .small { font-size: 22px; }
+                    </style>
+                </defs>
+
+                <!-- Incoming plane wave: shortened vertical wavefronts -->
+                <path class="plane" d="M70 190 L70 330"/>
+                <path class="plane" d="M105 190 L105 330"/>
+                <path class="plane" d="M140 190 L140 330"/>
+                <path class="plane" d="M175 190 L175 330"/>
+                <path class="plane" d="M210 190 L210 330"/>
+                <path class="plane" d="M245 190 L245 330"/>
+                <path class="plane" d="M280 190 L280 330"/>
+                <path class="plane" d="M315 190 L315 330"/>
+
+                <!-- Perturbation -->
+                <circle class="perturb" cx="450" cy="260" r="55"/>
+                <text class="label" x="430" y="267">V(r)</text>
+
+                <!-- Plane wave continuing through perturbation: shortened so it mainly overlaps only with forward scattering -->
+                <path class="plane" d="M565 190 L565 330"/>
+                <path class="plane" d="M600 190 L600 330"/>
+                <path class="plane" d="M635 190 L635 330"/>
+                <path class="plane" d="M670 190 L670 330"/>
+                <path class="plane" d="M705 190 L705 330"/>
+                <path class="plane" d="M740 190 L740 330"/>
+                <path class="plane" d="M775 190 L775 330"/>
+                <path class="plane" d="M810 190 L810 330"/>
+
+                <!-- Incoming wavevector -->
+                <line class="arrowline" x1="170" y1="160" x2="310" y2="160"/>
+                <text class="label" x="205" y="145">k⃗</text>
+
+                <!-- Forward scattered arcs (same direction as incoming, labeled k⃗) -->
+                <path class="scatter" d="M605 250 A105 105 0 0 1 605 270"/>
+                <path class="scatter" d="M645 243 A145 145 0 0 1 645 277"/>
+                <path class="scatter" d="M685 237 A185 185 0 0 1 685 283"/>
+                <path class="scatter" d="M725 232 A225 225 0 0 1 725 288"/>
+
+                <!-- Upper-right scattered arcs (k') -->
+                <path class="scatter" d="M570 188 A95 95 0 0 1 592 214"/>
+                <path class="scatter" d="M597 158 A135 135 0 0 1 627 194"/>
+                <path class="scatter" d="M624 129 A175 175 0 0 1 662 175"/>
+                <path class="scatter" d="M652 100 A215 215 0 0 1 697 156"/>
+
+                <!-- Lower-right scattered arcs (k'') -->
+                <path class="scatter" d="M570 332 A95 95 0 0 0 592 306"/>
+                <path class="scatter" d="M597 362 A135 135 0 0 0 627 326"/>
+                <path class="scatter" d="M624 391 A175 175 0 0 0 662 345"/>
+                <path class="scatter" d="M652 420 A215 215 0 0 0 697 364"/>
+
+                <!-- Direction arrows and labels -->
+                <line class="arrowline" x1="705" y1="145" x2="790" y2="75"/>
+                <text class="label small" x="800" y="72">k&#x20D7; '</text>
+
+                <line class="arrowline" x1="710" y1="260" x2="840" y2="260"/>
+                <text class="label small" x="850" y="266">k&#x20D7;</text>
+
+                <line class="arrowline" x1="705" y1="375" x2="790" y2="445"/>
+                <text class="label small" x="800" y="455">k&#x20D7; ''</text>
+                </svg>
+            </div>
+            <br><br>
+            In our expression for \(\psi^+_{\vec k}(\vec r)\), the incoming plane wave component doesn't disappear after it reaches the potential; it's just \(\frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}\) and it simply continues on.
+            Obviously if this were physically the case, then the outgoing flux is most certainly not equal to the incoming flux.
+            This means that the scattered portion in the \(\vec k\) direction must <i>cancel</i> out the incoming beam; in other words it must be anti-phase with the incoming beam.
+            <br><br>
+            <b><i>The scattering cross section.</i></b>
+            At large distances, how likely is it that the incoming particle scatters at a solid angle \(d\Omega\)?
+            The scattering cross section tells us this.
+            Essentially we want to know how many particles (during repeat experiments) scatter in that solid angle, given the number of particles that pass through a cross section before colliding with the target.
+            <br><br>
+            We start with our last result:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik|\vec r - \vec r'|}}{|\vec r-\vec r'|}
+            \end{align}
+            and because we're evaluating at large distances, we know that:
+            \[
+                |\vec r| \gg \frac{2\pi}{k}, \quad |\vec r| \gg \text{Range}(V), \quad |r'| \ll |r|
+            \]
+            We use this to re-write \(|\vec r - \vec r'|\):
+            \begin{align}
+                |\vec r - \vec r'|
+                &= \sqrt{r^2 + r'^2 - 2\vec r\cdot\vec r'} \\
+                &= r\sqrt{1 + (r'/r)^2 - 2(\hat r/r)\cdot\vec r'} \\
+                \text{Using } \sqrt{1 + x}\ &\approx 1 + x/2 \text{ for small x:} \\
+                &= r - \hat r\cdot\vec r' + o((r'/r)^2)
+            \end{align}
+            so that
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik(r - \hat r\cdot\vec r')}}{r - \hat r\cdot\vec r'}
+            \end{align}
+            And, using the approximation \(\frac{1}{1-x}\approx1 + x\) for small \(x\):
+            \begin{align}
+                \frac{1}{r - \hat r\cdot\vec r'}
+                &= \frac{1}{r}\frac{1}{1 - \hat r\cdot\vec r'/r} \\
+                &\approx \frac{1}{r}(1 + \frac{\hat r\cdot\vec r'}{r}) \\
+                &\approx \frac{1}{r}
+            \end{align}
+            which means that we now have:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik(r - \hat r\cdot\vec r')}}{r} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                \frac{e^{ik(r )}}{r} 
+                e^{- ik\hat r\cdot\vec r'} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                e^{- ik\hat r\cdot\vec r'}
+            \end{align}
+            Now we look at \(e^{- ik\hat r\cdot\vec r'}\).
+            \(\vec r\) is the position of the scattered particle relative to the interaction center, and \(\vec k'\) is the wavevector of the scattered particle, hence the directions of \(\vec k'\) and \(\vec r\) are the same.
+            We ALSO know that the magnitudes of \(\vec k\) and \(\vec k'\) are the same at large distances.
+            So, \(k\hat r = \vec k'\), and we can write \(e^{- ik\hat r\cdot\vec r'}\) as \(e^{- i\vec k'\cdot\vec r'}\) instead:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)&=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                e^{- i\vec k'\cdot\vec r'}
+            \end{align}
+            At this point, we use the first Born Approximation to find an adequate solution to the integral.
+            Recall from the end of the <a href="scattering.html#moll">introduction</a> that we defined:
+            \begin{align}
+                |\psi_{\alpha E}^\pm\rangle
+                &= \sum_{n=0}^\infty \left[\hat G_0^\pm(E)\hat V\right]^n|\phi_{\alpha E}\rangle
+            \end{align}
+            If we only employ the zero-th order term, \(|\psi_{\alpha E}^\pm\rangle\approx |\phi_{\alpha E}\rangle\).
+            Thus we approximate \(\psi^+_{\vec k}(\vec r')\) as plane wave \(\frac{1}{(2\pi)^{3/2}}e^{i\vec k\cdot\vec r'}\):
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \int d^3r'
+                V(\vec r')
+                \frac{1}{(2\pi)^{3/2}}e^{i\vec k\cdot\vec r'}
+                e^{- i\vec k'\cdot\vec r'} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \frac{1}{(2\pi)^{3/2}}
+                \int d^3r'
+                V(\vec r')
+                e^{-i(\vec k' - \vec k)\cdot\vec r'}
+            \end{align}
+            If momentum is \(\hbar \vec k\), then \(\vec k'-\vec k = \Delta\vec q/\hbar\), where \(\Delta q\) is the change in momentum.
+            Then our wave function becomes:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \frac{1}{(2\pi)^{3/2}}
+                \int d^3r'
+                V(\vec r')
+                e^{-i \Delta\vec q\cdot\vec r'/\hbar}
+            \end{align}
+            where \(e^{-i \Delta\vec q\cdot\vec r'/\hbar}\) is a momentum boost.
+            Thus we see the particle scatters and changes momentum with \(\Delta\vec q\) (the magnitude of the momentum is the same, but the direction changes from \(\hat k\) to \(\hat k'\)).
+            <br><br>
+            This looks also like the Fourier transform in space of the potential.
+            In other words, the potential itself has a distribution of momenta, and the incoming particle can acquire those distribution of momenta; the particle gets a kick from from the potential by that momentum... I think.
+            <br><br>
+            Notice also that nothing in the integrand now depends on \(r\).
+            Let's pretend we never use the first Born Approximation and we have just used \(k\hat r = \vec k'\).
+            We can do the following:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                \int d^3r'
+                V(\vec r')\psi^+_{\vec k}(\vec r')
+                e^{- i\vec k'\cdot\vec r'} \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                \int d^3r'
+                V(\vec r')
+                \langle \vec r' | \psi^+_{\vec k}\rangle
+                \frac{e^{- i\vec k'\cdot\vec r'}}{(2\pi)^{3/2}} 
+                \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                \int d^3r'
+                V(\vec r')
+                \langle \vec r' | \psi^+_{\vec k}\rangle
+                \langle\vec k'|\vec r'\rangle 
+                \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                \int d^3r'
+                \langle\vec k'|\vec r'\rangle 
+                V(\vec r')
+                \langle \vec r' | \psi^+_{\vec k}\rangle
+                \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                \int d^3r'
+                \langle\vec k'|\vec r'\rangle 
+                \langle \vec r' |\hat V| \psi^+_{\vec k}\rangle
+                \\
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                \langle\vec k'|\hat V| \psi^+_{\vec k}\rangle
+                \\
+            \end{align}
+            Since we have shown that all of the \(\vec k'\)'s have the same energy as \(\vec k\), \(\langle\vec k'|\hat V| \psi^+_{\vec k}\rangle\) is what's known as the <i>on-shell</i> T-matrix, \(T_{\vec k', \vec k}\).
+            Thus we can write the wavefunction as:
+            \begin{align}
+                \psi^+_{\vec k}(\vec r)
+                &=
+                \frac{e^{i\vec k\cdot\vec r}}{(2\pi)^{3/2}}
+                -
+                \frac{m}{2\pi\hbar^2}
+                \frac{e^{ik(r )}}{r} 
+                (2\pi)^{3/2}
+                T_{\vec k', \vec k}
+                \\
+                &=
+                \phi_{\vec k}(\vec r)
+                -
+                \frac{m\sqrt{2\pi}}{\hbar}
+                \frac{e^{ik(r )}}{r}
+                T_{\vec k', \vec k}
+                \\
+            \end{align}
+            (again, this is the incoming plane wave and the scattered spherical wave).
+            <br><br>
+            We can find the scattering cross-section now my find the incoming and outgoing flux.
+            Say that we know that the density of charge is \(\rho = |\psi(\vec r)|^2\), and that the continuity equation is \(\dot\rho = -\vec\nabla\cdot\vec j\), for density of current \(\vec j\).
+            <br><br>
+            I think this is partially because in general, \(\rho = q|\psi(\vec r)|^2\) for a particle of charge q, because \(|\psi(\vec r)|^2\) is the probability density of finding the particle at location \(\vec r\) and in quantim mechanics, a particle may not have a deifnite position... and I guess we use \(q=1\).
+            <br><br>
+            Using these two equations we can determine an expression for \(\vec j\):
+            \begin{align}
+                \dot\rho 
+                &= \partial_t(|\psi(\vec r)|^2) \\
+                &= \partial_t(\psi(\vec r)\psi^*(\vec r)) \\
+                &= \psi(\vec r)\dot\psi^*(\vec r) + \psi^*(\vec r)\dot\psi(\vec r) \\
+                \text{Using } \hat H = \frac{\hat p^2}{2m} + \hat V, &\quad i\hbar\dot\psi = \hat H\psi \implies \dot\psi = \frac{\hat H}{i\hbar}\psi \\
+                &= \psi\left(\frac{\hat H}{i\hbar}\psi \right)^* + \psi^*\left(\frac{\hat H}{i\hbar}\psi \right) \\
+                &= \left(\frac{\hat p^2\psi}{2mi\hbar} \right)^*\psi 
+                + \left(\frac{\hat V}{i\hbar}\psi \right)^*\psi
+                + \psi^*\left(\frac{\hat p^2\psi}{2mi\hbar} \right) 
+                + \psi^*\frac{\hat V}{i\hbar}\psi \\
+                &= \left(\frac{\hat p^2\psi}{2mi\hbar} \right)^*\psi 
+                - \frac{\hat V\psi^* \psi}{i\hbar}
+                + \psi^*\left(\frac{\hat p^2\psi}{2mi\hbar} \right) 
+                + \frac{\hat V\psi^*\psi}{i\hbar} \\
+                &= \left(\frac{\hat p^2\psi}{2mi\hbar} \right)^*\psi 
+                + \psi^*\left(\frac{\hat p^2\psi}{2mi\hbar} \right) \\
+                \text{Using }\hat p^2 &= -\hbar^2\nabla^2 \\
+                &= \left(\frac{-\hbar^2\nabla^2\psi}{2mi\hbar} \right)^*\psi 
+                + \psi^*\left(\frac{-\hbar^2\nabla^2\psi}{2mi\hbar} \right) \\
+                &= -\frac{\hbar^2}{2mi\hbar}\left((-\nabla^2\psi)^*\psi + \psi^*\nabla^2\psi\right) \\
+                &= \frac{i\hbar}{2m}\left(-\nabla^2\psi^*\psi + \psi^*\nabla^2\psi\right) \\
+                &= -\vec\nabla\cdot\left(-\frac{i\hbar}{2m}(-\vec\nabla\psi^*\psi + \psi^*\vec\nabla\psi)\right) \\
+                &= -\vec\nabla\cdot\left(\frac{\hbar}{2mi}(\psi^*\vec\nabla\psi - \psi\vec\nabla\psi^*)\right)
+            \end{align}
+            According to the continuity equation, this must be equal to \(\dot\rho = -\vec\nabla\cdot\vec j\), so we know that:
+            \[
+                \vec j = \frac{\hbar}{2mi}(\psi^*\vec\nabla\psi - \psi\vec\nabla\psi^*)
+            \]
+            We use this to find the density of current/flux for the incoming plane wave:
+            \[
+                \vec j_{in} 
+                = \frac{\hbar}{2mi}\frac{1}{{(2\pi)^{3/2}}^2}\left\{e^{-i\vec k\cdot\vec r}i\vec ke^{i\vec k\cdot\vec r} - e^{i\vec k\cdot\vec r}(-i\vec k)e^{-i\vec k\cdot\vec r}\right\}
+                = \frac{\hbar k}{(2\pi)^3m}
+            \]
+            and the flux for the outgoing wave:
+            \[
+                \vec j_{out} 
+                = \frac{\hbar}{2mi}(\psi^*\vec\nabla\psi - \psi\vec\nabla\psi^*)
+                , \quad 
+                \text{for }
+                \psi
+                =
+                \frac{m\sqrt{2\pi}}{\hbar}
+                \frac{e^{ik(r )}}{r}
+                T_{\vec k', \vec k}
+            \]
+            (we actually didn't do this in class, but to leading order in \(\frac{1}{r}\), we get...)
+            \[
+                \vec j_{out} \cdot\hat k' = \frac{2\pi m}{\hbar^3r^2}k|T_{\vec k', \vec k}|^2
+            \]
+            this is the flux per unit of solid angle.
+            The cross section is the ration of the flux per solid angle to the incoming flux:
+            \[
+                \frac{d\sigma}{d\Omega} 
+                = \frac{2\pi m^2}{\hbar^3}\frac{(2\pi)^3}{\hbar}|T_{\vec k', \vec k}|^2
+                = \frac{(2\pi)^4 m^2}{\hbar^4}|T_{\vec k', \vec k}|^2
+            \]
+            We can verify that this has correct units:
+            <ul>
+                <li>
+                    The units of the matrix element are the units of the potential (so energy) times the units of \(\langle \vec k'|\psi^+_{\vec k}\rangle\); these are normalized to be \(\delta^{(3)}(\vec k'-\vec k)\), so they have the same units as \(\frac{1}{k^3}\), which are \(L^3\).
+                    <br><br>
+                    The matrix element has units EL^3.
+                </li>
+                <li>
+                    The units from the coefficients are \(\frac{M^2}{(ET)^4}\)
+                </li>
+                <li>
+                    The overall units are:
+                    \[
+                        \frac{M^2}{(ET)^4}(EL^3)^2 = \frac{M^2E^2L^6}{E^4T^4} = L^2
+                    \]
+                    or units of area, which is correct for the cross section.
+                </li>
+            </ul>
+
+            <h2 id="misc">Miscellaneous Points</h2>
+            <b><i>Being controlled in the past/future.</i></b>
+            Recall that being controlled in the past/future means that there is only one channel for incoming/outgoing states, respectively.
+            Also recall that the states \(|\psi^\pm_{\alpha E}\rangle\) are stationary, but we can define wave packets that are not stationary, e.g.:
+            \[
+                |\psi(t=0)\rangle = \sum_\alpha\int dE|\psi^+_{\alpha E}\rangle c_{\alpha E}, \quad \sum_\alpha\int dE |c_{\alpha E}|^2 = 1 = \langle\psi|\psi\rangle
+            \]
+            where \(c_{\alpha E} = \langle \psi^+_{\alpha E}|\psi(t=0)\rangle\).
+            We can also have time dependence:
+            \[
+                |\psi(t)\rangle = \sum_\alpha\int dE e^{-iEt/\hbar} |\psi^+_{\alpha E}\rangle c_{\alpha E}
+            \]
+            We've looked at the generalized eigenstates in the far past and future; 
+            let's look at this wavepacket in the far past, at large negative time.
+            Starting with the Lipmann-Schwinger equation:
+            \begin{align}
+                |\psi_{\alpha E}^\pm\rangle
+                &= |\phi_{\alpha E}\rangle + \hat G_0^\pm(E)\hat V|\psi^\pm_{\alpha E}\rangle \\
+                &= |\phi_{\alpha E}\rangle + \sum_\beta\int dE'|\phi_{\beta E'}\rangle\langle\phi_{\beta E'} |\hat G_0^\pm(E)\hat V|\psi^\pm_{\alpha E}\rangle \\
+            \end{align}
+            Now we plug this into our time-dependent wave packet:
+            \begin{align}
+                |\psi(t)\rangle 
+                &= \sum_\alpha\int dE e^{-iEt/\hbar} |\psi^+_{\alpha E}\rangle c_{\alpha E} \\
+                &= \sum_\alpha\int dE e^{-iEt/\hbar} 
+                \left(
+                    |\phi_{\alpha E}\rangle + \sum_\beta\int dE'|\phi_{\beta E'}\rangle\langle\phi_{\beta E'} |\hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                \right) 
+                c_{\alpha E} \\
+                &= \sum_\alpha\int dE  
+                \left(
+                    e^{-iEt/\hbar}|\phi_{\alpha E}\rangle c_{\alpha E} 
+                    + 
+                    e^{-iEt/\hbar}\sum_\beta\int dE'|\phi_{\beta E'}\rangle\langle\phi_{\beta E'} |\hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                    c_{\alpha E} 
+                \right) \\
+                &= 
+                \sum_\alpha\int dE 
+                e^{-iEt/\hbar}|\phi_{\alpha E}\rangle c_{\alpha E} 
+                + 
+                \sum_{\alpha, \beta}\int dE \int dE'
+                    e^{-iEt/\hbar}|\phi_{\beta E'}\rangle\langle\phi_{\beta E'} |\hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                    c_{\alpha E} 
+            \end{align}
+            The first term, \(\sum_\alpha\int dE e^{-iEt/\hbar}|\phi_{\alpha E}\rangle c_{\alpha E} \), tells us that one component of the wavepacket is a free wavepacket, or a linear combination of plane waves that use the same expansion coefficients as the original wavepacket, \(c_{\alpha E}\).
+            <br><br>
+            The second term can be cleaned up a bit:
+            \begin{align}
+                &\sum_{\alpha, \beta}\int dE \int dE'
+                e^{-iEt/\hbar}|\phi_{\beta E'}\rangle\langle\phi_{\beta E'} |\hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                c_{\alpha E} 
+                \\
+                &=
+                \sum_{\beta} \int dE'
+                |\phi_{\beta E'}\rangle
+                \sum_{\alpha}\int dE
+                \frac{e^{-iEt/\hbar}}{E-E'+i0^+}
+                \langle\phi_{\beta E'} |\hat V|\psi^+_{\alpha E}\rangle
+                c_{\alpha E} 
+                \\
+                &=
+                \sum_{\beta} \int dE'
+                |\phi_{\beta E'}\rangle
+                \sum_{\alpha}\int dE
+                \frac{e^{-iEt/\hbar} T^+_{\beta E', \alpha E} c_{\alpha E}}{E-E'+i0^+}
+            \end{align}
+            To solve this integral with respect to \(E\), we need to take the contour integral where \(E\) is complex, and close the countour where the integrand converges.
+            The integrand has an \(e^{-iEt/\hbar}\).
+            If we write \(E = E_{Re} + iE_{Im}\), this becomes:
+            \[
+                e^{-iEt/\hbar} 
+                = e^{-i(E_{Re} + iE_{Im})t/\hbar}
+                = e^{-iE_{Re}t/\hbar} e^{ E_{Im}t/\hbar}
+            \]
+            The \(e^{-iE_{Re}t/\hbar}\) term oscillates (it can be written as a sinusoid using Euler's identity), so the \(e^{ E_{Im}t/\hbar}\) term determines where the integrand converges.
+            For a negative time \(t\), this is clearly where \(E_{Im}\), or the imaginary part of the emergy, is positive.
+            Thus we close the contour above the real axis.
+            <br><br>
+            The pole of this integrand, however, is slightly below the real axis, at \(E'-i0^+\).
+            Thus this integral is simply 0 for negative \(t\).
+            <br><br>
+            This means that if we reverse time for a wavepacket built from generalized eigenstates \(|\psi^\pm_{\alpha E}\rangle\), we only see the free wave packet, \(|\psi(t)\rangle = \sum_\alpha\int dE e^{-iEt/\hbar}|\phi_{\alpha E}\rangle c_{\alpha E}\).
+            This formalizes the notion that the wavepacket is controlled in the past.
+            Basically, it is prepared as a free wavepacket and evolves as a combination of scattering states with the same coefficients as the coefficients for \(|\phi_{\alpha E}\rangle\) in the far past.
+            <br><br>
+            As a side note, this means we can write:
+            \[
+                c_{\alpha E} \approx e^{iEt/\hbar} \langle\phi_{\alpha E} | \psi(t)\rangle 
+            \]
+            but as we know from earlier:
+            \[
+                c_{\alpha E} 
+                = \langle \psi^+_{\alpha E}|\psi(t=0)\rangle
+                = \langle \psi^+_{\alpha E}|\psi(t)\rangle e^{iEt/\hbar}
+            \]
+            Thus \(\langle \psi^+_{\alpha E}|\psi(t)\rangle \approx \langle\phi_{\alpha E} | \psi(t)\rangle\) for sufficiently large and negative time (that is, the overlap of the wavepacket with the full Hamiltonian eigenstates is approximately the same as the overlap with the unperturbed eigenstates).
+            <br><br>
+            <b><i>The relationship between \(|\psi^+\rangle\) and \(|\psi^-\rangle\).</i></b>
+            The \(|\psi^+\rangle\) states for a complete basis for the continuum, and so do the \(|\psi^-\rangle\) states.
+            We can define projectors as follows:
+            \[
+                \hat 1 = \hat P_{bound} = \hat P_{continuum} - \sum_i|\psi_i\rangle \langle\psi_i| + \sum_\alpha\int dE|\psi^+_{\alpha, E}\rangle\langle\psi^+_{\alpha, E}|
+            \]
+            (note that we could also use the \(|\psi^-\rangle\) states to define \(\hat P_{continuum}\)).
+            Where the bound eigentstates follow \(\hat H|\psi_i\rangle = E_i|\psi_i\rangle\), and are normalized so that \(\langle \psi_j|\psi_i\rangle = \delta_{ij}\).
+            The continuum states of course, follow \(\hat H\psi^+_{\alpha, E} = E|\psi^+_{\alpha, E}\rangle\), and are normalized so that \(\langle\psi_i|\psi^+_{\alpha, E}\rangle = 0\) and \(\langle \psi^+_{\beta, E}|\psi^+_{\alpha, E}\rangle = \delta_{\beta, \alpha}\delta_{E'E}\).
+            <br><br>
+            Because \(|\psi^+\rangle\) form a complete basis, we can write \(|\psi^-\rangle\) as a linear combination of \(|\psi^+\rangle\):
+            \[
+                |\psi^-_{\alpha, E}\rangle = \sum_\beta|\psi^+_{\beta, E}\rangle c_{\beta, \alpha}
+            \]
+            Using the Lipmann-Schwinger equation, we can also write:
+            \begin{align}
+                |\psi_{\alpha E}^+\rangle
+                &= |\phi_{\alpha E}\rangle + \hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle \\
+                |\psi_{\alpha E}^-\rangle
+                &= |\phi_{\alpha E}\rangle + \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle \\
+            \end{align}
+            We now define state \(|\Delta \psi_{\alpha E}\rangle = |\psi^+_{\alpha E}\rangle - |\psi^-_{\alpha E}\rangle\).
+            \begin{align}
+                |\Delta \psi_{\alpha E}\rangle 
+                &= |\psi^+_{\alpha E}\rangle - |\psi^-_{\alpha E}\rangle \\
+                &= |\phi_{\alpha E}\rangle + \hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                - |\phi_{\alpha E}\rangle - \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle \\
+                &= \hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                - \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle \\
+                &= \hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                - \hat G_0^-(E)\hat V\left\{|\psi^+_{\alpha E}\rangle - |\Delta\psi_{\alpha E}\rangle\right\} \\
+                &= \hat G_0^+(E)\hat V|\psi^+_{\alpha E}\rangle
+                - \hat G_0^-(E)\hat V|\psi^+_{\alpha E}\rangle + \hat G_0^-(E)\hat V|\Delta\psi_{\alpha E}\rangle \\
+                &= \left[\hat G_0^+(E)- \hat G_0^-(E)\right]\hat V|\psi^+_{\alpha E}\rangle
+                + \hat G_0^-(E)\hat V|\Delta\psi_{\alpha E}\rangle \\
+            \end{align}
+            Let's expand \(\hat G_0^+(E)- \hat G_0^-(E)\):
+            \begin{align}
+                \hat G_0^+(E)- \hat G_0^-(E)
+                &= \frac{1}{E-\hat H_0 + i0^+} - \frac{1}{E-\hat H_0 - i0^+} \\
+                &= \left(\frac{1}{E-\hat H_0 + i0^+} - \frac{1}{E-\hat H_0 - i0^+}\right)
+                \sum_\beta\int dE'|\phi_{\beta E'}\rangle\langle \phi_{\beta E'}| \\
+                &=
+                \sum_\beta
+                \int dE'
+                \left(\frac{1}{E-E' + i0^+} - \frac{1}{E-E' - i0^+}\right)
+                |\phi_{\beta E'}\rangle\langle \phi_{\beta E'}| \\
+            \end{align}
+            In general, \(\frac{1}{x + i0^+} = \frac{\mathcal P}{x} - i\pi\delta(x)\) so \(\frac{1}{x+i0^+} - \frac{1}{x-i0^+} = -2i\pi\delta(x)\):
+            \begin{align}
+                \hat G_0^+(E)- \hat G_0^-(E)
+                &=
+                -2i\pi\sum_\beta\int dE' \delta(E-E')|\phi_{\beta E'}\rangle\langle \phi_{\beta E'}| \\
+                &= -2i\pi\sum_\beta|\phi_{\beta E}\rangle\langle \phi_{\beta E}|
+            \end{align}
+            which is apparently a density of projector on energy shell with level \(E\).
+            Plugging this in:
+            \begin{align}
+                |\Delta \psi_{\alpha E}\rangle 
+                &= \left[\hat G_0^+(E)- \hat G_0^-(E)\right]\hat V|\psi^+_{\alpha E}\rangle
+                + \hat G_0^-(E)\hat V|\Delta\psi_{\alpha E}\rangle \\
+                &= -2i\pi\sum_\beta|\phi_{\beta E}\rangle\langle \phi_{\beta E}|\hat V|\psi^+_{\alpha E}\rangle
+                + \hat G_0^-(E)\hat V|\Delta\psi_{\alpha E}\rangle \\
+                &= \sum_\beta-2i\pi T^+_{\beta\alpha}(E)
+                |\phi_{\beta E}\rangle
+                
+                + \hat G_0^-(E)\hat V|\Delta\psi_{\alpha E}\rangle \\
+            \end{align}
+            Notice how similar in structure this is to 
+            \(
+                |\psi_{\alpha E}^-\rangle
+                = |\phi_{\alpha E}\rangle + \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle \\
+            \).
+            If we multiply by \(-2i\pi T^+_{\beta\alpha}(E)\) on both sides:
+            \[
+                -2i\pi T^+_{\beta\alpha}(E)|\psi_{\alpha E}^-\rangle
+                =
+                -2i\pi T^+_{\beta\alpha}(E)
+                |\phi_{\alpha E}\rangle
+                +
+                -2i\pi T^+_{\beta\alpha}(E)
+                \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle
+            \]
+            and take the sum over all \(\beta\) on both sides:
+            \[
+                \sum_\beta-2i\pi T^+_{\beta\alpha}(E)|\psi_{\alpha E}^-\rangle
+                =
+                \sum_\beta-2i\pi T^+_{\beta\alpha}(E)
+                |\phi_{\alpha E}\rangle
+                +
+                \sum_\beta-2i\pi T^+_{\beta\alpha}(E)
+                \hat G_0^-(E)\hat V|\psi^-_{\alpha E}\rangle
+            \]
+            then say that \(\sum_\beta-2i\pi T^+_{\beta\alpha}(E)|\psi_{\alpha E}^-\rangle = |{\psi_{\alpha E}^-}'\rangle\)
+            we get that:
+            \[
+                |{\psi_{\alpha E}^-}'\rangle
+                =
+                \sum_\beta-2i\pi T^+_{\beta\alpha}(E)
+                |\phi_{\alpha E}\rangle
+                +
+                \hat G_0^-(E)
+                \hat V
+                |{\psi_{\alpha E}^-}'\rangle
+            \]
+            which replicates the structure of \(|\Delta \psi_{\alpha E}\rangle \) exactly.
+            We thus see that:
+            \[
+                |\Delta \psi_{\beta E}\rangle = \sum_\beta |\psi_{\alpha E}^-\rangle(-2i\pi T_{\beta\alpha}(E))
+            \]
+            Using this, we can update our definition of \(|\psi_{\alpha E}^+\rangle\):
+            \begin{align}
+                |\psi_{\alpha E}^+\rangle
+                &= |\psi^-_{\alpha E}\rangle + |\delta\psi_{\alpha E}\rangle \\
+                &= |\psi^-_{\alpha E}\rangle + \sum_\beta |\psi_{\alpha E}^-\rangle(-2i\pi T_{\beta\alpha}(E)) \\
+                &= \sum_\beta
+                |\psi^-_{\beta E}\rangle
+                (\delta_{\alpha\beta}-2i\pi T_{\beta\alpha}(E))
+            \end{align}
+            Recall that we've mentioned the <i>on-shell</i> probability amplitude/scattering matrix <a href="#amplintro">before</a>.
+            Here, we have the <i>off-shell</i> version, \(\mathcal S_{\beta E', \alpha E} = \langle \psi^-_{\beta E'} | \psi^+_{\alpha E}\rangle\).
+            We can finally use it:
+            \begin{align}
+                \mathcal S_{\beta E', \alpha E} 
+                &= \langle \psi^-_{\beta E'} | \psi^+_{\alpha E}\rangle \\
+                &= \langle \psi^-_{\beta E'} | \left(\sum_\gamma
+                |\psi^-_{\gamma E}\rangle
+                (\delta_{\alpha\gamma}-2i\pi T_{\gamma\alpha}(E))\right) \\
+                &= \sum_\gamma
+                \langle \psi^-_{\beta E'} |\psi^-_{\gamma E}\rangle
+                (\delta_{\alpha\gamma}-2i\pi T_{\gamma\alpha}(E)) \\
+                &= \sum_\gamma
+                \delta_{\beta\gamma}\delta(E'-E)
+                (\delta_{\alpha\gamma}-2i\pi T_{\gamma\alpha}(E)) \\
+                &= \delta(E'-E)
+                (\delta_{\alpha\beta}-2i\pi T_{\beta\alpha}(E)) \\
+                &= \delta(E'-E)\mathcal S_{\beta\alpha}(E)
+            \end{align}
+            where it turns out that \(\delta_{\alpha\beta}-2i\pi T_{\beta\alpha}(E)\) is the <i>on-shell scattering matrix</i>, \(\mathcal S_{\beta\alpha}(E)\).
+            We unfortunately don't have time to go into depth about the scattering matrices, but they are like a transformation from one orthonormal basis to another where flux/probability is conserved, in a shell with a specific energy.
+            <br><br>
+            <b><i>Scattering from a spherical potential, scattering phase shift.</i></b>
+            Let's look at the secial case of scattering by a spherical potential.
+            Remember that if \(\hat H = \frac{\hat p^2}{2m} + V(r)\) and the potential is spherical, then \(\hat H, \hat L^2] = [\hat H, \hat L_z] = 0\), and we can separate the wavefunctions \(\psi_{Elm}(\vec r)\) into angular and radial components:
+            \[
+                \psi_{Elm}(\vec r) = R_{El}(r)Y_{lm}(\hat R)
+            \]
+            We can further write the radial function in terms of the <i>reduced radial function</i>:
+            \[
+                R_{El} = \frac{u_{EL}(r)}{r}
+            \]
+            where \(u_{El}(r)\) satisfies the radial TDSE:
+            \[
+                -\frac{\hbar^2}{2m}u''_{El} + \frac{\hbar^2}{2mr^2} l(l+1)u_{El} + V(r)u_{El} = E u_{El}
+            \]
+            which has one term for the kinetic energy, one term from the repulsive "centrifugal potential", which is negligible for large \(r\), and the spherical potential itself.
+            This is like a particle in one-dimension that ranges from 0 to \(\infty\) with an effective potential that is the spherical potential plus the centrifugal potential.
+            <br><br>
+            If the spherical potential decays as \(\frac{1}{r^2}\), asymptotically
+            we expect that \(u_{El} \approx \sin(kr-l\pi/2+\delta_l(E))\), since at large \(r\), our TDSE should match that of a free wave.
+            The phase shifts here are partially out of convention; the \(-l\pi/2\) is a result of the centrifugal potential and the \(\delta_l(E)\) is a result of \(V(r)\).
+            If \(V(r) = 0\), then we simply have a free particle, and asymptotically, \(u_{El} \approx \sin(kr-l\pi/2)\).
+            <br><br>
+            We can define a function \(j_l(kr) = \frac{u_{El}(r)}{kr}\) for the case where \(kr\gg 1\) and the potential is 0:
+            \[
+                j_l(kr) = \frac{\sin(kr-l\pi/2)}{kr}
+            \]
+            These are the <i>spherical Bessel functions</i>; spherical waves/radial functions for the eigenvectors of \(\frac{\hat p^2}{2m}\) in spherical coordinates (so they are also the eigenvectors for \(\hat L_2\) and \(\hat L_z\)).
+            <br><br>
+            In scattering, we are often concerned with plane waves, e.g. \(e^{i\vec k\cdot\vec r}\).
+            This is an eigenvector of \(\hat H_0\) with specific energy, \(\frac{\hbar^2k^2}{2m}\).
+            We can write it as a linear combination of spherical waves with the same \(k\) like so:
+            \[
+                e^{i\vec k\cdot\vec r}
+                =
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                i^l j_l(kr)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r)
+            \]
+            We don't derive this; he just gives it to us lol.
+            Essentially, this is how to write a plane wave as a linear combination of spherical waves, \(j_l(kr)\).
+            Notice that this is a scalar since it is a function of a scalar product; the two angular functions are two tensors of rank \(l\) that combine to make a scalar function...
+            <br><br>
+            Let's look at the asymptotic part, \(j_l\):
+            \begin{align}
+                j_l(kr) &= \frac{\sin(kr-l\pi/2)}{kr} \\
+                &= \frac{e^{i(kr-l\pi/2)} - e^{-i(kr-l\pi/2)}}{2ikr} \\
+                &= \frac{1}{2ikr}\left(e^{-il\pi/2}e^{ikr} - e^{il\pi/2}e^{-ikr}\right)
+            \end{align}
+            If we use \({e^{i\pi/2}}^{-l} = \frac{1}{i^l}\) and \((e^{i\pi/2})^l = i^l\):
+            \[
+                e^{i\vec k\cdot\vec r}
+                =
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                \frac{1}{2ikr}
+                \left(e^{ikr} - i^{2l}e^{-ikr}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r)
+            \]
+            which has an incoming term \(- i^{2l}e^{-ikr}\) and an outgoing term \(e^{ikr}\)
+            (note these are all over \(r\) from the \(\frac{1}{2ikr}\), so these are incoming and outgoing <i>spherical</i> waves).
+            Thus we have successfully reproduced \(e^{i\vec k\cdot\vec r}\) as a linear combination of the spherical Bessel functions.
+            <br><br>
+            To reproduce a \(\psi^+\) state, we need to find the linear combination of solutions to the full Hamiltonian which (for large \(r\)) has an incoming component that coincides with a plane wave (so, what we found above for \(e^{i\vec k\cdot\vec r}\)).
+            
+            What we have right now for \(e^{i\vec k\cdot\vec r}\) is a solution to the unperturbed Hamiltonian only, as it's built out of \(j_l(kr)\), which are eigenstates of the unperturbed Hamiltonian.
+            So while it matches the incoming component of \(\psi^+\), it does not match the scattered aftermath.
+            <br><br>
+            So, what do we use instead of \(j_l(kr)\)?
+            We may want to first try \(u_{El} \approx \sin(kr-l\pi/2 + \delta_l(E))\) instead of \(u_{El} \approx \sin(kr-l\pi/2)\) inside of \(\frac{u_{El}(r)}{kr}\):
+            \begin{align}
+                \frac{u_{El}(r)}{kr} &= \frac{\sin(kr-l\pi/2 + \delta_l(E))}{kr} \\
+                &= \frac{e^{i(kr-l\pi/2 + \delta_l(E))} - e^{-i(kr-l\pi/2 + \delta_l(E))}}{2ikr} \\
+                &= \frac{1}{2ikr}\left(e^{-il\pi/2}e^{ikr}e^{i\delta_l} - e^{il\pi/2}e^{-ikr}e^{-i\delta_l}\right) \\
+                &= \frac{1}{2ikr}\left(\frac{1}{i^l}e^{ikr}e^{i\delta_l} - i^le^{-ikr}e^{-i\delta_l}\right) \\
+            \end{align}
+            but if we plug this into the previous linear combination, we get:
+            \begin{align}
+                &4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                i^l
+                \frac{1}{2ikr}\left(\frac{1}{i^l}e^{ikr}e^{i\delta_l} - i^le^{-ikr}e^{-i\delta_l}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r) \\
+                &=
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                \frac{1}{2ikr}\left(e^{ikr}e^{i\delta_l} - i^{2l}e^{-ikr}e^{-i\delta_l}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r)
+            \end{align}
+            where the incoming term is \(- i^{2l}e^{-ikr}e^{-i\delta_l}\) instead of the incoming component we want it to be, \(- i^{2l}e^{-ikr}\).
+            So, instead, we simply use \(e^{i\delta_l}\frac{u_{El}(r)}{kr}\), which makes the incoming components match that of a plane wave:
+            \begin{align}
+                (2\pi)^{3/2}\psi^+_{\vec k}
+                &=
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                i^l
+                \frac{1}{2ikr}e^{i\delta_l}\left(\frac{1}{i^l}e^{ikr}e^{i\delta_l} - i^le^{-ikr}e^{-i\delta_l}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r) \\
+                &=
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                \frac{1}{2ikr}e^{i\delta_l}\left(e^{ikr}e^{i\delta_l} - i^{2l}e^{-ikr}e^{-i\delta_l}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r) \\
+                &=
+                4\pi\sum_{l=0}^\infty \sum_{m=-l}^l
+                \frac{1}{2ikr}\left(e^{ikr}e^{2i\delta_l} - i^{2l}e^{-ikr}\right)
+                Y^*_{lm}(\hat k) Y_{lm}(\hat r)
+            \end{align}
+            This is now an exact solution of the full Hamiltonian, because it is a linear combination of actual eigenstates of the full \(\hat H\), and its incoming components match the incoming components of the plane wave.
+            <br><br>
+            We can see that all of the properties that we're interested in from the scattering are contained in the phase shift...
+            In other words, all that differentiates this state \((2\pi)^{3/2}\psi^+_{\vec k}\) from that of the free wave \(e^{i\vec k\cdot\vec r}\) is the inclusion of the phase shift \(\delta_l(E)\) (and the following added factor of \(e^{i\delta_l}\)).
+            <br><br>
+            If we compute the scattering cross section, we would obtain:
+            \[
+                \frac{d\sigma}{d\Omega} = \frac{1}{k^2}|\sum_{l=0}^\infty e^{i\delta_l}\sin(\delta_l)(2l + 1) P_l\cos(\theta)|^2
+            \]
+            where \(P_l\cos(\theta)\) is the Legendre polynomial, and \(\theta\) is the scattering angle between \(\vec k\) and \(\vec k'\).
+            And we would eventually find that:
+            \[
+                \sigma_{total} = \frac{4\pi^2}{k^2}\sum_l(2l + 1)\sin^2(\delta_l)
+            \]
+            Clearly, if we know \(\delta_l\) for all \(l\), we would know the scattering-cross section.
+            <br><br>
+            If <i>all</i> \(\delta_l=0\), then the potential has negligible asymptotic effect, and \(\hat H\)'s eigenstates are identical to \(\hat H_0\)'s (so there is no phase shift) and there is no scattering, and the scattering cross-section is 0.
+            <br><br>
+            We can also have \(\delta_l=0\) for \(l\gt0\) even if there is a potential that would have asymptotic affect; if \(k\to 0\), then \(\delta_{l\gt0}\to 0\).
+            Essentially, at low energies, the centrifugal potential acts as a barrier for all \(l\gt0\), bouncing back the particle with any angular momentum before it can interact with the actual potential.
+            You would only see the potential when there is no angular momentum, so \(l=0\).
+            In this case, the total cross-section converges on a constant:
+            \[
+                \sigma_{total} = \frac{4\pi^2}{k^2}\sin^2\delta_0 = 4\pi^2 a_0^2
+            \]
+            for constant <i>scattering length</i> \(-a_0 = \frac{\sin\delta_0}{k}\) where \(k\to0\).
+            This happens to be the radius of a hard potential sphere.
+            Thus the cross section is four times the geometric cross-section of this potential sphere.
+            At low energy, the scatterer only gives rise to spherical waves which emanate outwards from the center.
+        </div>
+    </body>
+</html> 
