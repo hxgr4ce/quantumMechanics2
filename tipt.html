@@ -28,7 +28,7 @@
             \[\lim_{\lambda\to 0}|\psi_n(\lambda)\rangle = |\varphi_0\rangle \text{ and } \lim_{\lambda\to 0}E_n(\lambda) = E^{(0)}_n\]
             Our ultimate goal is to solve for the eigenstates and eigenfunctions of the perturbed Hamiltonian, \(|\psi_n(\lambda)\rangle\) and \(E_n(\lambda)\) as expansions in powers of \(\lambda\).
             
-            <h2>The Brillouin-Wigner Perturbation Theory</h2>
+            <h2 id="bwpt">The Brillouin-Wigner Perturbation Theory</h2>
             This method is simpler, but is not <i>size consistent</i>, meaning that \(E^{[N]}_{A+B} \neq E^{[N]}_A + E^{[N]}_B\).
             This means that we are unable to model two independent systems that are, over time, gradually brought close enough to interact.
             <br><br>
@@ -131,7 +131,7 @@
                 &= \langle\varphi_i|\left (\frac{1}{E-\hat H_0}\hat Q\right )\hat V|\varphi_0\rangle \\
                 &= \sum_{i\neq 0}|\varphi_i\rangle\langle\varphi_i|\left (\frac{1}{E-\hat H_0}\right )\hat V|\varphi_0\rangle \\
                 &= \sum_{i\neq 0}|\varphi_i\rangle\left (\frac{1}{E-E_i^{(0)}}\right )\langle\varphi_i|\hat V|\varphi_0\rangle = \sum_{i\neq 0}|\varphi_i\rangle\frac{\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E_i^{(0)}} \\
-                |\psi^{(2)} &= (\hat G_Q(E)\hat V)^2|\varphi_0\rangle \\
+                |\psi^{(2)}\rangle &= (\hat G_Q(E)\hat V)^2|\varphi_0\rangle \\
                 &= \sum_{i,j\neq 0}|\varphi_j\rangle\frac{\langle \varphi_j|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{(E-E^{(0)}_j)(E-E^{(0)}_i)}
             \end{align}\]
             (Note that the true perturbed energy \(E\) appears in the expansion!)
@@ -141,7 +141,7 @@
                 &= \sum_{i\neq 0} \frac{\langle\varphi_0|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E^{(0)}_i} \\
                 &= \sum_{i\neq 0} \frac{V_{0i}V_{i0}}{E-E^{(0)}_i} = \sum_{i\neq 0} \frac{|V_{i0}|^2}{E-E^{(0)}_i} \\
             \end{align}\]
-            <h2>Rayleigh-Schrodinger Perturbation Theory</h2>
+            <h2 id="rspt">Rayleigh-Schrodinger Perturbation Theory</h2>
             This method gives perturbative terms that are not in terms of the perturbed energy (as in the Brillouin-Wigner method), and energy corrections/perturbations \(E^{(n)}(\lambda)\) scale exactly with \(\lambda^n\).
             This method is also size extensive.
             <br><br>
@@ -243,7 +243,7 @@
             We <i>cannot</i> do this, evidently, if the Taylor series does not converge for these energies.
             <br><br>
             Thus we want \(\mathcal E_\pm\) to converge.
-            however, \(\sqrt{1+x}\) has a <i>radius of convergence</i>.
+            However, \(\sqrt{1+x}\) has a <i>radius of convergence</i>.
             Each term in the Taylor expansion comes closer and closer to approximating \(\sqrt{1+x}\) <i>only</i> on the interval from \(x=-1\) to \(x=1\).
             If you want, you can see this by plotting 
             \[\sum_{n=0}^{c}\pmatrix{1/2 \\ k}x^k\]

@@ -373,9 +373,14 @@
             in this diagram, the set of four observables on each of the straight lines mutually commute. 
             For example, \(\hat\sigma_y^1, \hat\sigma_y^1\hat\sigma_y^2\hat\sigma_x^3, \hat\sigma_x^3,\) and \(\hat\sigma_y^2\) all commute with each other.
             <br><br>
-            Also note that along each straight line, each observable appears twice.
-            For example, along the horizontal line, \(\hat\sigma_x^1\) appears twice, \(\hat\sigma_x^2\) appears twice, \(\hat\sigma_x^3\) appears twice, etc.
+            The product of observables along all four non-horizontal lines is 1, while the product of the observables on the horizontal line is -1.
+            This means that if we applied each observable along a specific line (which we can do, since they all commute), the product of their results along each line should equal 1 for the non-horizontal lines and -1 for the horizontal lines.
             <br><br>
+            As a result, the product of the hidden values of the observables along all five lines must be -1.
+            But this is impossible, since each observable apepars at the intersection of two lines-- the product of all five lines must be 1, since \((\pm1)^2 = 1\).
+            Thus there is no local hidden variable.
+
+            <!-- <br><br>
             Using commutation and anti-commutation properties alone (also the fact that observables for different particles commute), we can determine the result of measuring each of the straight lines.
             For example:
             \begin{align}
@@ -408,7 +413,7 @@
                 \hat\sigma_x^2\hat\sigma_y^2
                 \hat\sigma_y^3\hat\sigma_y^3
 
-            \end{align}
+            \end{align} -->
         </div>
     </body>
 </html> 

@@ -74,7 +74,7 @@
             <h2>The Effective, Time-Dependent Hamiltonian</h2>
 
             Say that we have particles with mass, charge, and position \(\{m_i, q_i, \vec r_i\}\) in classical fields \(\{\vec E, \vec B\}\).
-            We can bust out the fill Hamiltonian that I guess we should have seen in undergrad:
+            We can bust out the full Hamiltonian that I guess we should have seen in undergrad:
             \[
                 \hat H = \sum_i \frac{1}{2m_i}(\vec p_i - \frac{q_i}{c}\vec A(\hat{\vec r_i}, t))^2 + \sum_{i, j\gt i}\frac{q_iq_j}{|\hat{\vec r_i} - \hat{\vec r_j}|} + \frac{1}{8\pi}\int d^3r(\vec E_\perp(r, t)|^2 + |\vec B(r, t)|^2)
             \]
@@ -97,7 +97,7 @@
                 \vec\nabla\times\vec E &= -\frac{1}{c}\partial_t\vec B \\
                 \vec\nabla\times\vec B &= \frac{4\pi}{c}\vec j + \frac{1}{c}\partial_t\vec E
             \end{align}\]
-            The second and third equations are linear in the gield, or in other words, they are homogenous equations that <i>constrain</i> the field.
+            The second and third equations are linear in the field, or in other words, they are homogenous equations that <i>constrain</i> the field.
             <br><br>
             Since \(\vec\nabla\vec B = 0\), we can find some vector field \(\vec A\) where \(\vec B = \vec\nabla \times \vec A\), so that \(\vec\nabla\cdot\vec\nabla\times \vec A = 0\).
             You can verify this with \(\partial_iB_i = \partial_i\epsilon_{ijk}\partial_j A_k = \epsilon_{ijk}\partial_i\partial_j A_k = 0\).
@@ -179,7 +179,7 @@
                 \phi(\vec r, t) = \int d^3 r'\frac{\rho(\vec r, t)}{|\vec r - \vec r'|}
             \]
             (if we set \(\phi\) to go to 0 as \(\vec r \to 0\), \(\psi=0\)...)
-            \(\phi\) this depends on the motion/position of charged particles, \(\rho(\vec r, t) = \langle \psi_{sys}|\sum_i q_i \delta(\vec r - \hat{\vec r_i})|\psi_{sys}\rangle\), which only depends on the quanutm system and not the external field.
+            \(\phi\) depends on the motion/position of charged particles, \(\rho(\vec r, t) = \langle \psi_{sys}|\sum_i q_i \delta(\vec r - \hat{\vec r_i})|\psi_{sys}\rangle\), which only depends on the quanutm system and not the external field.
             <br><br>
             The fourth equation changes as follows:
             \[\begin{align}

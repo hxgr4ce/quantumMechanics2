@@ -49,6 +49,10 @@
 
       <h2>Identical Particles</h2>
       <a href="ident.html">Identical Particles</a>
+      <br>Second Quantization
+
+      <h2>Entanglement</h2>
+      <a href="entanglement.html">Entanglement</a>
 
       <h1>Course Content</h1>
       <a href="./inClassNotes/week1Notes.pdf">Week 1 Written Notes</a>
@@ -56,9 +60,39 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="amt.html">A recap of angular momentum and more on rotations</a></li>
-            <li><a href="euler.html">Euler Angles</a></li>
-            <li><a href="wigner.html">Wigner D-Matrices</a></li>
+            <li>
+              <a href="amt.html">A recap of angular momentum and more on rotations</a>:
+              We recap what we learned at the end of last semester about angular momentum: operators \(\hat J_z, \hat J^2, \hat J_\pm, \hat L, \hat S\) and their action, eigenvalues and vectors, and commutation relations.
+              We then talk about rotations and Wigner D-matrices, and go on a tangent about the true and projective representations of rotations where we discuss the space of all possible rotations SO(3) and its universal covering group SU(2).
+            </li>
+            <li>
+              <a href="euler.html">Euler Angles</a>:
+              These are a way of describing a three-dimensional rotaton.
+              We can write it like \(\hat R(\alpha, \beta, \gamma) = \hat R_{\hat z^"}(\gamma)\hat R_{\hat y'}(\beta)\hat R_{\hat z}(\alpha)\)
+              but each subsequent rotation is dependent on the first.
+              We can instead write it like \(\hat R(\alpha, \beta, \gamma) = \hat R_{\hat z}(\alpha) \hat R_{\hat y}(\beta) \hat R_{\hat z}(\gamma)\) so that all rotations are independent.
+              We demonstrate this is true in class.
+            </li>
+            <li>
+              <a href="wigner.html">Wigner D-Matrices</a>:
+              Say that we have a set of vectors with well defined angular momentum and projection that for a basis; these are eigenstates of \(\hat J_z\) and \(\hat J^2\).
+              When we rotate an basis vector in this space, we can still write it as a linear combintation of basis vectors-- \(j\) is the same, but instead of a single \(m\), we may have a distribution of many different \(m\)'s.
+              The Wigner D-matrices (and the reduced Wigner D-matrices) provide the expansion coefficients for this linear combination, so that an arbitrary vector:
+              \begin{align}
+                |\psi\rangle &= \sum_{m = -j}^j|kjm\rangle a_m
+              \end{align}
+              becomes:
+              \begin{align}
+                \hat R_{\hat n}(\phi)|\psi\rangle &= \hat R_{\hat n}(\phi)\sum_{m = -j}^j|kjm\rangle a_m \\
+                &= \sum_{m, m' = -j}^j |kjm'\rangle D^j_{m'm}(\hat R) a_m
+              \end{align}
+              for Wigner D-matrix element \(D^j_{m'm}(\hat R) = \langle kjm'| \hat R_{\hat n}(\phi)|kjm\rangle\), and reduced matrix element \(d^j_{m'm}(\beta)\) where:
+              \begin{align}
+                D^j_{m'm}(\hat R)
+                &= e^{-i(\alpha m'+\beta m)} d^j_{m'm}(\beta) \\
+              \end{align}
+              Note that in order to look up these values, you need to plug in the value of \(j\) and its initial and final projections, \(m\) and \(m'\).
+            </li>
             <li><a href="tensorProducts.html">A little bit of Tensor Products (just a conceptual introduction)</a></li>
         </ul>
       </details>
@@ -67,9 +101,40 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="tensorProducts.html#formal">A more formal definition of tensor products</a></li>
-            <li><a href="addition.html">Addition of Angular Momenta</a></li>
-            <li><a href="cg.html">Clebsch-Gordan Coefficients</a></li>
+            <li>
+              <a href="tensorProducts.html#formal">A more formal definition of tensor products</a>:
+              We formally define the tensor product, which we need in order to combine two vector spaces bilinearly-- that is, so that:
+              \begin{cases}
+                  \forall \alpha, \beta  \in \mathbb C, w\in W, v_1, v_2 \in V: (\alpha v_1 + \beta v_2, w) \sim \alpha(v_1, w) + \beta(v_2, w) \\
+                  \forall \alpha, \beta \in \mathbb C, v \in V, w_1, w_2 \in W: (v, \alpha w_1 + \beta w_2) \sim \alpha(v, w_1) + \beta (v, w_2)
+              \end{cases}
+              Given this space:
+              \[E_{V\times W} = \{\sum_{(v, w)\in S} (v, w)c_{v,w} \vert S \subset V \times W, S \text{ is finite}, c_{v,w} \in \mathbb C\}\]
+              The tensor product can be defined as the set of equivalence classes (or quotient) in that space according to the biliear equivalence relation above:
+              \[E_{V\times W}/\sim = V \otimes W = \text{span}\{v_i\otimes w_j\} = \{\sum_{ij}v_i\otimes w_j a_{ij} \vert a_{ij} \in \mathbb C\}\]
+              We then get into properties of the tnesor product, which we will become very familiar with by the end of the course.
+              Most notably, the tensor product naturally introduces the notion of entanglement.
+            </li>
+            <li>
+              <a href="addition.html">Addition of Angular Momenta</a>:
+              We want to find all the possible total states of two spin-\(\frac{1}{2}\) particles, and do this by taking advantage of the eigenspaces for \(M\) (for operator \(\hat J_z\)) and \(J\) (for operator \(\hat J^2\)).
+              Specifically, we use the ladder operators to move through different eigenspaces of \(\hat J_z\) while staying in a single eigenspace of \(\hat J^2\).
+              From there, we obtain all of the eigenvectors of the total system.
+              <br><br>
+              In practice we don't really do this, we use the Clebsch-Gordan coefficients.
+            </li>
+            <li>
+              <a href="cg.html">Clebsch-Gordan Coefficients</a>:
+              We can write a state with some angular momentum as a linear combination of states with their own angular momentum using the Clebsh-Gordan Coefficients:
+              \begin{align}
+                |j_1, j_2; J, M\rangle &= \sum_{m_1, m_2}|j_1, m_2\rangle \otimes |j_2, m_2\rangle C^{JM}_{j_1, m_1, j_2, m_2} \\
+              \end{align}
+              we go over how to use the table for this.
+              <br><br>
+              The recurrence relation for these coefficients is:
+              \[C^{J M \pm 1}_{j_1, m_1, j_2, m_2} = \sqrt{\frac{j_1(j_1+1) - m_1(m_1\mp 1)}{J(J+1) - M(M\pm 1)}} C^{JM}_{j_1, m_1\mp 1 j_2, m_2} + \sqrt{\frac{j_2(j_2+1) - m_2(m_2\mp 1)}{J(J+1) - M(M\pm 1)}} C^{JM}_{j_1, m_1 j_2, m_2\mp 1}\]
+              and we also go over quite a few properties.
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week3Notes.pdf">Week 3 Written Notes</a>
@@ -77,9 +142,81 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="sphericalTensors.html#formal">Spherical Tensors</a></li>
-            <li><a href="wethm.html">The Wigner-Eckhart Theorem</a></li>
-            <li><a href="tipt.html">Introduction to Time-Independent Perturbation Theory</a></li>
+            <li>
+              <a href="sphericalTensors.html#formal">Spherical Tensors</a>:
+              We are introduced to tensors-- which can be thought of as arrays, where the rank of the tensor is its dimension.
+              They can also be thought of as elements in a tensor product space.
+              A spherical tensor is often written as \(\hat T_\mu^k\) with rank \(k\) and projection \(\mu = -k, -k + 1,\cdots,k-1, k\).
+              Its rank is like the quantum number \(l\) abd describes behavior under rotations (it behaves like an object with angular momentum equal to its rank); a tensor of rank 1 is a scalar that is rotationally invariant, a tensor of rank 1 is a vector, etc. 
+              Its projection is like the magnetic quantum number, which describes the projection on the z-axis.
+              We can write a Cartesian vector as a tuple of three spherical tensors using:
+              \begin{align}
+                  T^{(1)}_{\pm 1} &= \mp\frac{(V_x \pm iV_y)}{\sqrt 2}\\
+                  T^{(1)}_{0} &= V_z
+              \end{align}
+              for Cartesian vector \(\vec V\) .
+              They can be defined by their transformation under rotation:
+              \[
+                \hat R|lm\rangle = \sum_{m'}|lm'\rangle\langle lm'|\hat R|lm\rangle = \sum_{m'}|lm'\rangle D^{l}_{m'm}(\alpha, \beta, \gamma)
+              \]
+              or by commutation relations:
+              \[[\hat J_z, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_z|k\mu\rangle = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hbar\mu|k\mu\rangle = \hbar\mu\hat T^{(k)}_\mu\]
+              \[[\hat J_\pm, \hat T^{(k)}_\mu] = \sum_{\mu'}\hat T_{k\mu}\langle k\mu'|\hat J_\pm|k\mu\rangle = \hbar\sqrt{k(k+1)-\mu(\mu\pm1)}\hat T^{(k)}_{\mu\pm 1}\]
+              <br><br>
+              We mention Cartesian tensors briefly also, and the conversion from Cartesian to spherical:
+              \(x = r\sin\theta\cos\phi, y = r\sin\theta\sin\phi, z=r\cos\theta\).
+            </li>
+            <li>
+              <a href="wethm.html">The Wigner-Eckhart Theorem</a> places the dependence on the magnetic/projection quantum numbers on the Clebsh-Gordan coefficient:
+              \[
+                \langle \alpha, JM|\hat T^{(k)}_\mu|\alpha', J'M'\rangle = C^{JM}_{J'M'k\mu}\frac{\langle \alpha J || \hat T^{(k)} || \alpha'J'\rangle}{\sqrt{2J + 1}}
+              \]
+              We demonstrate the the theorem holds.
+            </li>
+            <li>
+              <a href="tipt.html">Introduction to Time-Independent Perturbation Theory</a>:
+              When not working with simplified/toy Hamiltonians that are easier to solve (e.g. delta potential well, square well, etc.) we often separate the Hamiltonian into an ideal model plus a perturbation.
+              From here, we see two ways to solve for the energy/eigenstates using this model.
+              <ul>
+                <li>
+                  <a href="tipt.html#bwpt">The Brillouin-Wigner Perturbation Theory</a>:
+                  One caveat: unable to model two independent systems that are, over time, gradually brought close enough to interact. 
+                  We pick a reference eigenstate of the model Hamiltonian \(|\varphi_0\rangle\) and we assume that the energies of the FULL Hamiltonian can only coincide with the energy of \(|\varphi_0\rangle\) and no other unperturbed eigenstate.
+                  We find that the full eigenstate is:
+                  \[|\psi\rangle = \sum_{n=0}^\infty |\psi^{(n)}\rangle, \text{ where } |\psi^{(n)}\rangle = (\hat G_Q(E)\hat V)^n |\varphi_0\rangle\]
+                  and the energy is:
+                  \[E =  E^{(0)}_0 + \sum_{n=1}^\infty E^{(n)}, \text{ where } E^{(n)} = \langle\varphi_0|\hat V|\psi^{(n-1)}\rangle = \langle\varphi_0|\hat V (\hat G_Q(E)\hat V)^{n-1} |\varphi_0\rangle\]
+                  Where:
+                  \[\hat Q = \hat 1 - \hat P = \sum_{n\neq0}|\varphi_n\rangle\langle\varphi_n|, \quad \hat P \equiv |\varphi_0\rangle\langle\varphi_0|\]
+                  and
+                  \[\hat G_Q(E) = \frac{1}{E-\hat H_0}\hat Q\]
+                  which expands into:
+                  \begin{align}
+                      |\psi^{(1)}\rangle 
+                      &= \sum_{i\neq 0}|\varphi_i\rangle\frac{\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E_i^{(0)}} \\
+                      |\psi^{(2)} 
+                      &= \sum_{i,j\neq 0}|\varphi_j\rangle\frac{\langle \varphi_j|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{(E-E^{(0)}_j)(E-E^{(0)}_i)} \\
+                      E^{(1)} 
+                      &= \langle\varphi_0|\hat V|\varphi_0\rangle \\
+                      E^{(2)} 
+                      &= \sum_{i\neq 0} \frac{\langle\varphi_0|\hat V|\varphi_i\rangle\langle\varphi_i|\hat V|\varphi_0\rangle}{E-E^{(0)}_i} \\
+                      &= \sum_{i\neq 0} \frac{|V_{i0}|^2}{E-E^{(0)}_i} \\
+                  \end{align}
+                  Notice that the true PERTURBED energy \(E\) appears in the expansion of the eigenstate.
+                </li>
+                <li>
+                  <a href="tipt.html#rspt">Rayleigh-Schrodinger Perturbation Theory</a>: Better? No true energy in the eigenstate expansion.
+                  Correction to eigenstate:
+                  \[|\psi^{(n)}\rangle = \hat G_Q(E^{(0)})\hat V|\psi^{(n-1)}\rangle - \hat G_Q(E^{(0)})\sum_{k=1}^{n-1}|\psi^{(k)}\rangle E^{(n-k)}\]
+                  Correction to energy:
+                  \[E^{(n)} = \langle\psi^{(0)}|\hat V |\psi^{(n-1)}\rangle \]
+                  where \(|\psi^{(0)}\rangle\) is the unperturbed reference eigenstate.
+                </li>
+                <li>
+                  BWPT and RSPT coincide to second order if you truncate higher order terms?
+                </li>
+              </ul>
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week4Notes.pdf">Week 4 Written Notes</a> (one lecture was for doing questions only)
@@ -87,7 +224,20 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="tipt.html#degen">Degenerate Time-Independent Perturbation Theory</a></li>
+            <li>
+              <a href="tipt.html#degen">Degenerate Time-Independent Perturbation Theory</a>:
+              We assumed in previous TIPT that the unperturbed energy eigenstates were not degenerate.
+              We look at a two-level system and see that if two energy levels cross in an unperturbed Hamiltonian, 
+              but the full Hamiltonian has non-zero off-diagonal coupling between the two states, we get an <i>avoided crossing</i>.
+              <br><br>
+              This is important because when energy levels cross, our TIPT solutions diverge.
+              We hope that \(\hat V\) causes an avoided crossing and resolves the degeneracy.
+              If it does, we include it in our model Hamiltonian and remove it from our perturbation (even though it contains a piece of the perturbation-- we want the perturbation to resolve the degeneracy).
+              <br><br>
+              In practice, we've only done this to get the true eigenstates/energies within the degenerate space (in a homework question).
+              This means we treated these true eigenstates as eigenstates of our updated model Hamiltonian, so all we need to do was diagonalize \(\hat V\) in the degenerate subspace, combine that we the orginal unperturbed Hamiltonian to get \(\hat H_0'\), 
+              and solve for the eigenvalues of \(\hat H_0'\).
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week5Notes.pdf">Week 5 Written Notes</a> (had a midterm this week!)
@@ -95,7 +245,21 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="metastable.html">Metastable States</a></li>
+            <li>
+              <a href="metastable.html">Metastable States</a>:
+              Metastable states can be modeled as the interaction between bound and continuum subspaces; in the total system, we have a wavepacket of continuum states that <i>mimicks</i> one of the bound states.
+              This means it has an abnormally long lifespan, but it does eventually decay.
+              <br><br>
+              We introduce the Cauchy principal value as well:
+              \[\frac{1}{x + i0^+} = \frac{\mathcal P}{x} - i\pi\delta(x)\]
+              We solve for \(|\Psi_E\rangle = |a\rangle b_E + \int^\infty_{E_{th}} d\mathcal E|\mathcal E\rangle c_{\mathcal E, E}\), or a linear combination of all continuum states AND the one bound state they emulate, \(|a\rangle\),
+              and find that it is:
+              \[
+                |\Psi_E\rangle = \frac{V_{aE}}{E - \tilde E_a(E)} \left ( |a\rangle + \int^\infty_{E_{th}} d\mathcal E|\mathcal E\rangle \frac{V_{\mathcal E a}}{(E - \mathcal E) + i0^+}\right ) + |E\rangle
+              \]
+              which is basically the continuum state with the same energy \(E\) (the energy of the eigenstate of the FULL Hamiltonian) plus a correction term.
+              We analyze this to see that the energy distribution is distributed in a way tht is peaked around a corrected energy \(\overline{E_a(E)}\) with width \(\Gamma_a(E)\).
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week6Notes.pdf">Week 6 Written Notes</a>
@@ -103,8 +267,58 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="tdse.html">Time-Dependent Schrodinger Equation</a></li>
-            <li><a href="rabi.html">The Rabi Model</a></li>
+            <li>
+              <a href="tdse.html">Time-Dependent Schrodinger Equation</a>
+              Here, we introduce the idea that the Hamiltonian can be written as:
+              \[\hat H = \hat H_{sys} \otimes \hat 1 + \hat 1 \otimes \hat H_{rad} + \hat O\otimes\hat F\]
+              which we will eventually use later in <a href="quantEM.html#total">QEMF</a>.
+              We will use the idea that you can split the interaction Hamiltonian into a time-independent operator and a time-dependent field in TDPT as well.
+              We see the effective, time-depedent Hamiltonian and discover the vector potential using Maxwell's equations (but we don't define it until QEMF)
+              and we learn about gauge transformation:
+              \begin{cases}
+                    \vec A \mapsto \vec A' \equiv \vec A = \vec\nabla\chi \\
+                    \phi \mapsto \phi' \equiv \phi - \frac{1}{c}{\partial_t\chi}
+              \end{cases}
+              under which the vector potential and scalar field \(\phi\) can change even without affecting the electric and magnetic fields.
+              Specifically we see Coulomb Gauge: \(\vec\nabla\cdot\vec A = 0\).
+              
+            </li>
+            <li>
+              <a href="rabi.html">The Rabi Model</a>
+              We introduce interaction representation, which requires that the Hamiltonian be separated into an "unperturbed", time-independent operator and a time-dependent "perturbation" operator.
+
+              It defines eigenstate:
+              \[
+                |\psi_I(t)\rangle = e^{i\hat H_0t/\hbar}|\psi(t)\rangle
+              \]
+              Interaction Hamiltonian:
+              \[
+                \hat H_I(t) = e^{i\hat H_0 t/\hbar}\hat H'(t)e^{-i\hat H_0 t/\hbar}
+              \]
+              and the TDSE in interaction representation:
+              \[
+                i\hbar\partial_t|\psi_I(t)\rangle = \hat H_I(t)|\psi_I(t)\rangle
+              \]
+              We use interaction representation to obtain the Dyson series which we use in TDPT and in the Rabi model.
+              <br><br>
+              The Rabi model is a two-level system in a monochromatic light field.
+              We represent the interaction Hamiltonian is in length-gauge, \(\hat H'(t) = -\mathcal E(t)\hat \mu, \mathcal E(t) = \mathcal E_0\sin(\omega t)\).
+              We want to know how a state, which is initiall in state \(|a\rangle\) evolves with time, as a function of the external field's frequency.
+              We use the rotating wave approximation as we find:
+              \begin{align}
+                c_a(t) 
+                &= e^{i\delta t/2}(-i\frac{\delta}{\Omega}\sin(\frac{\Omega t}{2})+\cos(\frac{\Omega t}{2}))
+              \end{align}
+              and \(c_b(t) = 1-c_a(t) = -\frac{\Omega_0}{\Omega}e^{-i\delta t/2}\sin(\omega t/2)\)
+              we see that the state oscillates between \(|a\rangle\) and \(|b\rangle\).
+              If the external frequency is exactly enough to reach \(|b\rangle\) from \(|a\rangle\), then we see:
+              \begin{cases}
+                  c_a(t) = \cos(\Omega t/2) \\
+                  c_b(t) = -\sin(\Omega t/2)
+              \end{cases}
+              otherwise, the amplitude is bigger the samller the "detuning" is.
+
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week7Notes.pdf">Week 7 Written Notes</a> (had a midterm make-up this week)
@@ -112,7 +326,32 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="tdpt.html">Time-Dependent Perturbation Theory (First Order)</a></li>
+            <li>
+              <a href="tdpt.html">Time-Dependent Perturbation Theory (First Order)</a>:
+              Starting from interaction representation, we find the Dyson series:
+              \begin{align}
+                |\psi_I(t)\rangle &= \sum_{n=0}^\infty|\psi_I^{(n)}(t)\rangle \\
+                |\psi_I^{(n)}(t)\rangle &= \left[ (\frac{1}{i\hbar})^n \int_{t_0}^t dt_1\int_{t_0}^{t_1} dt_2 \cdots \int_{t_0}^{t_{n-1}} dt_n \hat H'_I(t_1)\hat H'_I(t_2)\cdots \hat H'_I(t_n)\right]|\psi_I(t_0)\rangle
+              \end{align}
+              This leads to the definition of the transition amplitude:
+              \[
+                \mathcal A_{f\leftarrow i} = \mathcal A_{f\leftarrow i}^{(0)} + \mathcal A_{f\leftarrow i}^{(1)} + \mathcal A_{f\leftarrow i}^{(2)} + \cdots, \text{ where } \mathcal A_{f\leftarrow i}^{(1)} = \langle f | \psi_I^{(n)}(t)\rangle
+              \]
+              from which we obtain the full expression (we assume that the perturbation is finite and that the interaction Hamiltonian can be separated into \(\hat H'(t) = F(t)\hat O\)).
+              In length gauge, \(\hat H(t) = -\mathcal E(t)\hat \epsilon\cdot\hat{\vec \mu}\), so \(F(t) = -\mathcal E(t)\) and \(\hat O = \hat \epsilon\cdot\hat{\vec \mu}\).
+              \begin{align}
+                \mathcal A_{f\leftarrow i}^{(1)} &= \frac{1}{i\hbar}\tilde F(\omega_{fi})\langle f|\hat O|i\rangle \\
+                &= \frac{1}{i\hbar}\tilde F(\omega_{fi})O_{fi}
+            \end{align}
+            We then extend this to the case of the (finite) flat-top pulse:
+            \[F(t) = F_0\cos(\omega_0 t + \phi) = F_{\omega_0}e^{i\omega_0 t} + F_{\omega_0}^*e^{-i\omega_0 t}\]
+            where \(F_{\omega_0} = \frac{1}{2} F_0 e^{i\phi}\).
+            The transition amplitude is:
+            \begin{align}
+                \mathcal A^{(1)}_{f\leftarrow i}
+                &= \frac{2\pi}{i\hbar}O_{fi}\left[F_{\omega_0}\delta_T(\omega_{fi} + \omega_0) + F_{w_0}^*\delta_T(\omega_{fi} - \omega_0)\right]
+            \end{align}
+            </li>
         </ul>
       </details>
       <a href="./inClassNotes/week8Notes.pdf">Week 8 Written Notes</a>
@@ -120,8 +359,57 @@
       <details>
         <summary>Topics covered</summary> 
         <ul>
-            <li><a href="tdpt.html#first-order">Time-Dependent Perturbation Theory (First Order)</a></li>
-            <li><a href="tdpt.html#second-order">Time-Dependent Perturbation Theory (Second Order)</a></li>
+            <li>
+              <a href="tdpt.html#prob1">Time-Dependent Perturbation Theory (First Order)</a>
+              Now that we have the first order transition amplitude for the flat-top pulse, we find its transition probability:
+              \begin{align}
+                p_{f\leftarrow i}^{(1)}
+                &= \frac{T\pi}{2\hbar^2} |O_{fi}|^2 F_0^2 \left[\delta(\omega_{fi} + \omega_0) + \delta(\omega_{fi} - \omega_0)\right]
+            \end{align}
+              where we demonstrate that \(\delta_T^2(\omega)\stackrel{T\to\infty}{\to}\frac{T}{2\pi}\delta(\omega)\).
+              <br><br>
+              We also find the transition rate:
+              \[W_{f\leftarrow i}^{(1)} = \frac{p_{f\leftarrow i}^{(1)}}{T} = \frac{\pi}{2\hbar^2} |O_{fi}|^2 F_0^2 \left[\delta(\omega_{fi} + \omega_0) + \delta(\omega_{fi} - \omega_0)\right] \]
+              the transition rate in terms of flux:
+              \[W_{f\leftarrow i}^{(1)} = \frac{\pi}{2\hbar^2} |O_{fi}|^2 \frac{8\pi\hbar\omega}{c} \Phi_N \left[\delta(\omega_{fi} + \omega_0) + \delta(\omega_{fi} - \omega_0)\right] \]
+              and the excitation cross-section:
+              \begin{align}
+                \sigma^{(1)}_{f\leftarrow i}
+                &= \frac{4\pi^2\omega}{c} |O_{fi}|^2 \left[\delta(E_f - E_i + \hbar\omega_0) + \delta(E_f - E_i - \hbar\omega_0)\right]
+              \end{align}
+              where we use \(\delta(\hbar\omega) = \delta(\omega)/\hbar\).
+              <br><br>
+              We also see that if we want the TOTAL cross-section, transition rate, etc. over ALL possible absorbed/emitted energies, you would have to take the integral \(\int dE\).
+            </li>
+            <li>
+              <a href="tdpt.html#second-order">Time-Dependent Perturbation Theory (Second Order)</a>:
+              We expand the Dyson series to second order and solve for the general second-order TDPT equation, using the assumpting that the system is prepared long before the pulse begins, and we measure long after the pulse ends.
+              \begin{align}
+                \mathcal A^{(2)}_{f\leftarrow i} 
+                &= \frac{1}{2\pi i\hbar} \int_{-\infty}^\infty d\omega \tilde F(\omega) \tilde F(\omega_{fi} - \omega) \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \tag{4}\\
+            \end{align}
+            The convolution of Fourier transforms is delta-like and selects for quantized frequencies according to the external field, which corresponds to the absorption and emission of photons.
+            The matrix element shows that <i>all</i> trajectories from the initial to final state are weighted so that intermediate states that are one quanta away from the initial and final states are populated and other states are only virtually excited.
+            <br><br>
+            We find the second-order TDPT equation for the flat-top pulse by assuming that the convolution of Fourier transforms is sharply peaked and that the matrix element is regular around \(\omega \approx\pm\omega_0\).
+            For 2-photon absorption:
+            \begin{align}
+                \mathcal A^{(2)}_{f\leftarrow i} 
+                &\stackrel{F_\omega = F_0/2}{=} \frac{2\pi}{i\hbar}F_\omega^2 \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} - 2\omega_0) \\
+            \end{align}
+            For 2-photon emission:
+            \begin{align}
+                \mathcal A^{(2)}_{f\leftarrow i} 
+                &= \frac{2\pi}{i\hbar}F_\omega^{*2} \langle f | \hat O \hat G_0^+(E_i-\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} + 2\omega_0) \\
+            \end{align}
+            For scattering:
+            \begin{align}
+                \mathcal A^{(2)}_{f\leftarrow i} 
+                &= \frac{2\pi}{i\hbar}|F_\omega|^2 \langle f | \hat O \hat G_0^+(E_i\pm\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi}) \\
+            \end{align}
+            We also generalize the expression for the transition amplitude in the case where the perturbation is time-independent:
+            \[\mathcal A_{f\leftarrow i}^{(n)} = \frac{2\pi}{i\hbar}\langle f | \hat O \left[\hat G_0^+(E_i)\hat O\right]^{n-1} | i\rangle \delta_T(\omega_{fi})\]
+            </li>
         </ul>
       </details>
       Week 9 Written Notes
@@ -206,7 +494,7 @@
       </details>
       [[Spring break!]]
       <br>
-      Week 10 Written Notes (had a medterm this Tuesday)
+      Week 10 Written Notes (had a midterm this Tuesday)
       <br>
       <details>
         <summary>Topics covered</summary> 
@@ -497,7 +785,25 @@
                   At low energies, only \(l=0\) particles interact with the potential, and the scattering cross-section converges on a constant.
                 </li>
             </ul>
-            <li>Identical Particles</li>
+            <li>
+              <a href="ident.html">Identical Particles</a>
+              In order to represent the state of identical particles, we use symmetric and anti-symmetric combinations of the basis vectors in the total tensor product/Hilbert space.
+              We learn that exchange (binary swap of two particles) results in an equivalent state with phase factor \(\pm1\).
+              We learned that there are particles which always have a state that gains a phase factor of \(\pm1\) are called bosons and fermions.
+              <br><br>
+              We define the symmetrizer and anti-symmetrizer projectors:
+              \[
+                \hat{\mathscr S}_N = \frac{1}{N!}\sum_{\hat{\mathscr p}\in S_N} \hat{\mathscr p}
+                \quad\text{ and }\quad
+                \hat{\mathscr A}_N = \frac{1}{N!}\sum_{\hat{\mathscr p}\in S_N} (-1)^p \hat{\mathscr p}
+              \]
+              and formalize the notion of permutations and their parity.
+              <br><br>
+              We define the Hilbert space for \(N\) fermions and for \(N\) bosons, and their dimensionality, and introduce the Pauli exclusion principle.
+              <br><br>
+              Finally, we do an example with the helium atom that shows that because electrons are fermions, their spin state restricts which spatial functions are possible, even though the Hamiltonian has nothing to do with spin.
+              As a result, the helium atom prefers the spin-triplet states, because they have lower energy.
+            </li>
         </ul>
       </details>
       Week 14 Written Notes
@@ -506,7 +812,7 @@
         <summary>Topics covered</summary> 
         <ul>
             <li>Second Quantization</li>
-            <li>Entanglement</li>
+            <li><a href="entanglement.html">Entanglement</a>: After a quick recap of entanglement, we show that there is no local hidden variable two different ways, the first being probability-based with the Bell inequality, and the second using the pentagram-shaped diagram..</li>
         </ul>
       </details>
     </div>

@@ -13,7 +13,7 @@
             <h1>Time-Dependent Perturbation Theory</h1>
             In <a href="rabi.html">interaction representation</a> we saw that:
             \[
-                i\hbar\partial_t||\psi_I(t)\rangle = \hat H'_I(t)|\psi_I(t)\rangle
+                i\hbar\partial_t|\psi_I(t)\rangle = \hat H'_I(t)|\psi_I(t)\rangle
             \]
             where the interaction representation of the wavefunction, \(|\psi_I(t)\rangle\) is \(e^{i\hat H_0t/\hbar}|\psi(t)\rangle\) and \(\hat H'_I(t) = e^{i\hat H_0 t/\hbar}\hat H'(t)e^{-i\hat H_0 t/\hbar}\).
             If we take the integal of this TDSE over some time interval from \(t_0\) to \(t\), we get the following:
@@ -122,7 +122,7 @@
                 &= 2F_{\omega_0} \frac{e^{i(\omega_0+\omega_{fi})T/2} - e^{-i(\omega_0+\omega_{fi})T/2}}{2i(\omega_0+\omega_{fi})} + 2F_{\omega_0}^* \frac{e^{i(\omega_{fi}-\omega_0)T/2} - e^{-i(\omega_{fi}-\omega_0)T/2}}{2i(\omega_0+\omega_{fi})} \\
                 &= 2F_{\omega_0} \frac{\sin((\omega_{fi}+\omega_0)T/2)}{\omega_0+\omega_{fi}} + 2F_{\omega_0}^* \frac{\sin((\omega_{fi}-\omega_0)T/2)}{\omega_0-\omega_{fi}}
             \end{align}\]
-            This is fine to use as our expression for 
+            <!-- This is fine to use as our expression for  -->
             We can show that for large values of \(T\), \(\frac{\sin((\omega_{fi}\pm\omega_0)T/2)}{\omega_0\pm\omega}\) are delta-like functions.
             <br><br>
             Generally, the plot of \(\frac{\sin(ax)}{x}\) looks like:
@@ -199,7 +199,7 @@
             <br><br>
             As such, it becomes clear that our second term in the transition amplitude corresponds to <i>absorption</i>, because we enter a state with higher energy, while the first corresponds to emission, specificlaly <i>stimulated emission</i>, because we enter a state with lower energy.
             <br><br>
-            <b><i>Transition Probability.</i></b>
+            <b><i id="prob1">Transition Probability.</i></b>
             The transition probability (to first order) in the case of the flat-top pulse is, of course, the square modulus of the transition amplitude:
             \[\begin{align}
                 p_{f\leftarrow i}^{(1)} &= |\mathcal A_{f\leftarrow i}^{(1)}|^2 \\
@@ -251,7 +251,7 @@
                 \int_{-\infty}^\infty \delta_T^2(\omega) d\omega &= \frac{T}{2\pi} \\
                 &\approx \frac{T}{2\pi}\delta(\omega)
             \end{align}\]
-            Use this in the transition probabilioty equation to get:
+            Use this in the transition probability equation to get:
              \[\begin{align}
                 p_{f\leftarrow i}^{(1)} &= \frac{F_0^2\pi^2}{\hbar^2}|O_{fi}|^2\left[\delta_T^2(\omega_{fi} + \omega_0) + 0 + \delta_T^2(\omega_{fi} - \omega_0)\right] \\
                 &= \frac{F_0^2\pi^2}{\hbar^2}|O_{fi}|^2 \frac{T}{2\pi} \left[\delta(\omega_{fi} + \omega_0) + \delta(\omega_{fi} - \omega_0)\right] \\
@@ -566,7 +566,7 @@
                     \[
                         \omega_{fi} = \frac{E_f-E_i}{\hbar} = -2\omega_0 \implies E_f = E_i-2\hbar\omega_0
                     \]
-                    TIn other words, the final stae has an energy exactly two "quanta" of energy (\(\hbar\omega_0\)) lower than the initial state.
+                    TIn other words, the final state has an energy exactly two "quanta" of energy (\(\hbar\omega_0\)) lower than the initial state.
                     So we see that in this case, <i>the system has emitted two photons exactly.</i>
                 </li>
             </ul>
@@ -663,7 +663,7 @@
                 &= \frac{1}{2}\pi F_0^2 \left\{ \frac{2\sin(\omega_{fi} T/2)}{\pi\omega_{fi}} + \frac{\sin((\omega_{fi} + 2\omega_0)T/2)}{\pi(\omega_{fi} + 2\omega_0)} + \frac{\sin((\omega_{fi} - 2\omega_0) T/2)}{\pi(\omega_{fi} - 2\omega_0)} \right\} \\
                 &= \frac{\pi F_0^2}{2} \left\{ 2\delta_T(\omega_{fi}) + \delta_T(\omega_{fi} + 2\omega_0) + \delta_T(\omega_{fi} - 2\omega_0) \right\} \\
             \end{align}\]
-            Just like the convolution of Fourier transforms in the general expression for the second-order transition amplitudes, this descrbes the following transitions:
+            Just like the convolution of Fourier transforms in the general expression for the second-order transition amplitudes, this describes the following transitions:
             <ul>
                 <li>
                     \(\omega_f = \omega_i \implies E_f = E_i\) (scattering)
@@ -680,17 +680,17 @@
                 \mathcal A^{(2)}_{f\leftarrow i} 
                 &= \frac{1}{i\hbar} \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \mathcal F[F^2](\omega_{fi}) \\
                 &= \frac{1}{i\hbar} \frac{\pi F_0^2}{2} \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} - 2\omega_0) \\
-                &\stackrel{F_\omega = F^2_0/4}{=} \frac{2\pi}{i\hbar}F_\omega \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} - 2\omega_0) \\
+                &\stackrel{F_\omega = F_0/2}{=} \frac{2\pi}{i\hbar}F_\omega^2 \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} - 2\omega_0) \\
             \end{align}\]
             For the emission of two photons:
             \[\begin{align}
                 \mathcal A^{(2)}_{f\leftarrow i} 
-                &= \frac{2\pi}{i\hbar}F_\omega \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} + 2\omega_0) \\
+                &= \frac{2\pi}{i\hbar}F_\omega^{*2} \langle f | \hat O \hat G_0^+(E_i-\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi} + 2\omega_0) \\
             \end{align}\]
             and for scattering:
             \[\begin{align}
                 \mathcal A^{(2)}_{f\leftarrow i} 
-                &= \frac{4\pi}{i\hbar}F_\omega \langle f | \hat O \hat G_0^+(E_i+\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi}) \\
+                &= \frac{2\pi}{i\hbar}|F_\omega|^2 \langle f | \hat O \hat G_0^+(E_i\pm\hbar\omega) \hat O | i\rangle \delta_T(\omega_{fi}) \\
             \end{align}\]
             <h2 id="gen">Generalizing \(\mathcal A_{f\leftarrow i}^{(n)}\)</h2>
             In the case of single-photon transition, we found a transition amplitude that describes two cases: the absorption or emission of a single photon (2).
